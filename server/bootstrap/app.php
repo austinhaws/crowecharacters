@@ -23,9 +23,10 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
-
-// $app->withEloquent();
+// change usage from app('db')->select() to DB::select()
+$app->withFacades();
+// use eloquent for query creation
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
