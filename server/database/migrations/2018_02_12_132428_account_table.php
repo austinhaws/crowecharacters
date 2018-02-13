@@ -15,9 +15,8 @@ class AccountTable extends Migration
     {
 		Schema::create('accounts', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('guid');
+			$table->string('guid', 50);
 
-			$table->primary('id');
 			$table->unique('guid');
 		});
 

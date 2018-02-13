@@ -11,7 +11,7 @@
 |
 */
 
-include "../services/AccountService.php";
+require __DIR__ . "/../services/AccountService.php";
 
 $router->group(['prefix' => 'account'], function () use ($router) {
 	$router->get('get/{guid}', function ($guid) {
