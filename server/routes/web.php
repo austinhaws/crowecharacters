@@ -11,19 +11,7 @@
 |
 */
 
-require __DIR__ . "/../services/AccountService.php";
-
-$router->group(['prefix' => 'account'], function () use ($router) {
-	$router->get('get/{guid}', function ($guid) {
-		return AccountService::getAccount($guid);
-	});
-
-	$router->get('new', function() {
-		return AccountService::newAccount();
-	});
-});
-
-
+require_once __DIR__ . "/AccountRoutes.php";
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
