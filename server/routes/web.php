@@ -11,6 +11,20 @@
 |
 */
 
+include "../services/AccountService.php";
+
+$router->group(['prefix' => 'account'], function () use ($router) {
+	$router->get('get/{guid}', function ($guid) {
+		return AccountService::getAccount($guid);
+	});
+
+	$router->get('new', function() {
+		return AccountService::newAccount();
+	});
+});
+
+
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
