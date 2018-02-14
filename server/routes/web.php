@@ -12,6 +12,7 @@
 */
 
 require_once __DIR__ . "/AccountRoutes.php";
+require_once __DIR__ . "/BodyRoutes.php";
 
 $router->get('/', function () use ($router) {
     return $router->app->version();

@@ -1,7 +1,0 @@
-This is how to do migrations: https://laravel.com/docs/5.6/migrations
-
-php artisan make:migration new_script_name
-
-php artisan migrate
-
-php artisan migrate:rollback
