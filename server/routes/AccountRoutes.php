@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../constants.php';
+
 $router->group(['prefix' => 'account'], function () use ($router) {
 	// get account information
 	$router->get('get/{guid}', function ($guid) {
