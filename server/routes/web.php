@@ -11,9 +11,9 @@
 |
 */
 
-foreach (glob(__DIR__ . '//*.php') as $file) {
-	require_once($file);
-}
+require_once('AccountRoutes.php');
+require_once('BodyRoutes.php');
+require_once('FileRoutes.php');
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
