@@ -1,0 +1,64 @@
+body {
+	background-color: black;
+}
+
+#app-container {
+	width: 1270px;
+	height: 883px;
+	margin: 0 auto;
+	background-color: #eeeeee;
+}
+
+#top-title-container {
+	height: 128px;
+	position: relative;
+}
+#top-title {
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	font-family: "Arial black", Gadget, sans-serif;
+	font-size: 73px;
+	padding-top: 11px;
+}
+
+#right-account {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	padding: 13px;
+}
+
+#main-container {
+	background: url("../img/background.png") no-repeat;
+	background-size: contain;
+	height: 1767px;
+	width: 100%;
+}
+
+#top-nav-container {
+	position: relative;
+	height: 96px;
+	width: 100%;
+	border-bottom: 3px solid #b6b6b6;
+}
+#top-opaque {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    opacity: .25;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+}
+#page-title {
+	z-index: 2;
+	position: absolute;
+	top: 0;
+	color: white;
+	font-size: 37px;
+	font-family: "Arial", Gadget, sans-serif;
+	line-height: 93px;
+	padding-left: 33px;
+	text-transform: uppercase;
+}
