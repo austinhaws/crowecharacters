@@ -17,6 +17,7 @@ require_once('CrudRoute.php');
 $crudRoutes = [
 	new CrudRoute($router, 'accounts', 'account'),
 	new CrudRoute($router, 'bodies', 'body'),
+	new CrudRoute($router, 'characters', 'character'),
 ];
 
 $router->get('/', function () use ($router) {
