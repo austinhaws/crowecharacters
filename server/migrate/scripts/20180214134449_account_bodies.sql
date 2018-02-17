@@ -21,6 +21,7 @@
 CREATE TABLE accounts (
 	id int not null AUTO_INCREMENT,
 	guid VARCHAR(50) not null,
+	data TEXT,
 	PRIMARY KEY (id),
 	UNIQUE(guid)
 )
@@ -29,7 +30,7 @@ CREATE TABLE accounts (
 CREATE TABLE bodies (
 	id int not null AUTO_INCREMENT,
 	guid VARCHAR(50) not null,
-	body TEXT,
+	data TEXT,
 	PRIMARY KEY (id),
 	UNIQUE(guid)
 )

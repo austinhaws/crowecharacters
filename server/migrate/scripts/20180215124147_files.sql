@@ -21,13 +21,10 @@
 CREATE TABLE files (
 	id int not null AUTO_INCREMENT,
 	guid VARCHAR(50) not null,
-	file TEXT,
+	data TEXT,
 	PRIMARY KEY (id),
 	UNIQUE(guid)
 )
-;
-
-ALTER TABLE accounts ADD account TEXT
 ;
 
 -- //@UNDO
@@ -35,6 +32,4 @@ ALTER TABLE accounts ADD account TEXT
 
 
 DROP TABLE files
-;
-ALTER TABLE accounts DROP COLUMN account
 ;

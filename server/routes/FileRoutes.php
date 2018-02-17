@@ -12,6 +12,8 @@ define('FIELD_FILE_FILE_TYPE', 'fileType');
 // what the file was called when it was posted
 define('FIELD_FILE_ORIGINAL_NAME', 'originalName');
 
+define('TABLE_FILES', 'files');
+
 $router->group(['prefix' => 'file'], function () use ($router) {
 	// upload a new body image
 	$router->post('upload', function (Request $request) {
@@ -36,7 +38,7 @@ $router->group(['prefix' => 'file'], function () use ($router) {
  * @return \Illuminate\Http\JsonResponse all the files json
  */
 function getAllFiles() {
-	$files = DB::table('files')->get();
+	$files = DB::table(TABLE_FILES)->get();
 	foreach ($files as $file) {
 		unset($file->id);
 	}
@@ -65,13 +67,13 @@ function uploadFile(Request $request)
 
 
 	// create new record and gets its id
-	$id = DB::table('files')->insertGetId([FIELD_GUID => $guid]);
+	$id = DB::table(TABLE_FILES)->insertGetId([FIELD_GUID => $guid]);
 
 	$fileData[FIELD_FILE_NAME] = "$id.{$file->getClientOriginalExtension()}";
 
-	$file->move(env('IMAGES_FOLDER') . "/{$fileData[FIELD_FILE_FILE_TYPE]}/", $fileData[FIELD_FILE_NAME]);
+	$file->move(env(CONFIG_IMAGES_FOLDER) . "/{$fileData[FIELD_FILE_FILE_TYPE]}/", $fileData[FIELD_FILE_NAME]);
 
-	DB::table('files')->where('id', $id)->update(['file' => json_encode($fileData)]);
+	DB::table(TABLE_FILES)->where('id', $id)->update(['data' => json_encode($fileData)]);
 
 	return getFile($guid);
 }
@@ -81,7 +83,7 @@ function uploadFile(Request $request)
  * @return \Illuminate\Http\JsonResponse
  */
 function getFile($guid) {
-	$record = DB::table('files')->where(FIELD_GUID, $guid)->first();
+	$record = DB::table(TABLE_FILES)->where(FIELD_GUID, $guid)->first();
 	unset($record->id);
 	return response()->json($record);
 }
