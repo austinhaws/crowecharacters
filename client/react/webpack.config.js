@@ -15,7 +15,7 @@ const cssExtract = new ExtractTextPlugin({
 // tell it what file to starting compiling on and what to call it when done
 const config = {
 	entry: {
-		app: APP_DIR + '/App.js',
+		app: APP_DIR + '/App/App.js',
 	},
 	output: {
 		path: BUILD_DIR,
