@@ -1,3 +1,12 @@
+[ ] download html boilerplate
+[ ] setup client folder in code base
+[ ] install react/redux/react-router etc npm stuff
+[ ] setup App main template layout
+
+[ ] which component/page first?
+
+-------------------------------------------------------------
+
 admin area, show doll and the location points on it, can drag and drop the points to move where they are at
 
 free floating image options for scars and things that you can place wherever you want
@@ -10,3 +19,7 @@ use code splitting!
 free floating images, can place a scar anywhere and can rotate it whoever you want
 
 when logging on a new browser and already have an account then it will give you a new guid, have ability to merge guids? or allow an account to have multiple guids?
+
+
+
+[ ] add google analytics
