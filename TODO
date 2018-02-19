@@ -1,7 +1,7 @@
-[ ] download html boilerplate
-[ ] setup client folder in code base
-[ ] install react/redux/react-router etc npm stuff
-[ ] setup App main template layout
+[ ] nav crumb at top of left pane (or just back button)
+
+[ ] when app loads, check if they are currently editing a character and if not then go to new character view
+
 
 [ ] which component/page first?
 
@@ -23,3 +23,7 @@ when logging on a new browser and already have an account then it will give you 
 
 
 [ ] add google analytics
+
+
+-----------
+[ ] Top title area could use a really cool image. maybe a collage of Crowe Characters.

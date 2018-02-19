@@ -32,8 +32,87 @@ body {
 #main-container {
 	background: url("../img/background.png") no-repeat;
 	background-size: contain;
-	height: 1767px;
+	height: 884px;
 	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	position: relative;
+}
+
+.left-panel {
+	height: 785px;
+	width: 300px;
+	position: relative;
+	border-right: 3px solid #b6b6b6;
+	top: -1px;
+}
+
+input[type="text"] {
+	border: 3px solid #f4d10b;
+	background-color: transparent;
+	color: #f4d10b;
+	padding: 8px;
+	/* pull out padding of container */
+	width: calc(100% - 23px);
+}
+input[type="text"]::placeholder {
+	color: #f4d10b;
+}
+input[type="text"]:focus {
+	outline: none;
+}
+input[type="text"]:focus::placeholder {
+	color: #ad9408;
+}
+
+.input-search {
+	position: relative;
+}
+.input-search svg {
+	fill: #f4d10b;
+	-moz-transform: scaleX(-1);
+	-o-transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	transform: scaleX(-1);
+	filter: FlipH;
+	-ms-filter: "FlipH";
+
+	width: 22px;
+	height: 22px;
+	position: absolute;
+	right: 10px;
+	top: 9px;
+}
+
+.left-panel .first-input {
+	margin-top: 19px;
+}
+
+.main-panel {
+	height: 785px;
+	width: 967px;
+	position: relative;
+	top: -1px;
+}
+
+#main-container .left-panel .opaque-background {
+	opacity: .75;
+	background-color: black;
+	position: absolute;
+	top: 0;
+	z-index: 1;
+	height: 100%;
+	width: 100%;
+}
+#main-container .left-panel .content {
+	position: absolute;
+	top: 0;
+	z-index: 2;
+	color: white;
+	width: 280px;
+	height: 763px;
+	padding: 10px;
 }
 
 #top-nav-container {
@@ -42,6 +121,7 @@ body {
 	width: 100%;
 	border-bottom: 3px solid #b6b6b6;
 }
+
 #top-opaque {
     z-index: 1;
     position: absolute;
@@ -61,4 +141,14 @@ body {
 	line-height: 93px;
 	padding-left: 33px;
 	text-transform: uppercase;
+}
+
+#credit-footer a {
+	text-decoration: none;
+	color: #fefefe;
+}
+#credit-footer {
+	text-align: center;
+	color: #fefefe;
+	font-size: 8px;
 }

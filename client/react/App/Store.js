@@ -21,6 +21,12 @@ const store = createStore((state, action) => {
 	}, {
 		// === default data ===
 		ajaxingCount: 0,
+
+		// New Character view
+		newCharacter: {
+			editingCharacter: {},
+			searchText: '',
+		}
 	}
     // for chrome redux plugin
     , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
