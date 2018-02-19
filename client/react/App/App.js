@@ -3,6 +3,9 @@ import {render} from "react-dom";
 import {connect, Provider} from "react-redux";
 import store from "./Store";
 import NewCharacter from "../NewCharacter/NewCharacter";
+import shared from "./Shared";
+
+shared.functions.appStartup();
 
 class AppClass extends React.Component {
 	render() {

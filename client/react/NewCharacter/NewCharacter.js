@@ -12,8 +12,8 @@ export default class NewCharacter extends React.Component {
 					<input
 						className="first-input data-entry"
 						type="text"
-						value={this.props.newCharacter.editingCharacter.name || ''}
-						onChange={e => shared.functions.dispatchFieldChanged('newCharacter.editingCharacter', 'name', e.target.value)}
+						value={this.props.newCharacter.editingCharacter.data.name || ''}
+						onChange={e => shared.functions.dispatchFieldChanged('newCharacter.editingCharacter.data', 'name', e.target.value)}
 						placeholder="NAME"
 					/>
 
@@ -26,10 +26,27 @@ export default class NewCharacter extends React.Component {
 							value={this.props.newCharacter.searchText || ''}
 							onChange={e => shared.functions.dispatchFieldChanged('newCharacter', 'searchText', e.target.value)}
 						/>
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" enableBackground="new 0 0 129 129"><g><path d="M51.6,96.7c11,0,21-3.9,28.8-10.5l35,35c0.8,0.8,1.8,1.2,2.9,1.2s2.1-0.4,2.9-1.2c1.6-1.6,1.6-4.2,0-5.8l-35-35   c6.5-7.8,10.5-17.9,10.5-28.8c0-24.9-20.2-45.1-45.1-45.1C26.8,6.5,6.5,26.8,6.5,51.6C6.5,76.5,26.8,96.7,51.6,96.7z M51.6,14.7   c20.4,0,36.9,16.6,36.9,36.9C88.5,72,72,88.5,51.6,88.5c-20.4,0-36.9-16.6-36.9-36.9C14.7,31.3,31.3,14.7,51.6,14.7z"/></g></svg>
+						{shared.images.magnifyingGlass()}
 					</div>
 
 					<div className="search-results">
+						{this.props.bodies
+							// filter by search text
+							.filter(body => this.props.newCharacter.searchText ? body.data.name.toLowerCase().includes(this.props.newCharacter.searchText.toLowerCase()) : true)
+							// show possible bodies
+							.map(body =>
+								<div
+									key={`${body.data.name}${body.data.gender}`}
+									className={shared.functions.joinClasses([
+										'search-result',
+										body.guid === this.props.newCharacter.editingCharacter.data.bodyGuid ? 'selected' : undefined,
+									])}
+									onClick={() => shared.functions.dispatchFieldChanged('newCharacter.editingCharacter.data', 'bodyGuid', body.guid)}
+								>
+									<div className={`gender ${body.data.gender}`}>{shared.images[body.data.gender]()}</div>
+									<div className="name">{body.data.name}</div>
+								</div>
+							)}
 					</div>
 
 				</LeftPanel>
@@ -41,5 +58,6 @@ export default class NewCharacter extends React.Component {
 
 NewCharacter.propTypes = {
 	newCharacter: PropTypes.object.isRequired,
+	bodies: PropTypes.array.isRequired,
 };
 

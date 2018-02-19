@@ -21,10 +21,12 @@ const store = createStore((state, action) => {
 	}, {
 		// === default data ===
 		ajaxingCount: 0,
+		bodies: [],
+		characters: [],
 
 		// New Character view
 		newCharacter: {
-			editingCharacter: {},
+			editingCharacter: {data: {name: '', bodyGuid: ''}},
 			searchText: '',
 		}
 	}
