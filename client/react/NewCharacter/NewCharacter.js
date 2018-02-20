@@ -3,6 +3,7 @@ import LeftPanel from "../Panels/LeftPanel";
 import MainPanel from "../Panels/MainPanel";
 import PropTypes from "prop-types";
 import shared from "../App/Shared";
+import CharacterBody from "../CharacterBody/CharacterBody";
 
 export default class NewCharacter extends React.Component {
 	render() {
@@ -50,7 +51,9 @@ export default class NewCharacter extends React.Component {
 					</div>
 
 				</LeftPanel>
-				<MainPanel>main stuff</MainPanel>
+				<MainPanel>
+					{this.props.newCharacter.editingCharacter.data.bodyGuid ? <CharacterBody character={this.props.newCharacter.editingCharacter}/> : undefined}
+				</MainPanel>
 			</React.Fragment>
 		);
 	}

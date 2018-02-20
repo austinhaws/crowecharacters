@@ -20,9 +20,12 @@ const store = createStore((state, action) => {
 		return reducer ? reducer(state, action) : state;
 	}, {
 		// === default data ===
+
 		ajaxingCount: 0,
+
+		// cached data from server
 		bodies: [],
-		characters: [],
+		files: [],
 
 		// New Character view
 		newCharacter: {

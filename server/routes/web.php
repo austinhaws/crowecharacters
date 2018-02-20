@@ -11,14 +11,15 @@
 |
 */
 
-require_once('FileRoutes.php');
 require_once('CrudRoute.php');
 
 $crudRoutes = [
 	new CrudRoute($router, 'accounts', 'account'),
 	new CrudRoute($router, 'bodies', 'body'),
 	new CrudRoute($router, 'characters', 'character'),
+	new CrudRoute($router, 'files', 'file'),
 ];
+require_once('FileRoutes.php');
 
 $router->get('/', function () use ($router) {
     return $router->app->version();

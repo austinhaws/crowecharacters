@@ -189,3 +189,15 @@ input[type="text"]:focus::placeholder {
 	color: #f4d10b;
 	cursor: pointer;
 }
+
+
+.body-container {
+	position: relative;
+}
+
+.main-panel .body-container {
+	margin: 150px auto 0;
+}
+.body-template {
+	margin: 0 auto;
+}

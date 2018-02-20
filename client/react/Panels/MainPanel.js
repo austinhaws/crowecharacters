@@ -12,5 +12,5 @@ export default class MainPanel extends React.Component {
 }
 
 MainPanel.propTypes = {
-	children: PropTypes.any.isRequired,
+	children: PropTypes.any,
 };

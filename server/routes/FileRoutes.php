@@ -3,8 +3,6 @@
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-require_once __DIR__ . '/../constants.php';
-
 // name of the file on disc
 define('FIELD_FILE_NAME', 'name');
 // body, image
@@ -19,37 +17,13 @@ $router->group(['prefix' => 'file'], function () use ($router) {
 	$router->post('upload', function (Request $request) {
 		return uploadFile($request);
 	});
-
-	// get a file
-	$router->get('get/{guid}', function ($guid) {
-		return getFile($guid);
-	});
-
-	// all files
-	$router->get('all', function () {
-		return getAllFiles();
-	});
 });
-
-
-/**
- * get all the files in the db
- *
- * @return \Illuminate\Http\JsonResponse all the files json
- */
-function getAllFiles() {
-	$files = DB::table(TABLE_FILES)->get();
-	foreach ($files as $file) {
-		unset($file->id);
-	}
-	return response()->json($files);
-}
 
 /**
  * create a new account and return it
  *
  * @param Request $request
- * @return \Illuminate\Http\JsonResponse
+ * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
  */
 function uploadFile(Request $request)
 {
@@ -58,12 +32,20 @@ function uploadFile(Request $request)
 
 	/** @var UploadedFile $file */
 	$file = $request->file('file');
+	echo $file->getPathname();
+;
+echo $file->getPathname();
+exit();
+	$imageSizes = getimagesize($file->getFilename());
+echo $imageSizes;
+exit();
 
 	$fileData = [
 		'version' => 1,
 		FIELD_FILE_FILE_TYPE => $request->input(FIELD_FILE_FILE_TYPE),
 		'originalName' => $file->getClientOriginalName(),
 	];
+
 
 
 	// create new record and gets its id
@@ -73,17 +55,8 @@ function uploadFile(Request $request)
 
 	$file->move(env(CONFIG_IMAGES_FOLDER) . "/{$fileData[FIELD_FILE_FILE_TYPE]}/", $fileData[FIELD_FILE_NAME]);
 
+
 	DB::table(TABLE_FILES)->where('id', $id)->update(['data' => json_encode($fileData)]);
 
-	return getFile($guid);
-}
-
-/**
- * @param $guid string
- * @return \Illuminate\Http\JsonResponse
- */
-function getFile($guid) {
-	$record = DB::table(TABLE_FILES)->where(FIELD_GUID, $guid)->first();
-	unset($record->id);
-	return response()->json($record);
+	return response($guid);
 }

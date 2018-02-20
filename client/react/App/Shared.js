@@ -13,11 +13,15 @@ const shared = {
 		 */
 		dispatchFieldChanged: (objectPath, field, value) => store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: objectPath, field: field, value: value}}),
 
+		bodyByGuid: guid => store.getState().bodies.find(body => body.guid === guid),
+		fileByGuid: guid => store.getState().files.find(file => file.guid === guid),
+
 		/**
 		 * the app has started, go get the lists of data that are needed like bodies, images, characters, etc
 		 */
 		appStartup: () => {
-			shared.functions.ajax('get', 'body/all', undefined, bodies => store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: '', field: 'bodies', value: bodies}}));
+			shared.functions.ajax('get', 'body/all', undefined, data => store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: '', field: 'bodies', value: data}}));
+			shared.functions.ajax('get', 'file/all', undefined, data => store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: '', field: 'files', value: data}}));
 		},
 
 		startAjax: () => store.dispatch({type: reducers.ACTION_TYPES.SET_AJAXING, payload: true,}),
