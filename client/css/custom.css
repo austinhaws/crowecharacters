@@ -196,8 +196,55 @@ input[type="text"]:focus::placeholder {
 }
 
 .main-panel .body-container {
-	margin: 150px auto 0;
+	margin: 100px auto 0;
 }
 .body-template {
 	margin: 0 auto;
+}
+
+.bottom-buttons-container {
+	position: absolute;
+	bottom: 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: calc(100% - 20px);
+	padding-bottom: 8px;
+}
+
+button {
+	height: 40px;
+	line-height: 25px;
+	font-size: 15px;
+	text-align: center;
+	width: 100px;
+	cursor: pointer;
+	background-color: transparent;
+	border: 3px solid #f4d10b;
+	outline: none;
+	text-decoration: none;
+}
+
+button.defaultAction {
+	border-color: #f4d10b;
+	color: #f4d10b;
+}
+button.defaultAction:hover {
+	border-color: #ffe905;
+	color: #ffe905;
+}
+
+button.cancelAction {
+	border-color: #b3afa4;
+	color: #b3afa4;
+}
+
+button.cancelAction {
+	border-color: #d7d2c5;
+	color: #d7d2c5;
+}
+
+button[disabled], button[disabled]:hover {
+	border-color: #858072;
+	color: #858072;
 }

@@ -4,6 +4,24 @@ import store from "./Store";
 import axios from "axios";
 
 const shared = {
+	ajax: {
+		body: {
+			all: () => shared.functions.ajax('get', 'body/all', undefined, data => store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: '', field: 'bodies', value: data}})),
+		},
+
+		character: {
+			create: (character, callback) => shared.functions.ajax('post', 'character/new', undefined, data => {
+				character.guid = data.guid;
+				shared.ajax.character.update(character, callback);
+			}),
+			update: (character, callback) => shared.functions.ajax('post', `character/save/${character.guid}`, {data: JSON.stringify(character.data)}, callback),
+		},
+
+		file: {
+			all: () => shared.functions.ajax('get', 'file/all', undefined, data => store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: '', field: 'files', value: data}})),
+}
+	},
+
 	functions: {
 		/**
 		 * a field on an object in the store has changed
@@ -20,8 +38,8 @@ const shared = {
 		 * the app has started, go get the lists of data that are needed like bodies, images, characters, etc
 		 */
 		appStartup: () => {
-			shared.functions.ajax('get', 'body/all', undefined, data => store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: '', field: 'bodies', value: data}}));
-			shared.functions.ajax('get', 'file/all', undefined, data => store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: '', field: 'files', value: data}}));
+			shared.ajax.body.all();
+			shared.ajax.file.all();
 		},
 
 		startAjax: () => store.dispatch({type: reducers.ACTION_TYPES.SET_AJAXING, payload: true,}),

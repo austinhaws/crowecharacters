@@ -1,5 +1,7 @@
 <?php
 
+require_once('../constants.php');
+
 /**
  * Class Crud
  * CRUDs a table. table must have an id, a guid field, and a data filed that is TEXT JSON
