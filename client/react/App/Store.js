@@ -32,7 +32,11 @@ const store = createStore((state, action) => {
 		newCharacter: {
 			editingCharacter: {data: {name: '', bodyGuid: ''}},
 			searchText: '',
-		}
+		},
+
+		selectCharacter: {
+			searchText: '',
+		},
 	}
     // for chrome redux plugin
     , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

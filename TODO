@@ -9,6 +9,10 @@
 
 [ ] when app opens on character selection page and no character is selected, show news in main nav area: new body types, upcoming blitzes, etc
 
+[ ] track what needs set when going to deploy
+	- <base> tag in index.html
+	- shared.constants.urlbase
+	- put web server php code in separate places: public/app
 -------------------------------------------------------------
 
 admin area, show doll and the location points on it, can drag and drop the points to move where they are at

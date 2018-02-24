@@ -74,6 +74,9 @@ const shared = {
 		 * @return {string}
 		 */
 		joinClasses: classes => classes ? classes.filter(c => c).join(' ') : '',
+
+		// split path by '.', apply to baseObj to get to next object
+		objectAtPath: (baseObject, path) => path.split('\.').reduce((obj, field) => field ? obj[field] : obj, baseObject),
 	},
 
 	images: {

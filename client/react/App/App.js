@@ -6,6 +6,7 @@ import NewCharacter from "../NewCharacter/NewCharacter";
 import shared from "./Shared";
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import {Redirect, withRouter} from "react-router";
+import CharacterSelector from "../CharacterSelector/CharacterSelector";
 
 shared.functions.appStartup();
 
@@ -16,7 +17,7 @@ class AppClass extends React.Component {
 
 		// if there are characters then show the character picker
 		if (this.props.characters.length) {
-			output = <div>character selection</div>;
+			output = <div><CharacterSelector {...this.props}/></div>;
 
 		// no characters, so check if still ajaxing for characters
 		} else if (this.props.ajaxingCount) {
@@ -42,7 +43,12 @@ class AppClass extends React.Component {
 				<div id="main-container">
 					<div id="top-nav-container">
 						<div id="top-opaque"></div>
-						<div id="page-title">New Character</div>
+						<div id="page-title">
+							<Switch>
+								<Route path='/character/new' render={() => "New Character"}/>
+								<Route render={() => "Characters"}/>
+							</Switch>
+						</div>
 					</div>
 					<Switch>
 						<Route path='/character/new' render={() => <NewCharacter {...this.props}/>}/>

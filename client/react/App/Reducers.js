@@ -1,5 +1,6 @@
 import React from "react";
 import clone from "clone";
+import shared from "./Shared";
 
 let reducers = {
 	ACTION_TYPES: {
@@ -35,8 +36,7 @@ reducers[reducers.ACTION_TYPES.SET_AJAXING] = (state, action) => {
 // payload: path = path to object in dot notation, field = field name in that object, value = new value for that field
 reducers[reducers.ACTION_TYPES.SET_OBJECT_FIELD] = (state, action) => {
 	const result = clone(state);
-	// split path by '.', apply to state to get to object, put vale in that object
-	action.payload.path.split('\.').reduce((obj, field) => field ? obj[field] : obj, result)[action.payload.field] = clone(action.payload.value);
+	shared.functions.objectAtPath(result, action.payload.path)[action.payload.field] = clone(action.payload.value);
 	return result;
 };
 
