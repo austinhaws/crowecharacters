@@ -4,10 +4,32 @@ import {connect, Provider} from "react-redux";
 import store from "./Store";
 import NewCharacter from "../NewCharacter/NewCharacter";
 import shared from "./Shared";
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {Redirect, withRouter} from "react-router";
 
 shared.functions.appStartup();
 
 class AppClass extends React.Component {
+
+	renderDefault() {
+		let output;
+
+		// if there are characters then show the character picker
+		if (this.props.characters.length) {
+			output = <div>character selection</div>;
+
+		// no characters, so check if still ajaxing for characters
+		} else if (this.props.ajaxingCount) {
+			output = <div>show spinner</div>;
+
+		// not ajaxing, still no characters, go to character creation
+		} else {
+			output = <Redirect to="/character/new"/>;
+		}
+
+		return output;
+	}
+
 	render() {
 		return (
 			<div id="app-container">
@@ -22,7 +44,10 @@ class AppClass extends React.Component {
 						<div id="top-opaque"></div>
 						<div id="page-title">New Character</div>
 					</div>
-					<NewCharacter {...this.props}/>
+					<Switch>
+						<Route path='/character/new' render={() => <NewCharacter {...this.props}/>}/>
+						<Route render={this.renderDefault.bind(this)}/>
+					</Switch>
 				</div>
 				<div id="credit-footer">
 					<div>Icons made by <a href="https://www.flaticon.com/authors/lucy-g" title="Lucy G">Lucy G</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
@@ -35,9 +60,9 @@ class AppClass extends React.Component {
 AppClass.propTypes = {
 };
 
-const App = connect(
+const App = withRouter(connect(
 	state => state,
 	dispatch => { return {}},
-)(AppClass);
+)(AppClass));
 
-render(<Provider store={store}><App/></Provider>, document.getElementById('react'));
+render(<BrowserRouter basename="/crowe/client"><Provider store={store}><App/></Provider></BrowserRouter>, document.getElementById('react'));

@@ -26,6 +26,7 @@ const store = createStore((state, action) => {
 		// cached data from server
 		bodies: [],
 		files: [],
+		characters: [],
 
 		// New Character view
 		newCharacter: {

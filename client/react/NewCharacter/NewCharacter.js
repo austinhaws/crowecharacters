@@ -7,7 +7,7 @@ import CharacterBody from "../CharacterBody/CharacterBody";
 
 export default class NewCharacter extends React.Component {
 	saveCharacter() {
-		shared.ajax.character.create(this.props.newCharacter.editingCharacter, result => {console.log(result)});
+		shared.ajax.character.create(this.props.newCharacter.editingCharacter, guid => this.props.history.push(`/character/${guid}`));
 	}
 
 	render() {

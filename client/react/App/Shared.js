@@ -10,11 +10,15 @@ const shared = {
 		},
 
 		character: {
+			all: () => shared.functions.ajax('get', 'character/all', undefined, characters => store.dispatch({type:reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: '', field: 'characters', value: characters}})),
 			create: (character, callback) => shared.functions.ajax('post', 'character/new', undefined, data => {
 				character.guid = data.guid;
-				shared.ajax.character.update(character, callback);
+				shared.ajax.character.update(character, () => callback(data.guid));
 			}),
-			update: (character, callback) => shared.functions.ajax('post', `character/save/${character.guid}`, {data: JSON.stringify(character.data)}, callback),
+			update: (character, callback) => shared.functions.ajax('post', `character/save/${character.guid}`, {data: JSON.stringify(character.data)}, result => {
+				shared.ajax.character.all();
+				callback(result);
+			}),
 		},
 
 		file: {
@@ -40,6 +44,7 @@ const shared = {
 		appStartup: () => {
 			shared.ajax.body.all();
 			shared.ajax.file.all();
+			shared.ajax.character.all();
 		},
 
 		startAjax: () => store.dispatch({type: reducers.ACTION_TYPES.SET_AJAXING, payload: true,}),
@@ -58,7 +63,8 @@ const shared = {
 
 			axios[method](shared.constants.urlBase + url, data)
 				.then(result => callback(result.data))
-				.catch(e => console.error('ajax error', e));
+				.catch(e => console.error('ajax error', e))
+				.finally(() => shared.functions.stopAjax());
 		},
 
 		/**
