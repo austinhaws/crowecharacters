@@ -14,12 +14,13 @@
 require_once('CrudRoute.php');
 
 $crudRoutes = [
-	new CrudRoute($router, 'accounts', 'account'),
-	new CrudRoute($router, 'bodies', 'body'),
-	new CrudRoute($router, 'characters', 'character'),
-	new CrudRoute($router, 'files', 'file'),
+	'accounts' => new CrudRoute($router, 'accounts', 'account', CrudRoute::optionsAllRoutes([CrudRoute::OPTION_DELETE, CrudRoute::OPTION_ALL])),
+	'bodies' => new CrudRoute($router, 'bodies', 'body', CrudRoute::optionsAllRoutes([CrudRoute::OPTION_DELETE])),
+	'characters' => new CrudRoute($router, 'characters', 'character', CrudRoute::optionsAllRoutes([CrudRoute::OPTION_ALL])),
+	'files' => new CrudRoute($router, 'files', 'file', CrudRoute::optionsAllRoutes([CrudRoute::OPTION_DELETE])),
 ];
 require_once('FileRoutes.php');
+require_once('CharacterRoutes.php');
 
 $router->get('/', function () use ($router) {
     return $router->app->version();

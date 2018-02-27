@@ -3,11 +3,15 @@
 
 [ ] when app loads, check if they are currently editing a character and if not then go to new character view
 
-
-[ ] which component/page first?
+[ ] when adding new character, tie it to account
+[ ] when getting charactres from server, use accountguid
 
 
 [ ] when app opens on character selection page and no character is selected, show news in main nav area: new body types, upcoming blitzes, etc
+
+[ ] tie characters to accounts
+	- when creating a character, use current logged in account id
+[ ] account ids: have a table of random adjectives/nouns/number to combine to create user ids that tie to an account
 
 [ ] track what needs set when going to deploy
 	- <base> tag in index.html
