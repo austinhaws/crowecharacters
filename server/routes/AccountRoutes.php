@@ -51,6 +51,6 @@ $router->group(['prefix' => 'account'], function () use ($router) {
 		if (!$account) {
 			$account = newAccount();
 		}
-		return response(json_encode($account));
+		return response(json_encode(cleanRecord($account)));
 	});
 });
