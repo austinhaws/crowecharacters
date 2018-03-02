@@ -5,6 +5,32 @@ import axios from "axios";
 
 const shared = {
 	ajax: {
+		account: {
+			load: callback => {
+				// get current account guid from localstorage
+				const accountGuid = localStorage.getItem('accountPhrase');
+
+				// if not found, then create new account
+				const accountCallback = account => {
+					// store accountGuid in localstorage
+					localStorage.setItem('accountPhrase', account.phrase);
+
+					// dispatch set account information
+					store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {field: 'account', value: account}});
+
+					// call callback
+					callback(account);
+				};
+
+				if (accountGuid) {
+					shared.ajax.account.get(accountGuid, accountCallback);
+				} else {
+					shared.ajax.account.new(accountCallback);
+				}
+			},
+			new: callback => shared.functions.ajax('get', 'account/new', undefined, callback),
+			get: (phrase, callback) => shared.functions.ajax('get', `account/get/${phrase}`, undefined, callback)
+		},
 		body: {
 			all: () => shared.functions.ajax('get', 'body/all', undefined, data => store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: '', field: 'bodies', value: data}})),
 		},
@@ -42,9 +68,11 @@ const shared = {
 		 * the app has started, go get the lists of data that are needed like bodies, images, characters, etc
 		 */
 		appStartup: () => {
-			shared.ajax.body.all();
-			shared.ajax.file.all();
-			shared.ajax.character.all();
+			shared.ajax.account.load(() => {
+				shared.ajax.body.all();
+				shared.ajax.file.all();
+				shared.ajax.character.all()
+			})
 		},
 
 		startAjax: () => store.dispatch({type: reducers.ACTION_TYPES.SET_AJAXING, payload: true,}),
@@ -76,7 +104,7 @@ const shared = {
 		joinClasses: classes => classes ? classes.filter(c => c).join(' ') : '',
 
 		// split path by '.', apply to baseObj to get to next object
-		objectAtPath: (baseObject, path) => path.split('\.').reduce((obj, field) => field ? obj[field] : obj, baseObject),
+		objectAtPath: (baseObject, path) => (path || '').split('\.').reduce((obj, field) => field ? obj[field] : obj, baseObject),
 	},
 
 	images: {

@@ -33,4 +33,8 @@ $router->group(['prefix' => 'account'], function () use ($router) {
 
 		return response(json_encode(cleanRecord($record)));
 	});
+
+	$router->get('get/{phrase}', function ($phrase) {
+		return response(json_encode(DB::table('accounts')->where('phrase', '=' , $phrase)->first()));
+	});
 });

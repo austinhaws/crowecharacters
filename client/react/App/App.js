@@ -37,7 +37,7 @@ class AppClass extends React.Component {
 				<div id="top-title-container">
 					<div id="top-title">Crowe Character</div>
 					<div id="right-account">
-						Your Id: SuperStud32 <button>Login to Save</button>
+						Your Id: {this.props.account ? this.props.account.phrase : 'Loading...'} <button>Login to Save</button>
 					</div>
 				</div>
 				<div id="main-container">
