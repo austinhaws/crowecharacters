@@ -184,7 +184,6 @@ INSERT INTO account_words (type, word) VALUES
 	('adjective', 'Obnoxious'),
 	('adjective', 'Odd'),
 	('adjective', 'Old'),
-	('adjective', 'Old-Fashioned'),
 	('adjective', 'Orange'),
 	('adjective', 'Panicky'),
 	('adjective', 'Petite'),

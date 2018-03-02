@@ -1,9 +1,6 @@
 [ ] nav crumb at top of left pane (or just back button)
 [ ] ajaxing spinner
 
-[ ] when app loads, check if they are currently editing a character and if not then go to new character view
-
-[ ] when adding new character, tie it to account
 [ ] when getting charactres from server, use accountguid
 
 

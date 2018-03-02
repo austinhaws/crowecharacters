@@ -3,6 +3,12 @@
 
 $router->group(['prefix' => 'account'], function () use ($router) {
 
+	/**
+	 * randomly select a word for a passphrase by type
+	 *
+	 * @param $type string [adjective|noun]
+	 * @return string
+	 */
 	function selectRandomWord($type) {
 		$query = DB::table('account_words');
 		$query->select('word');
@@ -14,8 +20,12 @@ $router->group(['prefix' => 'account'], function () use ($router) {
 		return $records[0]->word;
 	}
 
-	// get all characters connected to this account id
-	$router->get('new', function () {
+	/**
+	 * create a new account with a new passphrase
+	 *
+	 * @return object the new account
+	 */
+	function newAccount() {
 		do {
 			$adjective = selectRandomWord('adjective');
 			$noun = selectRandomWord('noun');
@@ -29,12 +39,18 @@ $router->group(['prefix' => 'account'], function () use ($router) {
 		$guid = uniqid();
 		DB::table('accounts')->insert(['guid' => $guid, 'phrase' => $phrase]);
 
-		$record = DB::table('accounts')->where(FIELD_GUID, $guid)->first();
+		return DB::table('accounts')->where(FIELD_GUID, $guid)->first();
+	}
 
-		return response(json_encode(cleanRecord($record)));
+	$router->get('new', function () {
+		return response(json_encode(cleanRecord(newAccount())));
 	});
 
 	$router->get('get/{phrase}', function ($phrase) {
-		return response(json_encode(DB::table('accounts')->where('phrase', '=' , $phrase)->first()));
+		$account = DB::table('accounts')->where('phrase', '=' , $phrase)->first();
+		if (!$account) {
+			$account = newAccount();
+		}
+		return response(json_encode($account));
 	});
 });

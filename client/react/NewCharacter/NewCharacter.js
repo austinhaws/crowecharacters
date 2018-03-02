@@ -71,5 +71,6 @@ export default class NewCharacter extends React.Component {
 NewCharacter.propTypes = {
 	newCharacter: PropTypes.object.isRequired,
 	bodies: PropTypes.array.isRequired,
+	account: PropTypes.object,
 };
 

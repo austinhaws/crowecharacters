@@ -19,11 +19,11 @@
 
 CREATE TABLE characters_x_accounts (
 	id int not null AUTO_INCREMENT,
-	account_id INT,
-	character_id INT,
+	accounts_id INT,
+	characters_id INT,
 	PRIMARY KEY (id),
-	FOREIGN KEY (character_id) REFERENCES characters(id),
-	FOREIGN KEY (account_id) REFERENCES accounts(id)
+	FOREIGN KEY (characters_id) REFERENCES characters(id),
+	FOREIGN KEY (accounts_id) REFERENCES accounts(id)
 )
 ;
 

@@ -16,7 +16,7 @@ const shared = {
 					localStorage.setItem('accountPhrase', account.phrase);
 
 					// dispatch set account information
-					store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {field: 'account', value: account}});
+					store.dispatch(shared.functions.objectFieldReducer(undefined, 'account', account));
 
 					// call callback
 					callback(account);
@@ -32,12 +32,12 @@ const shared = {
 			get: (phrase, callback) => shared.functions.ajax('get', `account/get/${phrase}`, undefined, callback)
 		},
 		body: {
-			all: () => shared.functions.ajax('get', 'body/all', undefined, data => store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: '', field: 'bodies', value: data}})),
+			all: () => shared.functions.ajax('get', 'body/all', undefined, data => store.dispatch(shared.functions.objectFieldReducer(undefined, 'bodies', data))),
 		},
 
 		character: {
-			all: () => shared.functions.ajax('get', 'character/all', undefined, characters => store.dispatch({type:reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: '', field: 'characters', value: characters}})),
-			create: (character, callback) => shared.functions.ajax('post', 'character/new', undefined, data => {
+			all: () => shared.functions.ajax('get', 'character/all', undefined, characters => store.dispatch(shared.functions.objectFieldReducer(undefined, 'characters', characters))),
+			create: (character, callback) => shared.functions.ajax('post', `character/new/${store.getState().account.guid}`, undefined, data => {
 				character.guid = data.guid;
 				shared.ajax.character.update(character, () => callback(data.guid));
 			}),
@@ -48,18 +48,28 @@ const shared = {
 		},
 
 		file: {
-			all: () => shared.functions.ajax('get', 'file/all', undefined, data => store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: '', field: 'files', value: data}})),
+			all: () => shared.functions.ajax('get', 'file/all', undefined, data => store.dispatch(shared.functions.objectFieldReducer(undefined, 'files', data))),
 }
 	},
 
 	functions: {
+		/**
+		 * create a reducer for setting a field in an object
+		 *
+		 * @param path path to the object in the store
+		 * @param field which field in the object to set
+		 * @param value the new value for that field
+		 * @return {{type: string, payload: {path: *, field: *, value: *}}}
+		 */
+		objectFieldReducer: (path, field, value) => { return {type:reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: path, field: field, value: value}}},
+
 		/**
 		 * a field on an object in the store has changed
 		 * @param objectPath dot notation path to the object in the store
 		 * @param field the field on the object
 		 * @param value the new value
 		 */
-		dispatchFieldChanged: (objectPath, field, value) => store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: objectPath, field: field, value: value}}),
+		dispatchFieldChanged: (objectPath, field, value) => store.dispatch(shared.functions.objectFieldReducer(objectPath, field, value)),
 
 		bodyByGuid: guid => store.getState().bodies.find(body => body.guid === guid),
 		fileByGuid: guid => store.getState().files.find(file => file.guid === guid),

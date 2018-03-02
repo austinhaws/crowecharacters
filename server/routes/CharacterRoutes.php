@@ -22,4 +22,24 @@ $router->group(['prefix' => 'character'], function () use ($router) {
 
 		return response($records);
 	});
+
+	$router->post('new/{accountGuid}', function ($accountGuid) {
+
+		$account = DB::table('accounts')->where(FIELD_GUID, '=', $accountGuid)->first();
+
+		if (!$account || !$account->id) {
+			exit("Unknown account: $accountGuid");
+		}
+
+		// create new record
+		$characterId = DB::table('characters')->insertGetId([FIELD_GUID => uniqid(), FIELD_DATA => '{}']);
+
+		// get the new record
+		$character = DB::table('characters')->where('id', '=', $characterId)->first();
+
+		// link to account
+		DB::table('characters_x_accounts')->insert(['characters_id' => $characterId, 'accounts_id' => $account->id]);
+
+		return response(json_encode(cleanRecord($character)));
+	});
 });
