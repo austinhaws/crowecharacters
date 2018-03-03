@@ -22,7 +22,7 @@ export default class EditCharacter extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-				<TopNavigation pageTitle={this.props.editCharacter.character ? this.props.editCharacter.character.data.name : ''}/>
+				<TopNavigation pageTitle={this.props.editCharacter.character ? this.props.editCharacter.character.data.name : ''} backUrl="/" history={this.props.history}/>
 				<LeftPanel>
 					Hello world! {this.props.guid}
 				</LeftPanel>

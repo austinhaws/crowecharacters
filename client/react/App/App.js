@@ -18,7 +18,7 @@ class AppClass extends React.Component {
 
 		// if there are characters then show the character picker
 		if (this.props.characters.length) {
-			output = <div><CharacterSelector {...this.props}/></div>;
+			output = <CharacterSelector {...this.props}/>;
 
 		// no characters, so check if still ajaxing for characters
 		} else if (this.props.ajaxingCount) {

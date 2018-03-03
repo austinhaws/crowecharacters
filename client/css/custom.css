@@ -131,11 +131,33 @@ input[type="text"]:focus::placeholder {
     width: 100%;
     background-color: black;
 }
+
+#top-nav-container #page-title {
+	display: flex;
+	flex-direction: row;
+}
+.top-nav-back-arrow {
+	height: 37px;
+	width: 20px;
+	stroke-width: 1;
+	stroke-linejoin: round;
+	stroke-miterlimit: 4;
+	stroke: #f4d10b;
+	fill: transparent;
+	margin-right: 20px;
+	cursor: pointer;
+	position: relative;
+	top: -3px;
+}
+.top-nav-back-arrow:hover {
+	stroke-width: 2;
+}
+
 #page-title {
 	z-index: 2;
 	position: absolute;
 	top: 0;
-	color: white;
+	color: #f4d10b;
 	font-size: 37px;
 	font-family: "Arial", Gadget, sans-serif;
 	line-height: 93px;
