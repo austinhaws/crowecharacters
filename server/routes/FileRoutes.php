@@ -32,18 +32,14 @@ function uploadFile(Request $request)
 
 	/** @var UploadedFile $file */
 	$file = $request->file('file');
-	echo $file->getPathname();
-;
-echo $file->getPathname();
-exit();
-	$imageSizes = getimagesize($file->getFilename());
-echo $imageSizes;
-exit();
+	list($width, $height) = getimagesize($file->getPathname());
 
 	$fileData = [
 		'version' => 1,
 		FIELD_FILE_FILE_TYPE => $request->input(FIELD_FILE_FILE_TYPE),
 		'originalName' => $file->getClientOriginalName(),
+		'width' => $width,
+		'height' => $height,
 	];
 
 
