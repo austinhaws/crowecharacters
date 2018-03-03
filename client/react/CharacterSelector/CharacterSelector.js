@@ -24,7 +24,7 @@ export default class CharacterSelector extends React.Component {
 								<div
 									key={`${character.guid}`}
 									className={shared.functions.joinClasses(['search-result'])}
-									onClick={() => console.log('select character')}
+									onClick={() => this.props.history.push(`/character/edit/${character.guid}`)}
 								>
 									<div className="name">{character.data.name}</div>
 								</div>

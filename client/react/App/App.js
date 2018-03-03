@@ -7,6 +7,7 @@ import shared from "./Shared";
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import {Redirect, withRouter} from "react-router";
 import CharacterSelector from "../CharacterSelector/CharacterSelector";
+import EditCharacter from "../EditCharacter/EditCharacter";
 
 shared.functions.appStartup();
 
@@ -41,19 +42,13 @@ class AppClass extends React.Component {
 					</div>
 				</div>
 				<div id="main-container">
-					<div id="top-nav-container">
-						<div id="top-opaque"></div>
-						<div id="page-title">
-							<Switch>
-								<Route path='/character/new' render={() => "New Character"}/>
-								<Route render={() => "Characters"}/>
-							</Switch>
-						</div>
-					</div>
-					<Switch>
-						<Route path='/character/new' render={() => <NewCharacter {...this.props}/>}/>
-						<Route render={this.renderDefault.bind(this)}/>
-					</Switch>
+					{(this.props.ajaxingCount && (!this.props.characters.length || !this.props.bodies.length || !this.props.files.length)) ? <div>Loading...</div> :
+						<Switch>
+							<Route path='/character/new' render={() => <NewCharacter {...this.props}/>}/>
+							<Route path='/character/edit/:guid' render={router => <EditCharacter guid={router.match.params.guid} {...this.props}/>}/>
+							<Route render={this.renderDefault.bind(this)}/>
+						</Switch>
+					}
 				</div>
 				<div id="credit-footer">
 					<div>Icons made by <a href="https://www.flaticon.com/authors/lucy-g" title="Lucy G">Lucy G</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>

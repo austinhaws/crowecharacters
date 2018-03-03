@@ -35,6 +35,11 @@ const store = createStore((state, action) => {
 			searchText: '',
 		},
 
+		// Edit Character view
+		editCharacter: {
+			character: undefined,
+		},
+
 		selectCharacter: {
 			searchText: '',
 		},

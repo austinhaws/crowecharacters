@@ -4,16 +4,18 @@ import MainPanel from "../Panels/MainPanel";
 import PropTypes from "prop-types";
 import shared from "../App/Shared";
 import CharacterBody from "../CharacterBody/CharacterBody";
+import TopNavigation from "../App/TopNavigation";
 
 export default class NewCharacter extends React.Component {
 	saveCharacter() {
-		shared.ajax.character.create(this.props.newCharacter.editingCharacter, guid => this.props.history.push(`/character/${guid}`));
+		shared.ajax.character.create(this.props.newCharacter.editingCharacter, guid => this.props.history.push(`/character/edit/${guid}`));
 	}
 
 	render() {
 		const isSaveable = this.props.newCharacter.editingCharacter.data.name && this.props.newCharacter.editingCharacter.data.bodyGuid;
 		return (
 			<React.Fragment>
+				<TopNavigation pageTitle="New Character"/>
 				<LeftPanel>
 					<input
 						className="first-input data-entry"
