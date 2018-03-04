@@ -9,7 +9,7 @@ import clone from "clone";
 
 export default class EditCharacter extends React.Component {
 	saveCharacter() {
-		// shared.ajax.character.create(this.props.newCharacter.editingCharacter, guid => this.props.history.push(`/character/${guid}`));
+		// shared.ajax.character.create(this.props.newCharacter.editCharacter, guid => this.props.history.push(`/character/${guid}`));
 	}
 
 	componentDidMount() {
@@ -19,12 +19,26 @@ export default class EditCharacter extends React.Component {
 		}
 	}
 
+	determineGroups(groupBy) {
+		switch (groupBy) {
+			case 'bodyPart':
+				break;
+		}
+	}
+
 	render() {
+		const groups = this.determineGroups(this.props.editCharacter.filters.groupBy);
 		return (
 			<React.Fragment>
 				<TopNavigation pageTitle={this.props.editCharacter.character ? this.props.editCharacter.character.data.name : ''} backUrl="/" history={this.props.history}/>
 				<LeftPanel>
-					Hello world! {this.props.guid}
+
+						<select value={this.props.editCharacter.filters.groupBy} onChange={e => shared.functions.dispatchFieldChanged('editCharacter.filters', 'groupBy', e.target.value)}>
+						<option value="bodyPart">By Body Part</option>
+						<option value="gearSet">By Gear Sets</option>
+					</select>
+					<input type="text" value={this.props.editCharacter.filters.search} onChange={e => shared.functions.dispatchFieldChanged('editCharacter.filters', 'search', e.target.value)}/>
+
 				</LeftPanel>
 				<MainPanel>
 					{this.props.editCharacter.character ? <CharacterBody character={this.props.editCharacter.character}/> : undefined}

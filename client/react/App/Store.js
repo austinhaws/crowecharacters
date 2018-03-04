@@ -38,6 +38,11 @@ const store = createStore((state, action) => {
 		// Edit Character view
 		editCharacter: {
 			character: undefined,
+			filters: {
+				groupBy: 'bodyPart',
+				search: '',
+				openGroup: '',
+			}
 		},
 
 		selectCharacter: {
