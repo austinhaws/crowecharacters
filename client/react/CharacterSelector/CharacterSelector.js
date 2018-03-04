@@ -34,7 +34,7 @@ export default class CharacterSelector extends React.Component {
 					</div>
 
 					<div className="bottom-buttons-container">
-						<button className="cancelAction" onClick={() => console.log('react router cancel!')}>put add and delete little buttons down here</button>
+						<button className="cancelAction" onClick={() => this.props.history.push('/character/new')}>Add New</button>
 					</div>
 				</LeftPanel>
 				<MainPanel>

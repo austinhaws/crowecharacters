@@ -36,14 +36,21 @@ const shared = {
 		},
 
 		character: {
-			all: () => shared.functions.ajax('get', 'character/all', undefined, characters => store.dispatch(shared.functions.objectFieldReducer(undefined, 'characters', characters))),
+			all: callback => shared.functions.ajax('get', 'character/all', undefined, characters =>
+				{store.dispatch(shared.functions.objectFieldReducer(undefined, 'characters', characters));
+				if (callback) {
+					callback();
+				}
+			}),
 			create: (character, callback) => shared.functions.ajax('post', `character/new/${store.getState().account.guid}`, undefined, data => {
 				character.guid = data.guid;
-				shared.ajax.character.update(character, () => callback(data.guid));
+				shared.ajax.character.update(character, () => {
+					shared.ajax.character.all();
+					callback(data.guid);
+				});
 			}),
 			update: (character, callback) => shared.functions.ajax('post', `character/save/${character.guid}`, {data: JSON.stringify(character.data)}, result => {
-				shared.ajax.character.all();
-				callback(result);
+				shared.ajax.character.all(() => callback(result));
 			}),
 		},
 

@@ -8,7 +8,10 @@ import TopNavigation from "../App/TopNavigation";
 
 export default class NewCharacter extends React.Component {
 	saveCharacter() {
-		shared.ajax.character.create(this.props.newCharacter.editingCharacter, guid => this.props.history.push(`/character/edit/${guid}`));
+		shared.ajax.character.create(this.props.newCharacter.editingCharacter, guid => {
+			this.props.history.push(`/character/edit/${guid}`);
+			shared.functions.dispatchFieldChanged('newCharacter', 'editingCharacter', {data: {name: '', bodyGuid: ''}});
+		});
 	}
 
 	render() {
@@ -58,7 +61,7 @@ export default class NewCharacter extends React.Component {
 					</div>
 
 					<div className="bottom-buttons-container">
-						<button className="cancelAction" onClick={() => console.log('react router cancel!')}>Cancel</button>
+						<button className="cancelAction" onClick={() => this.props.history.push('/')}>Cancel</button>
 						<button className="defaultAction" disabled={!isSaveable} onClick={this.saveCharacter.bind(this)}>Let's Go</button>
 					</div>
 				</LeftPanel>
