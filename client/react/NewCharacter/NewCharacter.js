@@ -61,8 +61,8 @@ export default class NewCharacter extends React.Component {
 					</div>
 
 					<div className="bottom-buttons-container">
-						<button className="cancelAction" onClick={() => this.props.history.push('/')}>Cancel</button>
-						<button className="defaultAction" disabled={!isSaveable} onClick={this.saveCharacter.bind(this)}>Let's Go</button>
+						<button className="cancel-action" onClick={() => this.props.history.push('/')}>Cancel</button>
+						<button className="default-action" disabled={!isSaveable} onClick={this.saveCharacter.bind(this)}>Let's Go</button>
 					</div>
 				</LeftPanel>
 				<MainPanel>

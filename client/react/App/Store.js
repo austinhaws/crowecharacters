@@ -48,6 +48,18 @@ const store = createStore((state, action) => {
 		selectCharacter: {
 			searchText: '',
 		},
+
+		admin: {
+			filters: {
+				bodyType: '',
+				search: '',
+			},
+		},
+
+		newImage: {
+			// can't put file here because it's not serializable for clone
+			// file: undefined,
+		},
 	}
     // for chrome redux plugin
     , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

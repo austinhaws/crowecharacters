@@ -8,6 +8,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import {Redirect, withRouter} from "react-router";
 import CharacterSelector from "../CharacterSelector/CharacterSelector";
 import EditCharacter from "../EditCharacter/EditCharacter";
+import Admin from "../Admin/Admin";
 
 shared.functions.appStartup();
 
@@ -44,8 +45,9 @@ class AppClass extends React.Component {
 				<div id="main-container">
 					{(this.props.ajaxingCount && (!this.props.characters.length || !this.props.bodies.length || !this.props.files.length)) ? <div>Loading...</div> :
 						<Switch>
-							<Route path='/character/new' render={() => <NewCharacter {...this.props}/>}/>
-							<Route path='/character/edit/:guid' render={router => <EditCharacter guid={router.match.params.guid} {...this.props}/>}/>
+							<Route path="/admin" render={() => <Admin {...this.props}/>}/>
+							<Route path="/character/new" render={() => <NewCharacter {...this.props}/>}/>
+							<Route path="/character/edit/:guid" render={router => <EditCharacter guid={router.match.params.guid} {...this.props}/>}/>
 							<Route render={this.renderDefault.bind(this)}/>
 						</Switch>
 					}
