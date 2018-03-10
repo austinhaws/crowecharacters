@@ -2,6 +2,9 @@ import React from "react";
 import LeftPanel from "../Panels/LeftPanel";
 import MainPanel from "../Panels/MainPanel";
 import TopNavigation from "../App/TopNavigation";
+import PropTypes from "prop-types";
+import BodyView from "../BodyView/BodyView";
+import shared from "../App/Shared";
 
 export default class AdminImageNew extends React.Component {
 	constructor(props) {
@@ -16,34 +19,38 @@ export default class AdminImageNew extends React.Component {
 	}
 
 	uploadImage(e) {
-		const reader = new FileReader();
-		const file = e.target.files[0];
-
-		reader.onload = uploadE => {
-			this.setState({previewFile: uploadE.target.result});
-			// know body size, know image size? so then can know ratio of size to start with for this image
-		};
-		this.setState({file: e.target.files[0]});
-
-		reader.readAsDataURL(file);
+		shared.ajax.file.upload(e.target.files[0], 'article', fileGuid => {
+			const body = this.props.bodies.filter(body => body.guid === this.props.bodyGuid)[0];
+			if (!body.data.images) {
+				body.data.images = [];
+			}
+			body.data.images.push(fileGuid);
+			shared.ajax.body.save(body, () => this.props.history.push(`/admin/body/edit/${this.props.bodyGuid}/${fileGuid}`))
+		});
 	}
 
 	render() {
+		const body = this.props.bodies.length ? this.props.bodies.filter(body => body.guid === this.props.bodyGuid)[0] : undefined;
+
 		return (
 			<React.Fragment>
 				<TopNavigation pageTitle="Admin - New Image"/>
-
-				<LeftPanel>
-					<input type="file" onChange={this.uploadImage.bind(this)} />
-				</LeftPanel>
-				<MainPanel>
-					{this.state.previewFile ?
-						<img
-							height={this.state.fileSizeHeight + 'px'}
-							width={this.state.fileSizeWidth + 'px'}
-							src={this.state.previewFile}/>
-						: undefined}
-				</MainPanel>
+				{body ?
+					<React.Fragment>
+						<LeftPanel>
+							<input type="file" onChange={this.uploadImage.bind(this)} />
+						</LeftPanel>
+						<MainPanel>
+							{this.state.previewFile ?
+								<img
+									height={this.state.fileSizeHeight + 'px'}
+									width={this.state.fileSizeWidth + 'px'}
+									src={this.state.previewFile}/>
+								: undefined}
+								<BodyView bodyGuid={this.props.bodyGuid} images={[]}/>
+						</MainPanel>
+					</React.Fragment>
+				: undefined }
 
 			</React.Fragment>
 		);
@@ -51,5 +58,5 @@ export default class AdminImageNew extends React.Component {
 }
 
 AdminImageNew.propTypes = {
+	bodyGuid: PropTypes.string.isRequired,
 };
-

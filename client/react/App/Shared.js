@@ -33,6 +33,13 @@ const shared = {
 		},
 		body: {
 			all: () => shared.functions.ajax('get', 'body/all', undefined, data => store.dispatch(shared.functions.objectFieldReducer(undefined, 'bodies', data))),
+			/**
+			 * save a body
+			 *
+			 * @param body the full body record to save
+			 * @param callback on finish, the result (success message)
+			 */
+			save: (body, callback) => shared.functions.ajax('post', `body/save/${body.guid}`, {data: body.data}, callback),
 		},
 
 		character: {
@@ -56,7 +63,21 @@ const shared = {
 
 		file: {
 			all: () => shared.functions.ajax('get', 'file/all', undefined, data => store.dispatch(shared.functions.objectFieldReducer(undefined, 'files', data))),
-}
+
+			/**
+			 * upload a file and get its guid back
+			 *
+			 * @param file file content from the upload file button
+			 * @param fileType what type of file it is (body, article)
+			 * @param callback gets the new guid back as a parameter with which you can then add to a body or do whatever you want
+			 */
+			upload: (file, fileType, callback) => {
+				const formData = new FormData();
+				formData.append("file", file);
+				formData.append('fileType', fileType);
+				shared.functions.ajax('post', 'file/upload', formData, callback);
+			}
+		}
 	},
 
 	functions: {
@@ -107,7 +128,7 @@ const shared = {
 			shared.functions.startAjax();
 
 			axios[method](shared.constants.urlBase + url, data)
-				.then(result => callback(result.data))
+				.then(result => callback ? callback(result.data) : undefined)
 				.catch(e => console.error('ajax error', e))
 				.finally(() => shared.functions.stopAjax());
 		},
@@ -129,6 +150,8 @@ const shared = {
 		male: () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 250"><path d="M 154.84457,3.0003138 146.81503,17.05201 h 20.07387 l -37.13664,37.136628 a 79.291719,79.291718 0 1 0 16.05908,16.059083 l 37.13663,-37.136627 v 20.073853 l 14.05171,-8.029542 V 3.0003138 H 154.84457 z M 82.578691,60.210794 a 57.210483,57.210483 0 0 1 0,114.420956 57.210483,57.210483 0 1 1 0,-114.420956 z"/></svg>,
 		female: () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 225"><path d="m 79.5,132 a 65,65 0 1 0 -23,0 v 22 h -26 v 21 h 26 v 27 h 23 v -27 H 104.5 v -21 H 79.5 v -22 z M 116.5,68 a 48,48 0 0 1 -96,0 48,48 0 1 1 96,0 z"/></svg>,
 		backArrow: () => <svg viewBox="0 0 20.57 38" xmlns="http://www.w3.org/2000/svg"><g><polyline className="cls-1" points="18.54 2 2 18.86 18.57 36"/></g></svg>,
+		checkMark: () => <svg viewBox="0 0 72 72"><path d="M71,4.775c-14.537-5.172-38.086,23.767-52.65,64.7c4.764-13.388-2.835-28.299-16.99-33.335"/></svg>,
+		roundBox: () => <svg viewBox="-3 -3 75 75"><path d="M71.584,65.257c0,3.725-3.018,6.743-6.739,6.743H6.323c-3.721,0-6.738-3.019-6.738-6.743V6.738C-0.416,3.018,2.602,0,6.323,0h58.522c3.722,0,6.739,3.018,6.739,6.739V65.257z"/></svg>,
 	},
 
 	constants: {
@@ -137,3 +160,4 @@ const shared = {
 };
 
 export default shared;
+

@@ -223,6 +223,9 @@ input[type="text"]:focus::placeholder {
 .body-template {
 	margin: 0 auto;
 }
+.body-image {
+	position: absolute;
+}
 
 .bottom-buttons-container {
 	position: absolute;
@@ -271,4 +274,33 @@ button[disabled], button[disabled]:hover {
 
 button.midget {
 	width: 40px;
+}
+
+.toggle-button {
+	position: relative;
+	cursor: pointer;
+}
+.toggle-button div {
+	stroke-width: 1;
+	stroke-linejoin: round;
+	stroke-miterlimit: 4;
+	stroke: white;
+	fill: transparent;
+	width: 25px;
+	height: 25px;
+}
+.toggle-button .toggle-check {
+	position: absolute;
+	top: -5px;
+	left: 7px;
+	stroke-width: 6px;
+	stroke: #2fd82f;
+}
+.image-row {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 13px;
+}
+.toggle-button {
+	margin-right: 20px;
 }

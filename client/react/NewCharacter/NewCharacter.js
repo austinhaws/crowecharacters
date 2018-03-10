@@ -3,8 +3,8 @@ import LeftPanel from "../Panels/LeftPanel";
 import MainPanel from "../Panels/MainPanel";
 import PropTypes from "prop-types";
 import shared from "../App/Shared";
-import CharacterBody from "../CharacterBody/CharacterBody";
 import TopNavigation from "../App/TopNavigation";
+import BodyView from "../BodyView/BodyView";
 
 export default class NewCharacter extends React.Component {
 	saveCharacter() {
@@ -66,7 +66,7 @@ export default class NewCharacter extends React.Component {
 					</div>
 				</LeftPanel>
 				<MainPanel>
-					{this.props.newCharacter.editingCharacter.data.bodyGuid ? <CharacterBody character={this.props.newCharacter.editingCharacter}/> : undefined}
+					{this.props.newCharacter.editingCharacter.data.bodyGuid ? <BodyView bodyGuid={this.props.newCharacter.editingCharacter.data.bodyGuid}/> : undefined}
 				</MainPanel>
 			</React.Fragment>
 		);

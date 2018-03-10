@@ -49,13 +49,6 @@ const store = createStore((state, action) => {
 			searchText: '',
 		},
 
-		admin: {
-			filters: {
-				bodyType: '',
-				search: '',
-			},
-		},
-
 		newImage: {
 			// can't put file here because it's not serializable for clone
 			// file: undefined,

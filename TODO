@@ -14,6 +14,12 @@
 	- <base> tag in index.html
 	- shared.constants.urlbase
 	- put web server php code in separate places: public/app
+
+[ ] need a way to show other images while placing a new image, like have a list of all the images for that character and can turn them on/off; free floating ones can be drag/dropped
+[ ] z-index of images when placed on body
+
+[ ] on image list, once body is selected, show the body
+[ ] on image list, can double click name to edit it with a checkbox button next to input to save it, or x button to cancel
 -------------------------------------------------------------
 
 admin area, show doll and the location points on it, can drag and drop the points to move where they are at
