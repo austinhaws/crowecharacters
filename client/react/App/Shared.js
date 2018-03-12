@@ -89,7 +89,9 @@ const shared = {
 		 * @param value the new value for that field
 		 * @return {{type: string, payload: {path: *, field: *, value: *}}}
 		 */
-		objectFieldReducer: (path, field, value) => { return {type:reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: path, field: field, value: value}}},
+		objectFieldReducer: (path, field, value) => {
+			return {type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: path, field: field, value: value}}
+		},
 
 		/**
 		 * a field on an object in the store has changed
@@ -143,6 +145,28 @@ const shared = {
 
 		// split path by '.', apply to baseObj to get to next object
 		objectAtPath: (baseObject, path) => (path || '').split('\.').reduce((obj, field) => field ? obj[field] : obj, baseObject),
+
+		/**
+		 * prevent default, stop propagation, stop immediate propagation
+		 * all this to prevent anything else from firing after this method is called
+		 * helpful for click events
+		 *
+		 * @param func the func to call
+		 * @param bind the "this" to bind when calling
+		 * @return {function(*=)} function for a callback
+		 */
+		handleEvent: (func, bind) => e => {
+			if (e.preventDefault) {
+				e.preventDefault();
+			}
+			if (e.stopPropagation) {
+				e.stopPropagation();
+			}
+			if (e.nativeEvent && e.nativeEvent.stopImmediatePropagation) {
+				e.nativeEvent.stopImmediatePropagation();
+			}
+			(bind ? func.bind(bind) : func)(e);
+		},
 	},
 
 	images: {

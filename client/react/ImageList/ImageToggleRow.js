@@ -12,7 +12,7 @@ export default class ImageToggleRow extends React.Component {
 
 	render() {
 		return (
-			<div className="image-row">
+			<div className="image-row" onClick={() => this.props.onSelect(this.props.image)}>
 				<ToggleButton selected={this.props.selected} onToggle={() => this.props.onToggle(this.props.image)}/>
 				<div className="image-name">{this.props.image.data.originalName}</div>
 			</div>
@@ -29,5 +29,7 @@ ImageToggleRow.propTypes = {
 
 	// called when the toggle button is clicked
 	onToggle: PropTypes.func.isRequired,
-};
 
+	// called when the image row has been clicked: image => {}
+	onSelect: PropTypes.func
+};

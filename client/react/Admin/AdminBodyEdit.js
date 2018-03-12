@@ -11,8 +11,18 @@ export default class AdminBodyEdit extends React.Component {
 		super(props);
 		this.state = {
 			selectedImages: [],
+			imageDetails: {},
 		};
 	}
+
+	renderSelectedDetail(image) {
+		return (
+			<div className="image-edit-detail-row">
+				Z-Index: <input type="text" value="put something here" name="image-z-index"/>
+			</div>
+		);
+	}
+
 	render() {
 		const body = this.props.bodies ? this.props.bodies.filter(body => body.guid === this.props.bodyGuid)[0] : undefined;
 		const images = body ? body.data.images.map(imageGuid => this.props.files.filter(file => file.guid === imageGuid)[0]) : [];
@@ -22,7 +32,11 @@ export default class AdminBodyEdit extends React.Component {
 				<TopNavigation pageTitle={`Admin - Body: ${body ? body.data.name : ''}`}/>
 
 				<LeftPanel>
-					<ImageList images={images} selectedChanged={newSelection => this.setState({selectedImages: newSelection})}/>
+					<ImageList
+						images={images}
+						selectedChanged={newSelection => this.setState({selectedImages: newSelection})}
+						renderSelectedDetail={this.renderSelectedDetail.bind(this)}
+					/>
 
 					<div className="bottom-buttons-container">
 						<button className="midget minusButton" disabled={!_.size(this.state.selectedImages)} onClick={() => console.log('minus button')}>-</button>

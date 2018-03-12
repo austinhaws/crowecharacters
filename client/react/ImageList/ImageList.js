@@ -9,7 +9,12 @@ export default class ImageList extends React.Component {
 		super(props);
 		this.state = {
 			selectedImages: [],
+			editImage: undefined,
 		};
+	}
+
+	selectImage(image) {
+		this.setState({editImage: image.guid});
 	}
 
 	toggleImage(image) {
@@ -26,7 +31,23 @@ export default class ImageList extends React.Component {
 	render() {
 		return (
 			<div className="images-list">
-				{this.props.images.map(image => <ImageToggleRow key={image.guid} image={image} selected={this.state.selectedImages.includes(image.guid)} onToggle={this.toggleImage.bind(this)}/>)}
+				{this.props.images.map(image =>
+					<React.Fragment key={`imagetogglerow-${image.guid}`}>
+						<ImageToggleRow
+							image={image}
+							selected={this.state.selectedImages.includes(image.guid)}
+							onToggle={this.toggleImage.bind(this)}
+							onSelect={this.selectImage.bind(this)}
+						/>
+						{
+							(this.props.renderSelectedDetail && this.state.editImage === image.guid) ?
+								<div className="image-list-detail">
+									{this.props.renderSelectedDetail(image)}
+								</div>
+							: undefined
+						}
+					</React.Fragment>
+				)}
 			</div>
 		);
 	}
@@ -37,5 +58,7 @@ ImageList.propTypes = {
 	images: PropTypes.array.isRequired,
 	// which images are selected have changed
 	selectedChanged: PropTypes.func.isRequired,
+	// which component to show for the detail editing of an image
+	renderSelectedDetail: PropTypes.func,
 };
 
