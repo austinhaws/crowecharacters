@@ -63,7 +63,12 @@ const shared = {
 		},
 
 		file: {
-			all: () => shared.functions.ajax('get', 'file/all', undefined, data => store.dispatch(shared.functions.objectFieldReducer(undefined, 'files', data))),
+			all: callback => shared.functions.ajax('get', 'file/all', undefined, data => {
+				store.dispatch(shared.functions.objectFieldReducer(undefined, 'files', data));
+				if (callback) {
+					callback();
+				}
+			}),
 
 			/**
 			 * upload a file and get its guid back

@@ -58,7 +58,7 @@ export default class AdminBodyEdit extends React.Component {
 
 					<div className="bottom-buttons-container">
 						<button className="midget minusButton" disabled={!_.size(this.state.selectedImages)} onClick={() => console.log('minus button')}>-</button>
-						<button className="midget plusButton" disabled={!this.state.bodyGuid} onClick={() => this.props.history.push(`/admin/image/new/${this.state.bodyGuid}`)}>+</button>
+						<button className="midget plusButton" disabled={this.state.bodyGuid} onClick={() => this.props.history.push(`/admin/image/new/${this.props.bodyGuid}`)}>+</button>
 					</div>
 				</LeftPanel>
 
