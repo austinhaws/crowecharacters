@@ -8,27 +8,29 @@ export default class ImageList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedImages: [],
 			editImage: undefined,
 		};
 	}
 
 	selectImage(image) {
-		this.setState({editImage: image.guid});
-		// if editing an image, also show it
-		if (!this.state.selectedImages.includes(image.guid)) {
+		if (this.props.renderSelectedDetail) {
+			this.setState({editImage: image.guid});
+			// if editing an image, also show it
+			if (!this.props.selectedImages.includes(image.guid)) {
+				this.toggleImage(image);
+			}
+		} else {
 			this.toggleImage(image);
 		}
 	}
 
 	toggleImage(image) {
-		const newSelectedImages = clone(this.state.selectedImages);
+		const newSelectedImages = clone(this.props.selectedImages);
 		if (newSelectedImages.includes(image.guid)) {
 			_.pull(newSelectedImages, image.guid);
 		} else {
 			newSelectedImages.push(image.guid);
 		}
-		this.setState({selectedImages: newSelectedImages});
 		this.props.selectedChanged(newSelectedImages);
 	}
 
@@ -39,7 +41,7 @@ export default class ImageList extends React.Component {
 					<React.Fragment key={`imagetogglerow-${image.guid}`}>
 						<ImageToggleRow
 							image={image}
-							selected={this.state.selectedImages.includes(image.guid)}
+							selected={this.props.selectedImages.includes(image.guid)}
 							onToggle={this.toggleImage.bind(this)}
 							onSelect={this.selectImage.bind(this)}
 						/>
@@ -60,6 +62,9 @@ export default class ImageList extends React.Component {
 ImageList.propTypes = {
 	// the images to show
 	imageFiles: PropTypes.array.isRequired,
+	// which images are currently selected
+	selectedImages: PropTypes.array.isRequired,
+
 	// which images are selected have changed
 	selectedChanged: PropTypes.func.isRequired,
 	// which component to show for the detail editing of an image

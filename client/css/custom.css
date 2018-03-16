@@ -315,3 +315,7 @@ button.midget {
 .item-row.selected {
 	color: #f4d10b;
 }
+
+.images-list {
+	margin-top: 10px;
+}

@@ -43,7 +43,7 @@ export default class BodyView extends React.Component {
 				{
 					this.props.fileImages ?
 					this.props.fileImages.map(image => {
-						const bodyImage = _.find(body.data.images, bodyImage => bodyImage.fileGuid === image.guid);
+						const bodyImage = body.data.images.find(bodyImage => bodyImage.fileGuid === image.guid);
 						return (<img
 							key={image.guid}
 							className="body-image"

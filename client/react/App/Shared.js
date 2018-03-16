@@ -2,7 +2,6 @@ import React from "react";
 import reducers from "./Reducers";
 import store from "./Store";
 import axios from "axios";
-import _ from "lodash";
 
 const shared = {
 	ajax: {
@@ -57,9 +56,7 @@ const shared = {
 					callback(data.guid);
 				});
 			}),
-			update: (character, callback) => shared.functions.ajax('post', `character/save/${character.guid}`, {data: JSON.stringify(character.data)}, result => {
-				shared.ajax.character.all(() => callback(result));
-			}),
+			update: (character, callback) => shared.functions.ajax('post', `character/save/${character.guid}`, {data: JSON.stringify(character.data)}, result => shared.ajax.character.all(() => callback ? callback(result) : undefined)),
 		},
 
 		file: {
@@ -109,7 +106,8 @@ const shared = {
 
 		bodyByGuid: guid => guid ? store.getState().bodies.find(body => body.guid === guid) : undefined,
 		fileByGuid: guid => guid ? store.getState().files.find(file => file.guid === guid) : undefined,
-		filesForBodyImages: body => body ? body.data.images.map(image => _.find(store.getState().files, file => file.guid === image.fileGuid)) : undefined,
+		filesForBodyImages: body => body ? body.data.images.map(image => store.getState().files.find(file => file.guid === image.fileGuid)) : undefined,
+		characterByGuid: guid => guid ? store.getState().characters.find(character => character.guid === guid) : undefined,
 
 		/**
 		 * the app has started, go get the lists of data that are needed like bodies, images, characters, etc

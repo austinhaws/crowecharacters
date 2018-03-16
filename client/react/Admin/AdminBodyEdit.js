@@ -23,7 +23,7 @@ export default class AdminBodyEdit extends React.Component {
 			this.editingImage = imageFile;
 		}
 		const body = this.props.bodies ? this.props.bodies.filter(body => body.guid === this.props.bodyGuid)[0] : undefined;
-		const bodyImage = body ? _.find(body.data.images, bodyImage => bodyImage.fileGuid === imageFile.guid) : undefined;
+		const bodyImage = body ? body.data.images.find(bodyImage => bodyImage.fileGuid === imageFile.guid) : undefined;
 		return (
 			<div className="image-edit-detail-row">
 				Z-Index: <input
@@ -53,6 +53,7 @@ export default class AdminBodyEdit extends React.Component {
 					<ImageList
 						imageFiles={fileImages}
 						selectedChanged={newSelection => this.setState({selectedImages: newSelection})}
+						selectedImages={this.state.selectedImages}
 						renderSelectedDetail={this.renderSelectedDetail.bind(this)}
 					/>
 

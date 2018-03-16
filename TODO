@@ -24,6 +24,8 @@
 [ ] admin body edit - delete image
 
 [ ] admin body edit / image new : take .png off of displayed image name
+
+[ ] take state out of admin body edit. use componentDidMount to load the body being edited. put it all in redux.
 -------------------------------------------------------------
 
 admin area, show doll and the location points on it, can drag and drop the points to move where they are at
