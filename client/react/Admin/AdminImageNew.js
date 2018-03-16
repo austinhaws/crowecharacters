@@ -24,7 +24,7 @@ export default class AdminImageNew extends React.Component {
 			if (!body.data.images) {
 				body.data.images = [];
 			}
-			body.data.images.push(fileGuid);
+			body.data.images.push({fileGuid: fileGuid, zIndex: 100, freeFloat: false});
 			shared.ajax.body.save(body, () => this.props.history.push(`/admin/body/edit/${this.props.bodyGuid}/${fileGuid}`))
 		});
 	}

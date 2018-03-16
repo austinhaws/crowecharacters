@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import shared from "../App/Shared";
+import _ from "lodash";
 
 export default class BodyView extends React.Component {
 	render() {
@@ -37,16 +38,19 @@ export default class BodyView extends React.Component {
 				<img
 					className="body-template body-image"
 					src={`${shared.constants.urlBase}images/bodies/${file.data.name}`}
-					style={sizeStyle}
+					style={_.assign({zIndex: body.data.zIndex}, sizeStyle)}
 				/>
 				{
-					this.props.images ?
-					this.props.images.map(image => <img
-						key={image.guid}
-						className="body-image"
-						src={`${shared.constants.urlBase}images/${image.data.fileType}/${image.data.name}`}
-						style={sizeStyle}
-					/>)
+					this.props.fileImages ?
+					this.props.fileImages.map(image => {
+						const bodyImage = _.find(body.data.images, bodyImage => bodyImage.fileGuid === image.guid);
+						return (<img
+							key={image.guid}
+							className="body-image"
+							src={`${shared.constants.urlBase}images/${image.data.fileType}/${image.data.name}`}
+							style={_.assign({zIndex: bodyImage.zIndex}, sizeStyle)}
+						/>);
+					})
 					: undefined
 				}
 			</div>
@@ -57,7 +61,7 @@ export default class BodyView extends React.Component {
 BodyView.propTypes = {
 	// the character to display
 	bodyGuid: PropTypes.string.isRequired,
-	// the images to display on the body
-	images: PropTypes.array,
+	// the fileImages to display on the body
+	fileImages: PropTypes.array,
 };
 

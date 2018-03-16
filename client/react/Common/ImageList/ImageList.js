@@ -15,6 +15,10 @@ export default class ImageList extends React.Component {
 
 	selectImage(image) {
 		this.setState({editImage: image.guid});
+		// if editing an image, also show it
+		if (!this.state.selectedImages.includes(image.guid)) {
+			this.toggleImage(image);
+		}
 	}
 
 	toggleImage(image) {
@@ -31,7 +35,7 @@ export default class ImageList extends React.Component {
 	render() {
 		return (
 			<div className="images-list">
-				{this.props.images.map(image =>
+				{this.props.imageFiles.map(image =>
 					<React.Fragment key={`imagetogglerow-${image.guid}`}>
 						<ImageToggleRow
 							image={image}
@@ -55,7 +59,7 @@ export default class ImageList extends React.Component {
 
 ImageList.propTypes = {
 	// the images to show
-	images: PropTypes.array.isRequired,
+	imageFiles: PropTypes.array.isRequired,
 	// which images are selected have changed
 	selectedChanged: PropTypes.func.isRequired,
 	// which component to show for the detail editing of an image

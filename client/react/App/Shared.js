@@ -2,6 +2,7 @@ import React from "react";
 import reducers from "./Reducers";
 import store from "./Store";
 import axios from "axios";
+import _ from "lodash";
 
 const shared = {
 	ajax: {
@@ -39,7 +40,7 @@ const shared = {
 			 * @param body the full body record to save
 			 * @param callback on finish, the result (success message)
 			 */
-			save: (body, callback) => shared.functions.ajax('post', `body/save/${body.guid}`, {data: body.data}, callback),
+			save: (body, callback) => shared.functions.ajax('post', `body/save/${body.guid}`, {data: JSON.stringify(body.data)}, callback),
 		},
 
 		character: {
@@ -101,8 +102,9 @@ const shared = {
 		 */
 		dispatchFieldChanged: (objectPath, field, value) => store.dispatch(shared.functions.objectFieldReducer(objectPath, field, value)),
 
-		bodyByGuid: guid => store.getState().bodies.find(body => body.guid === guid),
-		fileByGuid: guid => store.getState().files.find(file => file.guid === guid),
+		bodyByGuid: guid => guid ? store.getState().bodies.find(body => body.guid === guid) : undefined,
+		fileByGuid: guid => guid ? store.getState().files.find(file => file.guid === guid) : undefined,
+		filesForBodyImages: body => body ? body.data.images.map(image => _.find(store.getState().files, file => file.guid === image.fileGuid)) : undefined,
 
 		/**
 		 * the app has started, go get the lists of data that are needed like bodies, images, characters, etc

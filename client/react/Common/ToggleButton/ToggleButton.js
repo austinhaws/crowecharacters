@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import shared from "../App/Shared";
+import shared from "../../App/Shared";
 
 export default class ToggleButton extends React.Component {
 	render() {

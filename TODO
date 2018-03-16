@@ -20,6 +20,8 @@
 
 [ ] on image list, once body is selected, show the body
 [ ] on image list, can double click name to edit it with a checkbox button next to input to save it, or x button to cancel
+
+[ ] admin body edit - delete image
 -------------------------------------------------------------
 
 admin area, show doll and the location points on it, can drag and drop the points to move where they are at

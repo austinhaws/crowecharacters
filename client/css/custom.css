@@ -305,3 +305,13 @@ button.midget {
 .toggle-button {
 	margin-right: 20px;
 }
+
+.items-list {
+
+}
+.item-row {
+	cursor: pointer;
+}
+.item-row.selected {
+	color: #f4d10b;
+}
