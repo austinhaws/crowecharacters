@@ -146,7 +146,7 @@ const shared = {
 		 * @param classes
 		 * @return {string}
 		 */
-		joinClasses: classes => classes ? classes.filter(c => c).join(' ') : '',
+		joinClasses: classes => classes ? _.isArray(classes) ? classes.filter(c => c).join(' ') : shared.functions.joinClasses(classes.split(' ')) : '',
 
 		// split path by '.', apply to baseObj to get to next object
 		objectAtPath: (baseObject, path) => (path || '').split('\.').reduce((obj, field) => field ? obj[field] : obj, baseObject),

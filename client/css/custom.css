@@ -319,3 +319,34 @@ button.midget {
 .images-list {
 	margin-top: 10px;
 }
+
+.button-container {
+	position: relative;
+	display: inline;
+}
+.button-container button {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.button-container .opaque-background {
+	opacity: .5;
+	background-color: black;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100px;
+	height: 40px;
+}
+.body-buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding-right: 13px;
+}
+.body-bottom.bottom-buttons-container {
+	bottom: 49px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}

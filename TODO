@@ -26,6 +26,8 @@
 [ ] admin body edit / image new : take .png off of displayed image name
 
 [ ] take state out of admin body edit. use componentDidMount to load the body being edited. put it all in redux.
+
+[ ] calls get character multiopel times on page load? this was on the edit characte rpage
 -------------------------------------------------------------
 
 admin area, show doll and the location points on it, can drag and drop the points to move where they are at

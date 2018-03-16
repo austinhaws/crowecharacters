@@ -7,6 +7,7 @@ import TopNavigation from "../App/TopNavigation";
 import clone from "clone";
 import BodyView from "../BodyView/BodyView";
 import ImageList from "../Common/ImageList/ImageList";
+import Button from "../Common/Button/Button";
 
 export default class EditCharacter extends React.Component {
 	saveCharacter() {
@@ -52,10 +53,17 @@ export default class EditCharacter extends React.Component {
 				</LeftPanel>
 
 				<MainPanel>
-					{this.props.editCharacter.character ? <BodyView
-						bodyGuid={this.props.editCharacter.character.data.bodyGuid}
-						fileImages={this.props.editCharacter.character.data.images ? this.props.editCharacter.character.data.images.map(shared.functions.fileByGuid) : undefined}
-					/> : undefined}
+					{this.props.editCharacter.character ?
+						<React.Fragment>
+							<BodyView
+								bodyGuid={this.props.editCharacter.character.data.bodyGuid}
+								fileImages={this.props.editCharacter.character.data.images ? this.props.editCharacter.character.data.images.map(shared.functions.fileByGuid) : undefined}
+							/>
+							<div className="bottom-buttons-container body-bottom">
+								<Button title="Print" className="print-button" onClick={() => this.props.history.push(`/character/print/${this.props.editCharacter.character.guid}`)}/>
+							</div>
+						</React.Fragment>
+						: undefined}
 				</MainPanel>
 
 			</React.Fragment>
@@ -69,5 +77,8 @@ EditCharacter.propTypes = {
 
 	// files from redux state
 	files: PropTypes.array.isRequired,
+
+	// comes from React Router for routing history
+	history: PropTypes.object.isRequired,
 };
 
