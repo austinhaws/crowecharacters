@@ -350,3 +350,13 @@ button.midget {
 	flex-direction: row;
 	justify-content: flex-end;
 }
+
+.print-paper {
+	height: 785px;
+	width: 607px;
+	margin: 0 auto;
+	background-color: white;
+}
+.print-paper .body-container {
+	margin-top: 0;
+}

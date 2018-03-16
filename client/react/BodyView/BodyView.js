@@ -18,8 +18,10 @@ export default class BodyView extends React.Component {
 
 		const ratio = Math.min(heightRatio, widthRatio);
 
-		const imageHeight = file.data.height * ratio;
-		const imageWidth = file.data.width * ratio;
+		const printRatio = (this.props.printPercent || 100.0) / 100.0;
+
+		const imageHeight = file.data.height * ratio * printRatio;
+		const imageWidth = file.data.width * ratio * printRatio;
 
 		const imageMarginLeft = containerWidth / 2.0 - imageWidth / 2.0;
 
@@ -29,6 +31,7 @@ export default class BodyView extends React.Component {
 			left: `${imageMarginLeft}px`,
 			top: '0',
 		};
+
 
 		return (
 			<div className="body-container" style={{
@@ -63,5 +66,7 @@ BodyView.propTypes = {
 	bodyGuid: PropTypes.string.isRequired,
 	// the fileImages to display on the body
 	fileImages: PropTypes.array,
+	// can override draw percent for the body (for printing)
+	printPercent: PropTypes.number,
 };
 

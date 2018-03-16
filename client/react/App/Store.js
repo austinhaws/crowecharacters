@@ -45,6 +45,10 @@ const store = createStore((state, action) => {
 			}
 		},
 
+		printCharacter: {
+			character: undefined,
+		},
+
 		selectCharacter: {
 			searchText: '',
 		},

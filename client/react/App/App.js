@@ -9,6 +9,7 @@ import {Redirect, withRouter} from "react-router";
 import CharacterSelector from "../CharacterSelector/CharacterSelector";
 import EditCharacter from "../EditCharacter/EditCharacter";
 import Admin from "../Admin/Admin";
+import PrintCharacter from "../PrintCharacter/PrintCharacter";
 
 shared.functions.appStartup();
 
@@ -48,6 +49,7 @@ class AppClass extends React.Component {
 							<Route path="/admin" render={() => <Admin {...this.props}/>}/>
 							<Route path="/character/new" render={() => <NewCharacter {...this.props}/>}/>
 							<Route path="/character/edit/:guid" render={router => <EditCharacter guid={router.match.params.guid} {...this.props}/>}/>
+							<Route path="/character/print/:guid" render={router => <PrintCharacter guid={router.match.params.guid} {...this.props}/>}/>
 							<Route render={this.renderDefault.bind(this)}/>
 						</Switch>
 					}

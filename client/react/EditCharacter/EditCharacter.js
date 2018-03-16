@@ -39,7 +39,7 @@ export default class EditCharacter extends React.Component {
 
 				<LeftPanel>
 
-						<select value={this.props.editCharacter.filters.groupBy} onChange={e => shared.functions.dispatchFieldChanged('editCharacter.filters', 'groupBy', e.target.value)}>
+					<select value={this.props.editCharacter.filters.groupBy} onChange={e => shared.functions.dispatchFieldChanged('editCharacter.filters', 'groupBy', e.target.value)}>
 						<option value="bodyPart">By Body Part</option>
 						<option value="gearSet">By Gear Sets</option>
 					</select>
