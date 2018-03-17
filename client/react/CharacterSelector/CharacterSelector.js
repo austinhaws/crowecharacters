@@ -38,7 +38,6 @@ export default class CharacterSelector extends React.Component {
 					</div>
 				</LeftPanel>
 				<MainPanel>
-					Gimme Some News
 				</MainPanel>
 			</React.Fragment>
 		);

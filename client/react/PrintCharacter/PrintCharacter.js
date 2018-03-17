@@ -8,6 +8,7 @@ import BodyView from "../BodyView/BodyView";
 import PrintPaper from "../PrintPaper/PrintPaper";
 import MainPanel from "../Panels/MainPanel";
 import ToggleButton from "../Common/ToggleButton/ToggleButton";
+import Button from "../Common/Button/Button";
 
 export default class PrintCharacter extends React.Component {
 	componentDidMount() {
@@ -34,17 +35,24 @@ export default class PrintCharacter extends React.Component {
 
 				<LeftPanel>
 
-					<input
-						className="first-input data-entry"
-						type="text"
-						value={this.props.printCharacter.character.data.printPercent || ''}
-						onChange={e => this.dispatchSaveChange('printPercent', e.target.value)}
-						placeholder="PRINT PERCENT"
-					/>
-					<ToggleButton selected={this.props.printCharacter.character ? this.props.printCharacter.character.data.printName : false} onToggle={() => this.dispatchSaveChange('printName', !this.props.printCharacter.character.data.printName)}/>Show Name<br/>
-					<ToggleButton selected={this.props.printCharacter.character ? this.props.printCharacter.character.data.printCutBorder : false} onToggle={() => this.dispatchSaveChange('printCutBorder', !this.props.printCharacter.character.data.printCutBorder)}/>Print cutting border<br/>
-					cancel button to leave print page<br/>
-					print button
+					<div className="image-row">
+						<input
+							className="first-input data-entry"
+							type="text"
+							value={this.props.printCharacter.character.data.printPercent || ''}
+							onChange={e => this.dispatchSaveChange('printPercent', e.target.value)}
+							placeholder="PRINT PERCENT"
+						/>
+					</div>
+					<div className="image-row">
+						<ToggleButton selected={this.props.printCharacter.character ? this.props.printCharacter.character.data.printName : false} onToggle={() => this.dispatchSaveChange('printName', !this.props.printCharacter.character.data.printName)}/>
+						<div className="image-name">Show Name</div>
+					</div>
+
+					<div className="image-row">
+						<ToggleButton selected={this.props.printCharacter.character ? this.props.printCharacter.character.data.printCutBorder : false} onToggle={() => this.dispatchSaveChange('printCutBorder', !this.props.printCharacter.character.data.printCutBorder)}/>
+						<div className="image-name">Print cutting border</div>
+					</div>
 				</LeftPanel>
 
 				<MainPanel>
@@ -59,6 +67,10 @@ export default class PrintCharacter extends React.Component {
 							/>
 						</PrintPaper>
 						: undefined}
+					<div className="bottom-buttons-container">
+						<Button title="Cancel" className="cancel-button" onClick={() => this.props.history.goBack()}/>
+						<Button title="Print" className="print-button" onClick={() => console.log('PRINT!')}/>
+					</div>
 				</MainPanel>
 
 			</React.Fragment>

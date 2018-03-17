@@ -234,7 +234,9 @@ input[type="text"]:focus::placeholder {
 	flex-direction: row;
 	justify-content: space-between;
 	width: calc(100% - 20px);
+	height: 40px;
 	padding-bottom: 8px;
+	padding-left: 10px;
 }
 
 button {
@@ -322,19 +324,20 @@ button.midget {
 
 .button-container {
 	position: relative;
-	display: inline;
+	width: 100px;
+	height: 40px;
 }
 .button-container button {
 	position: absolute;
 	top: 0;
-	right: 0;
+	left: 0;
 }
 .button-container .opaque-background {
 	opacity: .5;
 	background-color: black;
 	position: absolute;
 	top: 0;
-	right: 0;
+	left: 0;
 	width: 100px;
 	height: 40px;
 }
@@ -345,7 +348,7 @@ button.midget {
 	padding-right: 13px;
 }
 .body-bottom.bottom-buttons-container {
-	bottom: 49px;
+	bottom: 5px;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
@@ -372,5 +375,5 @@ button.midget {
 	left: 12px;
 	font-weight: bold;
 	font-style: italic;
-	color: #676767;;
+	color: #676767;
 }
