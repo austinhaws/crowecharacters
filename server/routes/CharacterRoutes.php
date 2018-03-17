@@ -9,8 +9,8 @@ $router->group(['prefix' => 'character'], function () use ($router) {
 
 		$query->select('characters.*');
 
-		$query->join('characters_x_accounts', 'characters_x_accounts.character_id', '=', 'characters.id');
-		$query->join('accounts', 'characters_x_accounts.account_id', '=', 'accounts.id');
+		$query->join('characters_x_accounts', 'characters_x_accounts.characters_id', '=', 'characters.id');
+		$query->join('accounts', 'characters_x_accounts.accounts_id', '=', 'accounts.id');
 
 		$query->where('accounts.guid', $accountGuid);
 

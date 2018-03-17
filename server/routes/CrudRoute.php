@@ -78,7 +78,7 @@ class CrudRoute
 	public static function optionsAllRoutes($notRoutes = []) {
 		$options = [CrudRoute::OPTION_NEW, CrudRoute::OPTION_DELETE, CrudRoute::OPTION_GET, CrudRoute::OPTION_ALL, CrudRoute::OPTION_SAVE];
 		return array_reduce($options, function ($carry, $item) use ($notRoutes){
-			$carry[$item] = !array_search($item, $notRoutes);
+			$carry[$item] = false === array_search($item, $notRoutes);
 			return $carry;
 		}, []);
 	}

@@ -43,7 +43,7 @@ const shared = {
 		},
 
 		character: {
-			all: callback => shared.functions.ajax('get', 'character/all', undefined, characters =>
+			all: callback => shared.functions.ajax('get', `character/all/${store.getState().account.guid}`, undefined, characters =>
 				{store.dispatch(shared.functions.objectFieldReducer(undefined, 'characters', characters));
 				if (callback) {
 					callback();
