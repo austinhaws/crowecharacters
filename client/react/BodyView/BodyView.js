@@ -25,13 +25,21 @@ export default class BodyView extends React.Component {
 
 		const imageMarginLeft = containerWidth / 2.0 - imageWidth / 2.0;
 
+		const MAX_FONT = 22;
+		const MIN_FONT = 6;
+		const FONT_RANGE = MAX_FONT - MIN_FONT;
+		const nameFont = MAX_FONT - (FONT_RANGE * (1 - printRatio));
+
 		const sizeStyle = {
 			width:`${imageWidth}px`,
 			height:`${imageHeight}px`,
 			left: `${imageMarginLeft}px`,
-			top: '0',
+			top: 0,
 		};
 
+		const borderSizeStyle = {
+			height:`${imageHeight * 1.25}px`,
+		};
 
 		return (
 			<div className="body-container" style={{
@@ -56,6 +64,14 @@ export default class BodyView extends React.Component {
 					})
 					: undefined
 				}
+
+				{this.props.printCutBorder ? <img src="img/PrintBorder.png" className="body-image" style={_.assign({zIndex: 1000}, sizeStyle, borderSizeStyle)}/>: undefined}
+
+				{this.props.printName ? (
+					<div className="body-name" style={{fontSize: `${nameFont}px`, paddingTop:`${nameFont / 2}px`}}>
+						{this.props.printName}
+					</div>
+				) : undefined}
 			</div>
 		);
 	}
@@ -68,5 +84,9 @@ BodyView.propTypes = {
 	fileImages: PropTypes.array,
 	// can override draw percent for the body (for printing)
 	printPercent: PropTypes.number,
+	// if !undefined then shows the given name above the body
+	printName: PropTypes.string,
+	// should the cutting outline be printed
+	printCutBorder: PropTypes.bool,
 };
 

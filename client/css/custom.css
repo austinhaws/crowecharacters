@@ -356,7 +356,21 @@ button.midget {
 	width: 607px;
 	margin: 0 auto;
 	background-color: white;
+	position: relative;
 }
 .print-paper .body-container {
 	margin-top: 0;
+}
+
+.body-name {
+	text-align: center;
+}
+
+.print-paper-size {
+	position: absolute;
+	top: 6px;
+	left: 12px;
+	font-weight: bold;
+	font-style: italic;
+	color: #676767;;
 }

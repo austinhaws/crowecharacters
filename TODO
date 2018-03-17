@@ -28,6 +28,7 @@
 [ ] take state out of admin body edit. use componentDidMount to load the body being edited. put it all in redux.
 
 [ ] calls get character multiopel times on page load? this was on the edit characte rpage
+[ ] for printing, draw a hidden div with a "print" class that is the actual image to draw ratioed for a paper size per the ratio setting; when printing, print css will show this div and hide the rest
 -------------------------------------------------------------
 
 admin area, show doll and the location points on it, can drag and drop the points to move where they are at
