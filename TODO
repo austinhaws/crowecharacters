@@ -1,23 +1,13 @@
 [ ] ajaxing spinner
 
-[ ] when getting charactres from server, use accountguid
 
-
-[ ] when app opens on character selection page and no character is selected, show news in main nav area: new body types, upcoming blitzes, etc
-
-[ ] tie characters to accounts
-	- when creating a character, use current logged in account id
-[ ] account ids: have a table of random adjectives/nouns/number to combine to create user ids that tie to an account
+[ ] character selection - show news in main nav area: new body types, upcoming blitzes, etc
 
 [ ] track what needs set when going to deploy
 	- <base> tag in index.html
 	- shared.constants.urlbase
 	- put web server php code in separate places: public/app
 
-[ ] need a way to show other images while placing a new image, like have a list of all the images for that character and can turn them on/off; free floating ones can be drag/dropped
-[ ] z-index of images when placed on body
-
-[ ] on image list, once body is selected, show the body
 [ ] on image list, can double click name to edit it with a checkbox button next to input to save it, or x button to cancel
 
 [ ] admin body edit - delete image
@@ -27,7 +17,9 @@
 [ ] take state out of admin body edit. use componentDidMount to load the body being edited. put it all in redux.
 
 [ ] calls get character multiopel times on page load? this was on the edit characte rpage
+
 [ ] for printing, draw a hidden div with a "print" class that is the actual image to draw ratioed for a paper size per the ratio setting; when printing, print css will show this div and hide the rest
+
 -------------------------------------------------------------
 
 admin area, show doll and the location points on it, can drag and drop the points to move where they are at
@@ -36,8 +28,6 @@ admin area, show doll and the location points on it, can drag and drop the point
 
 when adding an image, pick which body type, it then displays the body doll with the location points for it. then click on which body point the image will attach to. the image then appears at that location. can then pick rotation and reflection for that location
 	• can then add a new connection and pick a body/location point/rotation/reflection
-
-use code splitting!
 
 free floating images, can place a scar anywhere and can rotate it whoever you want
 
