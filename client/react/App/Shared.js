@@ -32,7 +32,10 @@ const shared = {
 			get: (phrase, callback) => shared.functions.ajax('get', `account/get/${phrase}`, undefined, callback)
 		},
 		body: {
-			all: () => shared.functions.ajax('get', 'body/all', undefined, data => store.dispatch(shared.functions.objectFieldReducer(undefined, 'bodies', data))),
+			all: callback => shared.functions.ajax('get', 'body/all', undefined, data => {
+				store.dispatch(shared.functions.objectFieldReducer(undefined, 'bodies', data));
+				callback && callback();
+			}),
 			/**
 			 * save a body
 			 *

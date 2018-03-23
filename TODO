@@ -26,7 +26,6 @@
 [ ] after uploading file, put it in public server images folder, don't make public images writeable
 
 [ ] admin, add body file needs to be made to work
-[ ] admin, body edit, add new image, goes back to body edit, but doesn't list image, refresh page, and new image shows up; probably just need to reload the cache of body images
 [ ] admin edit, + button in left panel is too close to right side...
 [ ] admin edit, change z-index, page flickers and loses current item
 [ ] going back from print detail view goes all the back to the start instead of back to character edit, because it was using the cancel button for going back. remove cancel and just use back arrow
