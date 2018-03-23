@@ -1,6 +1,6 @@
 <?php
 
-require_once('../constants.php');
+require_once(dirname(__FILE__).'/../constants.php');
 
 /**
  * Class Crud
