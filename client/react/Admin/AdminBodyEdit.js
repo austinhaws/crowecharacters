@@ -41,6 +41,16 @@ export default class AdminBodyEdit extends React.Component {
 		);
 	}
 
+	deleteSelectedImage() {
+		if (this.state.selectedImages.length && confirm('Are you sure you want to delete all currently check marked images?')) {
+			const body = this.props.bodies ? this.props.bodies.filter(body => body.guid === this.props.bodyGuid)[0] : undefined;
+			if (body) {
+				body.data.images = body.data.images.filter(image => !this.state.selectedImages.includes(image.fileGuid));
+				shared.ajax.body.save(body)
+			}
+		}
+	}
+
 	render() {
 		const body = this.props.bodies ? this.props.bodies.filter(body => body.guid === this.props.bodyGuid)[0] : undefined;
 		const fileImages = body ? body.data.images.map(image => this.props.files.filter(file => file.guid === image.fileGuid)[0]) : [];
@@ -58,7 +68,7 @@ export default class AdminBodyEdit extends React.Component {
 					/>
 
 					<div className="bottom-buttons-container">
-						<button className="midget minusButton" disabled={!_.size(this.state.selectedImages)} onClick={() => console.log('minus button')}>-</button>
+						<button className="midget minusButton" disabled={!_.size(this.state.selectedImages)} onClick={this.deleteSelectedImage.bind(this)}>-</button>
 						<button className="midget plusButton" disabled={this.state.bodyGuid} onClick={() => this.props.history.push(`/admin/image/new/${this.props.bodyGuid}`)}>+</button>
 					</div>
 				</LeftPanel>

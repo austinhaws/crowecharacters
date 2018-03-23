@@ -29,6 +29,7 @@
 [ ] admin edit, + button in left panel is too close to right side...
 [ ] admin edit, change z-index, page flickers and loses current item
 [ ] going back from print detail view goes all the back to the start instead of back to character edit, because it was using the cancel button for going back. remove cancel and just use back arrow
+[ ] for body image z-index, use a slider with lock points so that it isn't just numbers
 -------------------------------------------------------------
 
 admin area, show doll and the location points on it, can drag and drop the points to move where they are at
