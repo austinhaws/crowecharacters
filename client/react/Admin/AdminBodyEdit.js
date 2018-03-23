@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import ImageList from "../Common/ImageList/ImageList";
 import _ from "lodash";
 import shared from "../App/Shared";
+import Slider from 'react-rangeslider';
 
 export default class AdminBodyEdit extends React.Component {
 	constructor(props) {
@@ -26,13 +27,14 @@ export default class AdminBodyEdit extends React.Component {
 		const bodyImage = body ? body.data.images.find(bodyImage => bodyImage.fileGuid === imageFile.guid) : undefined;
 		return (
 			<div className="image-edit-detail-row">
-				Z-Index: <input
-					type="text"
-					value={bodyImage.zIndex || ''}
-					name="image-z-index"
-					onChange={e => {
-						this.editingImage.zIndex = e.target.value;
-						bodyImage.zIndex = e.target.value;
+				Z-Index: <Slider
+					value={bodyImage.zIndex || 0}
+					min={0}
+					max={500}
+					step={10}
+					onChange={value => {
+						this.editingImage.zIndex = value;
+						bodyImage.zIndex = value;
 						this.setState(this.state);
 						shared.ajax.body.save(body);
 					}}
