@@ -43,7 +43,8 @@ $router->group(['prefix' => 'account'], function () use ($router) {
 	}
 
 	$router->get('new', function () {
-		return response(json_encode(cleanRecord(newAccount())));
+		$account = newAccount();
+		return response(json_encode(cleanRecord($account)));
 	});
 
 	$router->get('get/{phrase}', function ($phrase) {
