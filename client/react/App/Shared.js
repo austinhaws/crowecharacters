@@ -184,7 +184,7 @@ const shared = {
 	},
 
 	constants: {
-		urlBase: 'http://localhost/crowe/server/public/',
+		urlBase: globals.urlBase,
 	}
 };
 

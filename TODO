@@ -1,12 +1,15 @@
+[ ] if no localstorage account hten getting hello world back from account
+
 [ ] ajaxing spinner
 
 
 [ ] character selection - show news in main nav area: new body types, upcoming blitzes, etc
 
 [ ] track what needs set when going to deploy
-	- <base> tag in index.html
-	- shared.constants.urlbase
-	- put web server php code in separate places: public/app
+	- √<base> tag in index.html <-- no need to change this
+	- √shared.constants.urlbase : globals on index.html
+	- √put web server php code in separate places: public/app
+	- √.env IMAGES_FOLDER
 
 [ ] on image list, can double click name to edit it with a checkbox button next to input to save it, or x button to cancel
 
@@ -20,6 +23,13 @@
 
 [ ] for printing, draw a hidden div with a "print" class that is the actual image to draw ratioed for a paper size per the ratio setting; when printing, print css will show this div and hide the rest
 
+[ ] after uploading file, put it in public server images folder, don't make public images writeable
+
+[ ] admin, add body file needs to be made to work
+[ ] admin, body edit, add new image, goes back to body edit, but doesn't list image, refresh page, and new image shows up; probably just need to reload the cache of body images
+[ ] admin edit, + button in left panel is too close to right side...
+[ ] admin edit, change z-index, page flickers and loses current item
+[ ] going back from print detail view goes all the back to the start instead of back to character edit, because it was using the cancel button for going back. remove cancel and just use back arrow
 -------------------------------------------------------------
 
 admin area, show doll and the location points on it, can drag and drop the points to move where they are at
