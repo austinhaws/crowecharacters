@@ -9,6 +9,7 @@ import PrintPaper from "../PrintPaper/PrintPaper";
 import MainPanel from "../Panels/MainPanel";
 import ToggleButton from "../Common/ToggleButton/ToggleButton";
 import Button from "../Common/Button/Button";
+import Slider from 'react-rangeslider';
 
 export default class PrintCharacter extends React.Component {
 	componentDidMount() {
@@ -35,13 +36,14 @@ export default class PrintCharacter extends React.Component {
 
 				<LeftPanel>
 
-					<div className="image-row">
-						<input
-							className="first-input data-entry"
-							type="text"
-							value={this.props.printCharacter.character.data.printPercent || ''}
-							onChange={e => this.dispatchSaveChange('printPercent', e.target.value)}
-							placeholder="PRINT PERCENT"
+					<div className="image-row multi-row">
+						<div>Print Percent:</div>
+						<Slider
+							value={this.props.printCharacter.character.data.printPercent || 50}
+							min={20}
+							max={100}
+							step={1}
+							onChange={value => this.dispatchSaveChange('printPercent', value)}
 						/>
 					</div>
 					<div className="image-row">

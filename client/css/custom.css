@@ -304,6 +304,9 @@ button.midget {
 	margin-bottom: 13px;
 	cursor: pointer;
 }
+.image-row.multi-row {
+	flex-direction: column;
+}
 .toggle-button {
 	margin-right: 20px;
 }
