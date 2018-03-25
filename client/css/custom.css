@@ -380,3 +380,13 @@ button.midget {
 	font-style: italic;
 	color: #676767;
 }
+
+
+.print-character {
+	height: 1000px;
+	width: 2000px;
+}
+
+.print-only {
+	display: none;
+}

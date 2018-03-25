@@ -1,7 +1,8 @@
-[ ] if no localstorage account hten getting hello world back from account
+[ ] going back from print detail view goes all the back to the start instead of back to character edit, because it was using the cancel button for going back. remove cancel and just use back arrow
+[ ] admin, add body file needs to be made to work
+
 
 [ ] ajaxing spinner
-
 
 [ ] character selection - show news in main nav area: new body types, upcoming blitzes, etc
 
@@ -13,30 +14,19 @@
 
 [ ] on image list, can double click name to edit it with a checkbox button next to input to save it, or x button to cancel
 
-[ ] admin body edit - delete image
-
 [ ] admin body edit / image new : take .png off of displayed image name
 
 [ ] take state out of admin body edit. use componentDidMount to load the body being edited. put it all in redux.
 
-[ ] calls get character multiopel times on page load? this was on the edit characte rpage
+[ ] calls get character multiple times on page load? this was on the edit character page
 
-[ ] for printing, draw a hidden div with a "print" class that is the actual image to draw ratioed for a paper size per the ratio setting; when printing, print css will show this div and hide the rest
-
-[ ] after uploading file, put it in public server images folder, don't make public images writeable
-
-[ ] admin, add body file needs to be made to work
 [ ] admin edit, + button in left panel is too close to right side...
 [ ] admin edit, change z-index, page flickers and loses current item
-[ ] going back from print detail view goes all the back to the start instead of back to character edit, because it was using the cancel button for going back. remove cancel and just use back arrow
 -------------------------------------------------------------
 
 admin area, show doll and the location points on it, can drag and drop the points to move where they are at
 
 [ ] free floating image options for scars and things that you can place wherever you want
-
-when adding an image, pick which body type, it then displays the body doll with the location points for it. then click on which body point the image will attach to. the image then appears at that location. can then pick rotation and reflection for that location
-	• can then add a new connection and pick a body/location point/rotation/reflection
 
 free floating images, can place a scar anywhere and can rotate it whoever you want
 
@@ -45,7 +35,3 @@ when logging on a new browser and already have an account then it will give you 
 
 
 [ ] add google analytics
-
-
------------
-[ ] Top title area could use a really cool image. maybe a collage of Crowe Characters.

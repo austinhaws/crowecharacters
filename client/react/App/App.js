@@ -10,6 +10,8 @@ import CharacterSelector from "../CharacterSelector/CharacterSelector";
 import EditCharacter from "../EditCharacter/EditCharacter";
 import Admin from "../Admin/Admin";
 import PrintCharacter from "../PrintCharacter/PrintCharacter";
+import PrintPaper from "../PrintPaper/PrintPaper";
+import BodyView from "../BodyView/BodyView";
 
 shared.functions.appStartup();
 
@@ -37,6 +39,19 @@ class AppClass extends React.Component {
 	render() {
 		return (
 			<div id="app-container">
+				<div className="print-container print-only">
+					{this.props.printCharacter.character ?
+						<PrintPaper>
+							<BodyView
+								bodyGuid={this.props.printCharacter.character.data.bodyGuid}
+								fileImages={this.props.printCharacter.character.data.images ? this.props.printCharacter.character.data.images.map(shared.functions.fileByGuid) : undefined}
+								printPercent={this.props.printCharacter.character ? parseFloat(this.props.printCharacter.character.data.printPercent) : undefined}
+								printName={this.props.printCharacter.character.data.printName ? this.props.printCharacter.character.data.name : undefined}
+								printCutBorder={this.props.printCharacter.character.data.printCutBorder}
+							/>
+						</PrintPaper>
+						: undefined}
+				</div>
 				<div id="top-title-container">
 					<div id="top-title">Crowe Character</div>
 					<div id="right-account">

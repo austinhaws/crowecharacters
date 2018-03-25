@@ -4,12 +4,11 @@ import PropTypes from "prop-types";
 import shared from "../App/Shared";
 import TopNavigation from "../App/TopNavigation";
 import clone from "clone";
-import BodyView from "../BodyView/BodyView";
-import PrintPaper from "../PrintPaper/PrintPaper";
 import MainPanel from "../Panels/MainPanel";
 import ToggleButton from "../Common/ToggleButton/ToggleButton";
 import Button from "../Common/Button/Button";
 import Slider from 'react-rangeslider';
+import PrintPaperWithCharacter from "../PrintPaper/PrintPaperWithCharacter";
 
 export default class PrintCharacter extends React.Component {
 	componentDidMount() {
@@ -58,23 +57,12 @@ export default class PrintCharacter extends React.Component {
 				</LeftPanel>
 
 				<MainPanel>
-					{this.props.printCharacter.character ?
-						<PrintPaper>
-							<BodyView
-								bodyGuid={this.props.printCharacter.character.data.bodyGuid}
-								fileImages={this.props.printCharacter.character.data.images ? this.props.printCharacter.character.data.images.map(shared.functions.fileByGuid) : undefined}
-								printPercent={this.props.printCharacter.character ? parseFloat(this.props.printCharacter.character.data.printPercent) : undefined}
-								printName={this.props.printCharacter.character.data.printName ? this.props.printCharacter.character.data.name : undefined}
-								printCutBorder={this.props.printCharacter.character.data.printCutBorder}
-							/>
-						</PrintPaper>
-						: undefined}
+					{this.props.printCharacter.character ? <PrintPaperWithCharacter character={this.props.printCharacter.character}/> : undefined}
 					<div className="bottom-buttons-container">
 						<Button title="Cancel" className="cancel-button" onClick={() => this.props.history.goBack()}/>
-						<Button title="Print" className="print-button" onClick={() => console.log('PRINT!')}/>
+						<Button title="Print" className="print-button" onClick={window.print}/>
 					</div>
 				</MainPanel>
-
 			</React.Fragment>
 		) : <div/>;
 	}
