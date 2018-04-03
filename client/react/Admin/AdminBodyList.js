@@ -29,7 +29,7 @@ export default class AdminBodyList extends React.Component {
 
 					<div className="bottom-buttons-container">
 						<button className="midget minusButton" disabled={!this.state.selectedImage} onClick={() => console.log('remove this body')}>-</button>
-						<button className="midget plusButton" disabled={!this.state.bodyGuid} onClick={() => console.log('add new body')}>+</button>
+						<button className="midget plusButton" onClick={() => this.props.history.push('/admin/body/new')}>+</button>
 					</div>
 
 				</LeftPanel>

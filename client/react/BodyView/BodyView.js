@@ -48,7 +48,7 @@ export default class BodyView extends React.Component {
 			}}>
 				<img
 					className="body-template body-image"
-					src={`${shared.constants.urlBase}images/bodies/${file.data.name}`}
+					src={`${shared.constants.urlBase}images/body/${file.data.name}`}
 					style={_.assign({zIndex: body.data.zIndex}, sizeStyle)}
 				/>
 				{

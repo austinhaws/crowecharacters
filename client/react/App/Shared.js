@@ -43,6 +43,23 @@ const shared = {
 			 * @param callback on finish, the result (success message)
 			 */
 			save: (body, callback) => shared.functions.ajax('post', `body/save/${body.guid}`, {data: JSON.stringify(body.data)}, callback),
+
+			/**
+			 * create a new body for the given image file with the given body information
+			 *
+			 * @param file the file to upload for this body
+			 * @param bodyData body's data
+			 * @param callback what to call when all done
+			 */
+			create: (file, bodyData, callback) =>
+				shared.ajax.file.upload(file, 'body', fileGuid => {
+					bodyData.fileGuid = fileGuid;
+					shared.functions.ajax('post', 'body/new', undefined, bodyGuidData => {
+						shared.ajax.body.save({guid: bodyGuidData.guid, data: bodyData}, () => {
+							shared.ajax.body.all(() => callback && callback(bodyGuidData.guid));
+						});
+					});
+				})
 		},
 
 		character: {

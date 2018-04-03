@@ -7,16 +7,6 @@ import BodyView from "../BodyView/BodyView";
 import shared from "../App/Shared";
 
 export default class AdminImageNew extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			file: undefined,
-			previewFile: undefined,
-			fileSizeWidth: 500,
-			fileSizeHeight: 500,
-		};
-	}
 
 	uploadImage(e) {
 		shared.ajax.file.upload(e.target.files[0], 'article', fileGuid => {
@@ -43,13 +33,7 @@ export default class AdminImageNew extends React.Component {
 							<input type="file" onChange={this.uploadImage.bind(this)} />
 						</LeftPanel>
 						<MainPanel>
-							{this.state.previewFile ?
-								<img
-									height={this.state.fileSizeHeight + 'px'}
-									width={this.state.fileSizeWidth + 'px'}
-									src={this.state.previewFile}/>
-								: undefined}
-								<BodyView bodyGuid={this.props.bodyGuid} images={[]}/>
+							<BodyView bodyGuid={this.props.bodyGuid} images={[]}/>
 						</MainPanel>
 					</React.Fragment>
 				: undefined }

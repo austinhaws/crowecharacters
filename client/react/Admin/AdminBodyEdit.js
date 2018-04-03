@@ -59,7 +59,11 @@ export default class AdminBodyEdit extends React.Component {
 
 		return (
 			<React.Fragment>
-				<TopNavigation pageTitle={`Admin - Body: ${body ? body.data.name : ''}`}/>
+				<TopNavigation
+					pageTitle={`Admin - Body: ${body ? body.data.name : ''}`}
+					backUrl="/admin"
+					history={this.props.history}
+				/>
 
 				<LeftPanel>
 					<ImageList
