@@ -1,7 +1,6 @@
 [ ] admin body edit - allow changing name
 
 [ ] going back from print detail view goes all the back to the start instead of back to character edit, because it was using the cancel button for going back. remove cancel and just use back arrow
-[ ] admin, add body file needs to be made to work
 
 
 [ ] ajaxing spinner
