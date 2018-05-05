@@ -25,10 +25,10 @@ export default class BodyView extends React.Component {
 
 		const imageMarginLeft = containerWidth / 2.0 - imageWidth / 2.0;
 
-		const MAX_FONT = 22;
-		const MIN_FONT = 6;
-		const FONT_RANGE = MAX_FONT - MIN_FONT;
-		const nameFont = MAX_FONT - (FONT_RANGE * (1 - printRatio));
+		// since printing is supposed to make characters look different sizes, then it would make sense to keep their names the same size to prove the contrast
+		// this also helps center the name vertically better and give it better space
+		const nameFont = 22;
+		const nameHeight = nameFont;
 
 		const sizeStyle = {
 			width:`${imageWidth}px`,
@@ -36,9 +36,11 @@ export default class BodyView extends React.Component {
 			left: `${imageMarginLeft}px`,
 			top: 0,
 		};
+		const sizeStyleBodyImages = _.assign(sizeStyle, {top: nameHeight + 'px'});
 
 		const borderSizeStyle = {
 			height:`${imageHeight * 1.25}px`,
+			top: 0,
 		};
 
 		return (
@@ -49,7 +51,7 @@ export default class BodyView extends React.Component {
 				<img
 					className="body-template body-image"
 					src={`${shared.constants.urlBase}images/body/${file.data.name}`}
-					style={_.assign({zIndex: body.data.zIndex}, sizeStyle)}
+					style={_.assign({zIndex: body.data.zIndex}, sizeStyleBodyImages)}
 				/>
 				{
 					this.props.fileImages ?
@@ -59,7 +61,7 @@ export default class BodyView extends React.Component {
 							key={image.guid}
 							className="body-image"
 							src={`${shared.constants.urlBase}images/${image.data.fileType}/${image.data.name}`}
-							style={_.assign({zIndex: bodyImage.zIndex}, sizeStyle)}
+							style={_.assign({zIndex: bodyImage.zIndex}, sizeStyleBodyImages)}
 						/>);
 					})
 					: undefined
@@ -68,7 +70,7 @@ export default class BodyView extends React.Component {
 				{this.props.printCutBorder ? <img src="img/PrintBorder.png" className="body-image" style={_.assign({zIndex: 1000}, sizeStyle, borderSizeStyle)}/>: undefined}
 
 				{this.props.printName ? (
-					<div className="body-name" style={{fontSize: `${nameFont}px`, paddingTop:`${nameFont / 2}px`}}>
+					<div className="body-name" style={{fontSize: `${nameFont}px`}}>
 						{this.props.printName}
 					</div>
 				) : undefined}
