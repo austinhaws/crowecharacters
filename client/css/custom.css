@@ -323,6 +323,8 @@ button.midget {
 
 .images-list {
 	margin-top: 10px;
+	height: 700px;
+	overflow: auto;
 }
 
 .button-container {
