@@ -3,6 +3,7 @@ import LeftPanel from "../Panels/LeftPanel";
 import MainPanel from "../Panels/MainPanel";
 import PropTypes from "prop-types";
 import shared from "../App/Shared";
+import images from "../Common/Images";
 import TopNavigation from "../App/TopNavigation";
 import BodyView from "../BodyView/BodyView";
 import webservice from "../Common/Webservice";
@@ -38,7 +39,7 @@ export default class NewCharacter extends React.Component {
 							value={this.props.newCharacter.searchText || ''}
 							onChange={e => shared.functions.dispatchFieldChanged('newCharacter', 'searchText', e.target.value)}
 						/>
-						{shared.images.magnifyingGlass()}
+						{images.magnifyingGlass()}
 					</div>
 
 					<div className="search-results">
@@ -78,5 +79,6 @@ NewCharacter.propTypes = {
 	newCharacter: PropTypes.object.isRequired,
 	bodies: PropTypes.array.isRequired,
 	account: PropTypes.object,
+	history: PropTypes.object,
 };
 
