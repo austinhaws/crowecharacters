@@ -3,7 +3,6 @@ import {render} from "react-dom";
 import {connect, Provider} from "react-redux";
 import store from "./Store";
 import NewCharacter from "../NewCharacter/NewCharacter";
-import shared from "./Shared";
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import {Redirect, withRouter} from "react-router";
 import CharacterSelector from "../CharacterSelector/CharacterSelector";
@@ -13,10 +12,19 @@ import PrintCharacter from "../PrintCharacter/PrintCharacter";
 import PrintPaper from "../PrintPaper/PrintPaper";
 import BodyView from "../BodyView/BodyView";
 import dataGetter from "../Common/DataGetter";
-
-shared.functions.appStartup();
+import webservice from "../Common/Webservice";
 
 class AppClass extends React.Component {
+
+	constructor(props) {
+		super(props);
+
+		webservice.account.load(() => {
+			webservice.body.all();
+			webservice.file.all();
+			webservice.character.all()
+		});
+	}
 
 	renderDefault() {
 		let output;
@@ -81,9 +89,6 @@ class AppClass extends React.Component {
 AppClass.propTypes = {
 };
 
-const App = withRouter(connect(
-	state => state,
-	dispatch => { return {}},
-)(AppClass));
+const App = withRouter(connect(state => state)(AppClass));
 
 render(<BrowserRouter basename="/crowe/client"><Provider store={store}><App/></Provider></BrowserRouter>, document.getElementById('react'));

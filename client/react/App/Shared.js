@@ -1,7 +1,6 @@
 import reducers from "./Reducers";
 import store from "./Store";
 import axios from "axios";
-import webservice from "../Common/Webservice";
 
 const shared = {
 	functions: {
@@ -12,17 +11,6 @@ const shared = {
 		 * @param value the new value
 		 */
 		dispatchFieldChanged: (objectPath, field, value) => store.dispatch({ type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: objectPath, field: field, value: value }}),
-
-		/**
-		 * the app has started, go get the lists of data that are needed like bodies, images, characters, etc
-		 */
-		appStartup: () => {
-			webservice.account.load(() => {
-				webservice.body.all();
-				webservice.file.all();
-				webservice.character.all()
-			});
-		},
 
 		startAjax: () => store.dispatch({type: reducers.ACTION_TYPES.SET_AJAXING, payload: true,}),
 		stopAjax: () => store.dispatch({type: reducers.ACTION_TYPES.SET_AJAXING, payload: false}),
