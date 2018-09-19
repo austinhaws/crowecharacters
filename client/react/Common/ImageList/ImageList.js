@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import ImageToggleRow from "./ImageToggleRow";
 import clone from "clone";
 import _ from "lodash";
+import shared from "../../App/Shared";
 
 export default class ImageList extends React.Component {
 	constructor(props) {
@@ -36,8 +37,12 @@ export default class ImageList extends React.Component {
 
 	render() {
 		return (
-			<div className="images-list">
-				{this.props.imageFiles.map(image =>
+			<div
+				className="images-list"
+				onDrop={this.props.onDrop}
+				onDragOver={shared.functions.handleEvent(() => {})}
+			>
+				{this.props.imageFiles.map(image => (
 					<React.Fragment key={`imagetogglerow-${image.guid}`}>
 						<ImageToggleRow
 							image={image}
@@ -53,7 +58,7 @@ export default class ImageList extends React.Component {
 							: undefined
 						}
 					</React.Fragment>
-				)}
+				))}
 			</div>
 		);
 	}
@@ -69,5 +74,10 @@ ImageList.propTypes = {
 	selectedChanged: PropTypes.func.isRequired,
 	// which component to show for the detail editing of an image
 	renderSelectedDetail: PropTypes.func,
+	onDrop: PropTypes.func,
 };
 
+ImageList.defaultProps = {
+	renderSelectedDetail: undefined,
+	onDrop: undefined,
+};

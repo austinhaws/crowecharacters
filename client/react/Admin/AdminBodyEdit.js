@@ -16,6 +16,7 @@ export default class AdminBodyEdit extends React.Component {
 			selectedImages: [],
 		};
 		this.editingImage = undefined;
+		this.imagesDropped = this.imagesDropped.bind(this);
 	}
 
 	renderSelectedDetail(imageFile) {
@@ -53,6 +54,38 @@ export default class AdminBodyEdit extends React.Component {
 		}
 	}
 
+	imagesDropped(event) {
+		if (event.dataTransfer.items) {
+			// Use DataTransferItemList interface to access the file(s)
+			for (let i = 0; i < event.dataTransfer.items.length; i++) {
+				// If dropped items aren't files, reject them
+				if (event.dataTransfer.items[i].kind === 'file') {
+					let file = event.dataTransfer.items[i].getAsFile();
+					console.log('... file[' + i + '].name = ' + file.name);
+				}
+			}
+		} else {
+			// Use DataTransfer interface to access the file(s)
+			for (let i = 0; i < event.dataTransfer.files.length; i++) {
+				console.log('... file[' + i + '].name = ' + event.dataTransfer.files[i].name);
+			}
+		}
+	}
+
+	uploadFile(file) {
+		shared.ajax.file.upload(file, 'article', fileGuid => {
+			const body = this.props.bodies.filter(body => body.guid === this.props.bodyGuid)[0];
+			if (!body.data.images) {
+				body.data.images = [];
+			}
+			body.data.images.push({fileGuid: fileGuid, zIndex: 100, freeFloat: false});
+			shared.ajax.body.save(body, () => shared.ajax.file.all(
+				() => shared.ajax.body.all(() => this.props.history.push(`/admin/body/edit/${this.props.bodyGuid}/${fileGuid}`))
+			));
+		});
+
+	}
+
 	render() {
 		const body = this.props.bodies ? this.props.bodies.filter(body => body.guid === this.props.bodyGuid)[0] : undefined;
 		const fileImages = body ? body.data.images.map(image => this.props.files.filter(file => file.guid === image.fileGuid)[0]) : [];
@@ -71,10 +104,12 @@ export default class AdminBodyEdit extends React.Component {
 						selectedChanged={newSelection => this.setState({selectedImages: newSelection})}
 						selectedImages={this.state.selectedImages}
 						renderSelectedDetail={this.renderSelectedDetail.bind(this)}
+						onDrop={shared.functions.handleEvent(this.imagesDropped, this)}
 					/>
 
 					<div className="bottom-buttons-container">
 						<button className="midget minusButton" disabled={!_.size(this.state.selectedImages)} onClick={this.deleteSelectedImage.bind(this)}>-</button>
+						Can drag and drop files here
 						<button className="midget plusButton" disabled={this.state.bodyGuid} onClick={() => this.props.history.push(`/admin/image/new/${this.props.bodyGuid}`)}>+</button>
 					</div>
 				</LeftPanel>
@@ -94,7 +129,11 @@ export default class AdminBodyEdit extends React.Component {
 AdminBodyEdit.propTypes = {
 	// body to edit
 	bodyGuid: PropTypes.string.isRequired,
+
 	// image to edit on the body (used if uploaded image and want to edit that image)
 	imageGuide: PropTypes.string,
+
+	// bodies to show
+	bodies: PropTypes.array,
 };
 
