@@ -48,28 +48,6 @@ const shared = {
 				.catch(e => console.error('ajax error', e))
 				.finally(() => shared.functions.stopAjax());
 		},
-
-		/**
-		 * prevent default, stop propagation, stop immediate propagation
-		 * all this to prevent anything else from firing after this method is called
-		 * helpful for click events
-		 *
-		 * @param func the func to call
-		 * @param bind the "this" to bind when calling
-		 * @return {function(*=)} function for a callback
-		 */
-		handleEvent: (func, bind) => e => {
-			if (e.preventDefault) {
-				e.preventDefault();
-			}
-			if (e.stopPropagation) {
-				e.stopPropagation();
-			}
-			if (e.nativeEvent && e.nativeEvent.stopImmediatePropagation) {
-				e.nativeEvent.stopImmediatePropagation();
-			}
-			(bind ? func.bind(bind) : func)(e);
-		},
 	},
 
 	constants: {

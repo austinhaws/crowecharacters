@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ImageToggleRow from "./ImageToggleRow";
 import clone from "clone";
 import _ from "lodash";
-import shared from "../../App/Shared";
+import {handleEvent} from "dts-react-common";
 
 export default class ImageList extends React.Component {
 	constructor(props) {
@@ -40,7 +40,7 @@ export default class ImageList extends React.Component {
 			<div
 				className="images-list"
 				onDrop={this.props.onDrop}
-				onDragOver={shared.functions.handleEvent(() => {})}
+				onDragOver={handleEvent(() => {})}
 			>
 				{this.props.imageFiles.map(image => (
 					<React.Fragment key={`imagetogglerow-${image.guid}`}>

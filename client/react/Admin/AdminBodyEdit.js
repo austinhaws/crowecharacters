@@ -8,6 +8,7 @@ import ImageList from "../Common/ImageList/ImageList";
 import _ from "lodash";
 import shared from "../App/Shared";
 import Slider from 'react-rangeslider';
+import {handleEvent} from "dts-react-common";
 
 export default class AdminBodyEdit extends React.Component {
 	constructor(props) {
@@ -104,7 +105,7 @@ export default class AdminBodyEdit extends React.Component {
 						selectedChanged={newSelection => this.setState({selectedImages: newSelection})}
 						selectedImages={this.state.selectedImages}
 						renderSelectedDetail={this.renderSelectedDetail.bind(this)}
-						onDrop={shared.functions.handleEvent(this.imagesDropped, this)}
+						onDrop={handleEvent(this.imagesDropped, this)}
 					/>
 
 					<div className="bottom-buttons-container">
