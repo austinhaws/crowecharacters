@@ -2,7 +2,6 @@ import React from "react";
 import LeftPanel from "../Panels/LeftPanel";
 import MainPanel from "../Panels/MainPanel";
 import PropTypes from "prop-types";
-import shared from "../App/Shared";
 import SearchInput from "../Common/SearchInput";
 import TopNavigation from "../App/TopNavigation";
 
@@ -25,7 +24,7 @@ export default class CharacterSelector extends React.Component {
 							.map(character =>
 								<div
 									key={`${character.guid}`}
-									className={shared.functions.joinClasses(['search-result'])}
+									className="search-result"
 									onClick={() => this.props.history.push(`/character/edit/${character.guid}`)}
 								>
 									<div className="name">{character.data.name}</div>

@@ -1,6 +1,5 @@
-import React from "react";
-import clone from "clone";
-import shared from "./Shared";
+import {objectAtPathReducer} from "dts-react-common";
+
 
 let reducers = {
 	ACTION_TYPES: {
@@ -11,33 +10,14 @@ let reducers = {
 	}
 };
 
-/*
- !! make sure to always create a copy of state instead of manipulating state directly
- action = {
- type: constant action name (required),
- error: error information (optional),
- payload: data for action (optional),
- meta: what else could you possibly want? (optional)
- }
- */
-
 // reducer: update ajaxing count
-// payload: boolean true for an ajax began, false an ajax ended
+// payload: boolean truey for an ajax began, falsey an ajax ended
 reducers[reducers.ACTION_TYPES.SET_AJAXING] = (state, action) => {
-	const result = clone(state);
-	result.ajaxingCount += action.payload ? 1 : -1;
-	if (!result.ajaxingCount && result.newing) {
-		result.newing.setList(result, result.newing.persons);
-	}
-	return result;
+	return Object.assign({...state}, { ajaxingCount: state.ajaxingCount + (action.payload ? 1 : -1) });
 };
 
 // reducer: sets a field in an object in the state
 // payload: path = path to object in dot notation, field = field name in that object, value = new value for that field
-reducers[reducers.ACTION_TYPES.SET_OBJECT_FIELD] = (state, action) => {
-	const result = clone(state);
-	shared.functions.objectAtPath(result, action.payload.path)[action.payload.field] = clone(action.payload.value);
-	return result;
-};
+reducers[reducers.ACTION_TYPES.SET_OBJECT_FIELD] = objectAtPathReducer;
 
 export default reducers;

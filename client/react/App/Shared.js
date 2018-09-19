@@ -1,4 +1,3 @@
-import React from "react";
 import reducers from "./Reducers";
 import store from "./Store";
 import axios from "axios";
@@ -7,24 +6,12 @@ import webservice from "../Common/Webservice";
 const shared = {
 	functions: {
 		/**
-		 * create a reducer for setting a field in an object
-		 *
-		 * @param path path to the object in the store
-		 * @param field which field in the object to set
-		 * @param value the new value for that field
-		 * @return {{type: string, payload: {path: *, field: *, value: *}}}
-		 */
-		objectFieldReducer: (path, field, value) => {
-			return {type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: path, field: field, value: value}}
-		},
-
-		/**
 		 * a field on an object in the store has changed
 		 * @param objectPath dot notation path to the object in the store
 		 * @param field the field on the object
 		 * @param value the new value
 		 */
-		dispatchFieldChanged: (objectPath, field, value) => store.dispatch(shared.functions.objectFieldReducer(objectPath, field, value)),
+		dispatchFieldChanged: (objectPath, field, value) => store.dispatch({ type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: objectPath, field: field, value: value }}),
 
 		bodyByGuid: guid => guid ? store.getState().bodies.find(body => body.guid === guid) : undefined,
 		fileByGuid: guid => guid ? store.getState().files.find(file => file.guid === guid) : undefined,
@@ -61,14 +48,6 @@ const shared = {
 				.catch(e => console.error('ajax error', e))
 				.finally(() => shared.functions.stopAjax());
 		},
-
-		/**
-		 * join an array of classNames together; filter empties
-		 *
-		 * @param classes
-		 * @return {string}
-		 */
-		joinClasses: classes => classes ? _.isArray(classes) ? classes.filter(c => c).join(' ') : shared.functions.joinClasses(classes.split(' ')) : '',
 
 		// split path by '.', apply to baseObj to get to next object
 		objectAtPath: (baseObject, path) => (path || '').split('\.').reduce((obj, field) => field ? obj[field] : obj, baseObject),

@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import joinClasses from "../../App/Shared"
 
 export default class Button extends React.Component {
 	render() {
@@ -8,7 +7,7 @@ export default class Button extends React.Component {
 			<div className="button-container">
 				{this.props.isNotOpaque ? undefined : <div className="opaque-background"/>}
 				<button
-					className={joinClasses.functions.joinClasses(this.props.className)}
+					className={this.props.className}
 					onClick={this.props.onClick}
 					disabled={this.props.disabled}
 				>

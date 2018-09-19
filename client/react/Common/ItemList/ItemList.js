@@ -1,19 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import shared from "../../App/Shared";
+import {joinClassNames} from "dts-react-common";
 
 export default class ItemList extends React.Component {
 	render() {
 		return (
 			<div className="items-list">
-				{this.props.items.map((item, i) =>
+				{this.props.items.map((item, i) => (
 					<div
 						key={i}
-						className={shared.functions.joinClasses(['item-row', item === this.props.selectedItem ? 'selected' : undefined])}
+						className={joinClassNames('item-row', item === this.props.selectedItem ? 'selected' : undefined)}
 						onClick={() => this.props.onSelectChange ? this.props.onSelectChange(item) : undefined}>
 						{this.props.onRenderItem(item)}
 					</div>
-				)}
+				))}
 			</div>
 		);
 	}

@@ -7,6 +7,7 @@ import images from "../Common/Images";
 import TopNavigation from "../App/TopNavigation";
 import BodyView from "../BodyView/BodyView";
 import webservice from "../Common/Webservice";
+import {joinClassNames} from "dts-react-common";
 
 export default class NewCharacter extends React.Component {
 	saveCharacter() {
@@ -47,19 +48,19 @@ export default class NewCharacter extends React.Component {
 							// filter by search text
 							.filter(body => this.props.newCharacter.searchText ? body.data.name.toLowerCase().includes(this.props.newCharacter.searchText.toLowerCase()) : true)
 							// show possible bodies
-							.map(body =>
+							.map(body => (
 								<div
 									key={`${body.data.name}${body.data.gender}`}
-									className={shared.functions.joinClasses([
+									className={joinClassNames(
 										'search-result',
 										body.guid === this.props.newCharacter.editingCharacter.data.bodyGuid ? 'selected' : undefined,
-									])}
+									)}
 									onClick={() => shared.functions.dispatchFieldChanged('newCharacter.editingCharacter.data', 'bodyGuid', body.guid)}
 								>
 									<div className={`gender ${body.data.gender}`}>{shared.images[body.data.gender]()}</div>
 									<div className="name">{body.data.name}</div>
 								</div>
-							)}
+							))}
 					</div>
 
 					<div className="bottom-buttons-container">
