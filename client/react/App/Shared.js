@@ -1,6 +1,7 @@
 import reducers from "./Reducers";
 import store from "./Store";
 import axios from "axios";
+import constants from "../Common/Constants";
 
 const shared = {
 	functions: {
@@ -26,16 +27,12 @@ const shared = {
 		ajax: (method, url, data, callback) => {
 			shared.functions.startAjax();
 
-			axios[method](shared.constants.urlBase + url, data)
+			axios[method](constants.urlBase + url, data)
 				.then(result => callback ? callback(result.data) : undefined)
 				.catch(e => console.error('ajax error', e))
 				.finally(() => shared.functions.stopAjax());
 		},
 	},
-
-	constants: {
-		urlBase: globals.urlBase,
-	}
 };
 
 export default shared;

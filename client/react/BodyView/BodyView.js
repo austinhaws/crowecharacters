@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import shared from "../App/Shared";
 import _ from "lodash";
 import dataGetter from "../Common/DataGetter";
+import constants from "../Common/Constants";
 
 export default class BodyView extends React.Component {
 	render() {
@@ -51,7 +51,7 @@ export default class BodyView extends React.Component {
 			}}>
 				<img
 					className="body-template body-image"
-					src={`${shared.constants.urlBase}images/body/${file.data.name}`}
+					src={`${constants.urlBase}images/body/${file.data.name}`}
 					style={_.assign({zIndex: body.data.zIndex}, sizeStyleBodyImages)}
 				/>
 				{
@@ -61,7 +61,7 @@ export default class BodyView extends React.Component {
 						return (<img
 							key={image.guid}
 							className="body-image"
-							src={`${shared.constants.urlBase}images/${image.data.fileType}/${image.data.name}`}
+							src={`${constants.urlBase}images/${image.data.fileType}/${image.data.name}`}
 							style={_.assign({zIndex: bodyImage.zIndex}, sizeStyleBodyImages)}
 						/>);
 					})
@@ -92,4 +92,3 @@ BodyView.propTypes = {
 	// should the cutting outline be printed
 	printCutBorder: PropTypes.bool,
 };
-
