@@ -12,6 +12,7 @@ import Admin from "../Admin/Admin";
 import PrintCharacter from "../PrintCharacter/PrintCharacter";
 import PrintPaper from "../PrintPaper/PrintPaper";
 import BodyView from "../BodyView/BodyView";
+import dataGetter from "../Common/DataGetter";
 
 shared.functions.appStartup();
 
@@ -44,7 +45,7 @@ class AppClass extends React.Component {
 						<PrintPaper>
 							<BodyView
 								bodyGuid={this.props.printCharacter.character.data.bodyGuid}
-								fileImages={this.props.printCharacter.character.data.images ? this.props.printCharacter.character.data.images.map(shared.functions.fileByGuid) : undefined}
+								fileImages={this.props.printCharacter.character.data.images ? this.props.printCharacter.character.data.images.map(dataGetter.fileByGuid) : undefined}
 								printPercent={this.props.printCharacter.character ? parseFloat(this.props.printCharacter.character.data.printPercent) : undefined}
 								printName={this.props.printCharacter.character.data.printName ? this.props.printCharacter.character.data.name : undefined}
 								printCutBorder={this.props.printCharacter.character.data.printCutBorder}

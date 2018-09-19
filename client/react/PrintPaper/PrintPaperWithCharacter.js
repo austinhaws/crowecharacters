@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import shared from "../App/Shared";
 import BodyView from "../BodyView/BodyView";
 import PrintPaper from "./PrintPaper";
+import dataGetter from "../Common/DataGetter";
 
 export default class PrintPaperWithCharacter extends React.Component {
 	render() {
@@ -12,7 +12,7 @@ export default class PrintPaperWithCharacter extends React.Component {
 			<PrintPaper	>
 				<BodyView
 					bodyGuid={data.bodyGuid}
-					fileImages={data.images ? data.images.map(shared.functions.fileByGuid) : undefined}
+					fileImages={data.images ? data.images.map(dataGetter.fileByGuid) : undefined}
 					printPercent={data ? parseFloat(data.printPercent) : undefined}
 					printName={data.printName ? data.name : undefined}
 					printCutBorder={data.printCutBorder}

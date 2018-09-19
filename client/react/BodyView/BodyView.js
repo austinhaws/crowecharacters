@@ -2,12 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import shared from "../App/Shared";
 import _ from "lodash";
+import dataGetter from "../Common/DataGetter";
 
 export default class BodyView extends React.Component {
 	render() {
 
-		const body = shared.functions.bodyByGuid(this.props.bodyGuid);
-		const file = shared.functions.fileByGuid(body.data.fileGuid);
+		const body = dataGetter.bodyByGuid(this.props.bodyGuid);
+		const file = dataGetter.fileByGuid(body.data.fileGuid);
 
 		// fit the image in the view size
 		const containerHeight = 600;

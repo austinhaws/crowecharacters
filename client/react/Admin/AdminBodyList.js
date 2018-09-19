@@ -1,9 +1,9 @@
 import React from "react";
 import LeftPanel from "../Panels/LeftPanel";
 import TopNavigation from "../App/TopNavigation";
-import shared from "../App/Shared";
 import ItemList from "../Common/ItemList/ItemList";
 import PropTypes from "prop-types";
+import dataGetter from "../Common/DataGetter";
 
 export default class AdminBodyList extends React.Component {
 	constructor(props) {
@@ -14,7 +14,7 @@ export default class AdminBodyList extends React.Component {
 		};
 	}
 	render() {
-		const body = shared.functions.bodyByGuid(this.state.selectedBodyGuid);
+		const body = dataGetter.bodyByGuid(this.state.selectedBodyGuid);
 		return (
 			<React.Fragment>
 				<TopNavigation pageTitle="Admin - Bodies"/>
@@ -41,5 +41,6 @@ export default class AdminBodyList extends React.Component {
 
 AdminBodyList.propTypes = {
 	bodies: PropTypes.array.isRequired,
+	history: PropTypes.object.isRequired,
 };
 

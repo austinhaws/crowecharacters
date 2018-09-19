@@ -9,6 +9,7 @@ import BodyView from "../BodyView/BodyView";
 import ImageList from "../Common/ImageList/ImageList";
 import Button from "../Common/Button/Button";
 import webservice from "../Common/Webservice";
+import dataGetter from "../Common/DataGetter";
 
 export default class EditCharacter extends React.Component {
 	saveCharacter() {
@@ -33,7 +34,7 @@ export default class EditCharacter extends React.Component {
 	}
 
 	render() {
-		const body = this.props.editCharacter.character ? shared.functions.bodyByGuid(this.props.editCharacter.character.data.bodyGuid) : undefined;
+		const body = this.props.editCharacter.character ? dataGetter.bodyByGuid(this.props.editCharacter.character.data.bodyGuid) : undefined;
 		return this.props.editCharacter.character ? (
 			<React.Fragment>
 				<TopNavigation pageTitle={this.props.editCharacter.character ? this.props.editCharacter.character.data.name : ''} backUrl="/" history={this.props.history}/>
@@ -58,7 +59,7 @@ export default class EditCharacter extends React.Component {
 						<React.Fragment>
 							<BodyView
 								bodyGuid={this.props.editCharacter.character.data.bodyGuid}
-								fileImages={this.props.editCharacter.character.data.images ? this.props.editCharacter.character.data.images.map(shared.functions.fileByGuid) : undefined}
+								fileImages={this.props.editCharacter.character.data.images ? this.props.editCharacter.character.data.images.map(dataGetter.fileByGuid) : undefined}
 							/>
 							<div className="bottom-buttons-container body-bottom">
 								<Button title="Print" className="print-button" onClick={() => this.props.history.push(`/character/print/${this.props.editCharacter.character.guid}`)}/>
