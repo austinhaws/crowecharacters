@@ -4,19 +4,19 @@ import MainPanel from "../Panels/MainPanel";
 import TopNavigation from "../App/TopNavigation";
 import PropTypes from "prop-types";
 import BodyView from "../BodyView/BodyView";
-import shared from "../App/Shared";
+import webservice from "../Common/Webservice";
 
 export default class AdminImageNew extends React.Component {
 
 	uploadImage(e) {
-		shared.ajax.file.upload(e.target.files[0], 'article', fileGuid => {
+		webservice.file.upload(e.target.files[0], 'article', fileGuid => {
 			const body = this.props.bodies.filter(body => body.guid === this.props.bodyGuid)[0];
 			if (!body.data.images) {
 				body.data.images = [];
 			}
 			body.data.images.push({fileGuid: fileGuid, zIndex: 100, freeFloat: false});
-				shared.ajax.body.save(body, () => shared.ajax.file.all(
-					() => shared.ajax.body.all(() => this.props.history.push(`/admin/body/edit/${this.props.bodyGuid}/${fileGuid}`))
+			webservice.body.save(body, () => webservice.file.all(
+					() => webservice.body.all(() => this.props.history.push(`/admin/body/edit/${this.props.bodyGuid}/${fileGuid}`))
 			));
 		});
 	}

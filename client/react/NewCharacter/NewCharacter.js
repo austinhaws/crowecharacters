@@ -5,10 +5,11 @@ import PropTypes from "prop-types";
 import shared from "../App/Shared";
 import TopNavigation from "../App/TopNavigation";
 import BodyView from "../BodyView/BodyView";
+import webservice from "../Common/Webservice";
 
 export default class NewCharacter extends React.Component {
 	saveCharacter() {
-		shared.ajax.character.create(this.props.newCharacter.editingCharacter, guid => {
+		webservice.character.create(this.props.newCharacter.editingCharacter, guid => {
 			this.props.history.push(`/character/edit/${guid}`);
 			shared.functions.dispatchFieldChanged('newCharacter', 'editingCharacter', {data: {name: '', bodyGuid: ''}});
 		});

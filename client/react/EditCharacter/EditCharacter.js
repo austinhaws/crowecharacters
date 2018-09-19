@@ -8,6 +8,7 @@ import clone from "clone";
 import BodyView from "../BodyView/BodyView";
 import ImageList from "../Common/ImageList/ImageList";
 import Button from "../Common/Button/Button";
+import webservice from "../Common/Webservice";
 
 export default class EditCharacter extends React.Component {
 	saveCharacter() {
@@ -28,7 +29,7 @@ export default class EditCharacter extends React.Component {
 		// ajax save
 		const saveCharacter = clone(this.props.editCharacter.character);
 		saveCharacter.data.images = clone(selectedImages);
-		shared.ajax.character.update(saveCharacter)
+		webservice.character.update(saveCharacter)
 	}
 
 	render() {

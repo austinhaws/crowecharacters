@@ -9,6 +9,7 @@ import ToggleButton from "../Common/ToggleButton/ToggleButton";
 import Button from "../Common/Button/Button";
 import Slider from 'react-rangeslider';
 import PrintPaperWithCharacter from "../PrintPaper/PrintPaperWithCharacter";
+import webservice from "../Common/Webservice";
 
 export default class PrintCharacter extends React.Component {
 	componentDidMount() {
@@ -25,7 +26,7 @@ export default class PrintCharacter extends React.Component {
 		shared.functions.dispatchFieldChanged('printCharacter.character.data', field, value);
 		const character = clone(this.props.printCharacter.character);
 		character.data[field] = value;
-		shared.ajax.character.update(character);
+		webservice.character.update(character);
 	}
 
 	render() {
