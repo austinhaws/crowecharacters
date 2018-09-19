@@ -49,9 +49,6 @@ const shared = {
 				.finally(() => shared.functions.stopAjax());
 		},
 
-		// split path by '.', apply to baseObj to get to next object
-		objectAtPath: (baseObject, path) => (path || '').split('\.').reduce((obj, field) => field ? obj[field] : obj, baseObject),
-
 		/**
 		 * prevent default, stop propagation, stop immediate propagation
 		 * all this to prevent anything else from firing after this method is called
