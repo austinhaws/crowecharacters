@@ -1,4 +1,16 @@
 import {objectAtPathReducer} from "dts-react-common";
+import store from "./Store";
+
+
+/**
+ * a field on an object in the store has changed
+ * @param objectPath dot notation path to the object in the store
+ * @param field the field on the object
+ * @param value the new value
+ */
+export const dispatchFieldChanged = (objectPath, field, value) => {
+	store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: objectPath, field: field, value: value}});
+};
 
 
 let reducers = {

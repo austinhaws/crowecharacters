@@ -2,18 +2,18 @@ import React from "react";
 import LeftPanel from "../Panels/LeftPanel";
 import MainPanel from "../Panels/MainPanel";
 import PropTypes from "prop-types";
-import shared from "../App/Shared";
 import images from "../Common/Images";
 import TopNavigation from "../App/TopNavigation";
 import BodyView from "../BodyView/BodyView";
 import webservice from "../Common/Webservice";
 import {joinClassNames} from "dts-react-common";
+import {dispatchFieldChanged} from "../App/Reducers";
 
 export default class NewCharacter extends React.Component {
 	saveCharacter() {
 		webservice.character.create(this.props.newCharacter.editingCharacter, guid => {
 			this.props.history.push(`/character/edit/${guid}`);
-			shared.functions.dispatchFieldChanged('newCharacter', 'editingCharacter', {data: {name: '', bodyGuid: ''}});
+			dispatchFieldChanged('newCharacter', 'editingCharacter', {data: {name: '', bodyGuid: ''}});
 		});
 	}
 
@@ -27,7 +27,7 @@ export default class NewCharacter extends React.Component {
 						className="first-input data-entry"
 						type="text"
 						value={this.props.newCharacter.editingCharacter.data.name || ''}
-						onChange={e => shared.functions.dispatchFieldChanged('newCharacter.editingCharacter.data', 'name', e.target.value)}
+						onChange={e => dispatchFieldChanged('newCharacter.editingCharacter.data', 'name', e.target.value)}
 						placeholder="NAME"
 					/>
 
@@ -38,7 +38,7 @@ export default class NewCharacter extends React.Component {
 							className="search"
 							type="text"
 							value={this.props.newCharacter.searchText || ''}
-							onChange={e => shared.functions.dispatchFieldChanged('newCharacter', 'searchText', e.target.value)}
+							onChange={e => dispatchFieldChanged('newCharacter', 'searchText', e.target.value)}
 						/>
 						{images.magnifyingGlass()}
 					</div>
@@ -55,9 +55,9 @@ export default class NewCharacter extends React.Component {
 										'search-result',
 										body.guid === this.props.newCharacter.editingCharacter.data.bodyGuid ? 'selected' : undefined,
 									)}
-									onClick={() => shared.functions.dispatchFieldChanged('newCharacter.editingCharacter.data', 'bodyGuid', body.guid)}
+									onClick={() => dispatchFieldChanged('newCharacter.editingCharacter.data', 'bodyGuid', body.guid)}
 								>
-									<div className={`gender ${body.data.gender}`}>{shared.images[body.data.gender]()}</div>
+									<div className={`gender ${body.data.gender}`}>{images[body.data.gender]()}</div>
 									<div className="name">{body.data.name}</div>
 								</div>
 							))}

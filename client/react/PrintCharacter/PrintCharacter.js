@@ -1,7 +1,6 @@
 import React from "react";
 import LeftPanel from "../Panels/LeftPanel";
 import PropTypes from "prop-types";
-import shared from "../App/Shared";
 import TopNavigation from "../App/TopNavigation";
 import clone from "clone";
 import MainPanel from "../Panels/MainPanel";
@@ -10,6 +9,7 @@ import Button from "../Common/Button/Button";
 import Slider from 'react-rangeslider';
 import PrintPaperWithCharacter from "../PrintPaper/PrintPaperWithCharacter";
 import webservice from "../Common/Webservice";
+import {dispatchFieldChanged} from "../App/Reducers";
 
 export default class PrintCharacter extends React.Component {
 	componentDidMount() {
@@ -18,12 +18,12 @@ export default class PrintCharacter extends React.Component {
 			character.data.printPercent = character.data.printPercent || 50;
 			character.data.printName = character.data.printName || false;
 			character.data.printCutBorder = character.data.printCutBorder || false;
-			shared.functions.dispatchFieldChanged('printCharacter', 'character', character);
+			dispatchFieldChanged('printCharacter', 'character', character);
 		}
 	}
 
 	dispatchSaveChange(field, value) {
-		shared.functions.dispatchFieldChanged('printCharacter.character.data', field, value);
+		dispatchFieldChanged('printCharacter.character.data', field, value);
 		const character = clone(this.props.printCharacter.character);
 		character.data[field] = value;
 		webservice.character.update(character);
@@ -81,5 +81,7 @@ PrintCharacter.propTypes = {
 
 	// comes from React Router for routing history
 	history: PropTypes.object.isRequired,
-};
 
+	// list of characters to show
+	characters: PropTypes.array.isRequired,
+};

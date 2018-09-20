@@ -1,5 +1,6 @@
 import store from "../App/Store";
 import shared from "../App/Shared";
+import {dispatchFieldChanged} from "../App/Reducers";
 
 const webservice = {
 
@@ -14,7 +15,7 @@ const webservice = {
 				localStorage.setItem('accountPhrase', account.phrase);
 
 				// dispatch set account information
-				shared.functions.dispatchFieldChanged(undefined, 'account', account);
+				dispatchFieldChanged(undefined, 'account', account);
 
 				// call callback
 				callback(account);
@@ -31,7 +32,7 @@ const webservice = {
 	},
 	body: {
 		all: callback => shared.functions.ajax('get', 'body/all', undefined, data => {
-			shared.functions.dispatchFieldChanged(undefined, 'bodies', data);
+			dispatchFieldChanged(undefined, 'bodies', data);
 			callback && callback();
 		}),
 		/**
@@ -62,7 +63,7 @@ const webservice = {
 
 	character: {
 		all: callback => shared.functions.ajax('get', `character/all/${store.getState().account.guid}`, undefined, characters => {
-			shared.functions.dispatchFieldChanged(undefined, 'characters', characters);
+			dispatchFieldChanged(undefined, 'characters', characters);
 			if (callback) {
 				callback();
 			}
@@ -79,7 +80,7 @@ const webservice = {
 
 	file: {
 		all: callback => shared.functions.ajax('get', 'file/all', undefined, data => {
-			shared.functions.dispatchFieldChanged(undefined, 'files', data);
+			dispatchFieldChanged(undefined, 'files', data);
 			if (callback) {
 				callback();
 			}

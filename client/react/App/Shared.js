@@ -5,13 +5,6 @@ import constants from "../Common/Constants";
 
 const shared = {
 	functions: {
-		/**
-		 * a field on an object in the store has changed
-		 * @param objectPath dot notation path to the object in the store
-		 * @param field the field on the object
-		 * @param value the new value
-		 */
-		dispatchFieldChanged: (objectPath, field, value) => store.dispatch({ type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: objectPath, field: field, value: value }}),
 
 		startAjax: () => store.dispatch({type: reducers.ACTION_TYPES.SET_AJAXING, payload: true,}),
 		stopAjax: () => store.dispatch({type: reducers.ACTION_TYPES.SET_AJAXING, payload: false}),

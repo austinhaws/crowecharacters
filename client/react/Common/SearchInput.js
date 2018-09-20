@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import shared from "../App/Shared";
 import images from "../Common/Images";
 import {objectAtPath} from "dts-react-common";
+import {dispatchFieldChanged} from "../App/Reducers";
 
 export default class SearchInput extends React.Component {
 
@@ -13,7 +13,7 @@ export default class SearchInput extends React.Component {
 					className="search"
 					type="text"
 					value={objectAtPath(this.props, this.props.objectPath).searchText || ''}
-					onChange={e => shared.functions.dispatchFieldChanged(this.props.objectPath, 'searchText', e.target.value)}
+					onChange={e => dispatchFieldChanged(this.props.objectPath, 'searchText', e.target.value)}
 				/>
 				{images.magnifyingGlass()}
 			</React.Fragment>

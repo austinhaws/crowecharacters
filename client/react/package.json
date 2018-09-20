@@ -27,7 +27,7 @@
 		"dts-js-logging": "^1.0.1",
 		"dts-masks": "^1.1.1",
 		"dts-popup-window": "^1.0.5",
-		"dts-react-common": "^4.4.3",
+		"dts-react-common": "^4.4.5",
 		"dts-select2-support": "^1.0.6",
 		"dts-validation-support": "^2.0.0",
 		"eslint-plugin-node": "^6.0.0",
