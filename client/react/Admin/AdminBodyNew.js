@@ -34,9 +34,13 @@ export default class AdminBodyNew extends React.Component {
 			alert('Pick a file and enter a name before saving');
 		} else {
 			// upload the body file to get its file guid
-			webservice.body.create(this.state.files[0], this.state.bodyData, bodyGuid =>
-				webservice.body.all(() =>
-					webservice.file.all(() => this.props.history.push(`/admin/body/edit/${bodyGuid}`))));
+			webservice.body.create(this.state.files[0], this.state.bodyData)
+				.then(bodyGuid => webservice.body.all()
+					.then(() => bodyGuid))
+				// get all files and go to editing the body
+				.then(bodyGuid => webservice.file.all()
+					.then(() => this.props.history.push(`/admin/body/edit/${bodyGuid}`)));
+
 		}
 	}
 

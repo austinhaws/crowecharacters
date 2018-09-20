@@ -30,7 +30,7 @@ export default class EditCharacter extends React.Component {
 		// ajax save
 		const saveCharacter = clone(this.props.editCharacter.character);
 		saveCharacter.data.images = clone(selectedImages);
-		webservice.character.update(saveCharacter)
+		webservice.character.update(saveCharacter);
 	}
 
 	render() {

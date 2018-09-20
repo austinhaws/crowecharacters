@@ -1,103 +1,65 @@
 import store from "../App/Store";
-import shared from "../App/Shared";
 import {dispatchFieldChanged} from "../App/Reducers";
+import {AjaxStatusCore, WebserviceCore} from "dts-react-common";
+
+export const ajaxStatusCore = new AjaxStatusCore();
+const webserviceCore = new WebserviceCore({
+	baseUrl: globals.urlBase,
+	ajaxStatusCore: ajaxStatusCore,
+	allResultsCallback: response => response.data,
+});
 
 const webservice = {
 
 	account: {
-		load: callback => {
-			// get current account guid from localstorage
-			const accountGuid = localStorage.getItem('accountPhrase');
+		new: () => webserviceCore.get('account/new'),
 
-			// if not found, then create new account
-			const accountCallback = account => {
-				// store accountGuid in localstorage
-				localStorage.setItem('accountPhrase', account.phrase);
-
-				// dispatch set account information
-				dispatchFieldChanged(undefined, 'account', account);
-
-				// call callback
-				callback(account);
-			};
-
-			if (accountGuid) {
-				webservice.account.get(accountGuid, accountCallback);
-			} else {
-				webservice.account.new(accountCallback);
-			}
-		},
-		new: callback => shared.functions.ajax('get', 'account/new', undefined, callback),
-		get: (phrase, callback) => shared.functions.ajax('get', `account/get/${phrase}`, undefined, callback)
+		get: phrase => webserviceCore.get(`account/get/${phrase}`),
 	},
+
+
 	body: {
-		all: callback => shared.functions.ajax('get', 'body/all', undefined, data => {
-			dispatchFieldChanged(undefined, 'bodies', data);
-			callback && callback();
-		}),
-		/**
-		 * save a body
-		 *
-		 * @param body the full body record to save
-		 * @param callback on finish, the result (success message)
-		 */
-		save: (body, callback) => shared.functions.ajax('post', `body/save/${body.guid}`, {data: JSON.stringify(body.data)}, callback),
+		all: () => webserviceCore.get('body/all').then(data => dispatchFieldChanged(undefined, 'bodies', data)),
 
-		/**
-		 * create a new body for the given image file with the given body information
-		 *
-		 * @param file the file to upload for this body
-		 * @param bodyData body's data
-		 * @param callback what to call when all done
-		 */
-		create: (file, bodyData, callback) =>
-			webservice.file.upload(file, 'body', fileGuid => {
-				bodyData.fileGuid = fileGuid;
-				shared.functions.ajax('post', 'body/new', undefined, bodyGuidData => {
-					webservice.body.save({guid: bodyGuidData.guid, data: bodyData}, () => {
-						webservice.body.all(() => callback && callback(bodyGuidData.guid));
-					});
-				});
-			})
+		save: body => webserviceCore.post(`body/save/${body.guid}`, { data: JSON.stringify(body.data) }),
+
+		create: (file, bodyData) =>
+			// upload file
+			webservice.file.upload(file, 'body')
+				.then(fileGuid => {
+					// store off file id
+					bodyData.fileGuid = fileGuid;
+					// post for new empty body (return promise from this so that caller gets this promise for its "then")
+					return webserviceCore.post('body/new')
+						.then(bodyGuidData =>
+							webservice.body.save({guid: bodyGuidData.guid, data: bodyData})
+								.then(() => webservice.body.all().then(() => bodyGuidData.guid))
+						);
+				}),
 	},
+
 
 	character: {
-		all: callback => shared.functions.ajax('get', `character/all/${store.getState().account.guid}`, undefined, characters => {
-			dispatchFieldChanged(undefined, 'characters', characters);
-			if (callback) {
-				callback();
-			}
-		}),
-		create: (character, callback) => shared.functions.ajax('post', `character/new/${store.getState().account.guid}`, undefined, data => {
-			character.guid = data.guid;
-			webservice.character.update(character, () => {
-				webservice.character.all();
-				callback(data.guid);
-			});
-		}),
-		update: (character, callback) => shared.functions.ajax('post', `character/save/${character.guid}`, {data: JSON.stringify(character.data)}, result => webservice.character.all(() => callback ? callback(result) : undefined)),
+		all: () => webserviceCore.get(`character/all/${store.getState().account.guid}`).then(characters => dispatchFieldChanged(undefined, 'characters', characters)),
+
+		create: character => webserviceCore.post(`character/new/${store.getState().account.guid}`)
+			.then(data => {
+				character.guid = data.guid;
+				return webservice.character.update(character).then(() => webservice.character.all().then(() => character.guid));
+			}),
+
+		update: character => webserviceCore.post(`character/save/${character.guid}`, { data: JSON.stringify(character.data) })
+			.then(result => webservice.character.all().then(result)),
 	},
 
 	file: {
-		all: callback => shared.functions.ajax('get', 'file/all', undefined, data => {
-			dispatchFieldChanged(undefined, 'files', data);
-			if (callback) {
-				callback();
-			}
-		}),
+		all: () => webserviceCore.get('file/all').then(data => dispatchFieldChanged(undefined, 'files', data)),
 
-		/**
-		 * upload a file and get its guid back
-		 *
-		 * @param file file content from the upload file button
-		 * @param fileType what type of file it is (body, article)
-		 * @param callback gets the new guid back as a parameter with which you can then add to a body or do whatever you want
-		 */
-		upload: (file, fileType, callback) => {
+		upload: (file, fileType) => {
 			const formData = new FormData();
 			formData.append("file", file);
 			formData.append('fileType', fileType);
-			shared.functions.ajax('post', 'file/upload', formData, callback);
+			return webserviceCore.post('file/upload', formData);
 		}
 	}
 };

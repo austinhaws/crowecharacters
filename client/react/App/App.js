@@ -13,17 +13,31 @@ import PrintPaper from "../PrintPaper/PrintPaper";
 import BodyView from "../BodyView/BodyView";
 import dataGetter from "../Common/DataGetter";
 import webservice from "../Common/Webservice";
+import {dispatchFieldChanged} from "./Reducers";
 
 class AppClass extends React.Component {
 
 	constructor(props) {
 		super(props);
 
-		webservice.account.load(() => {
-			webservice.body.all();
-			webservice.file.all();
-			webservice.character.all()
-		});
+		// get current account guid from localstorage
+		const accountGuid = localStorage.getItem('accountPhrase');
+
+		// if not found, then create new account
+		webservice.account[accountGuid ? 'get' : 'new'](accountGuid)
+			.then(account => {
+				// store accountGuid in localstorage
+				localStorage.setItem('accountPhrase', account.phrase);
+
+				// dispatch set account information
+				dispatchFieldChanged(undefined, 'account', account);
+			})
+			// load account information
+			.then(() => {
+				webservice.body.all();
+				webservice.file.all();
+				webservice.character.all();
+			});
 	}
 
 	renderDefault() {
