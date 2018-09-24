@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import {render} from "react-dom";
 import {connect, Provider} from "react-redux";
@@ -12,8 +13,19 @@ import PrintCharacter from "../PrintCharacter/PrintCharacter";
 import PrintPaper from "../PrintPaper/PrintPaper";
 import BodyView from "../BodyView/BodyView";
 import dataGetter from "../Common/DataGetter";
-import webservice from "../Common/Webservice";
+import webservice, {ajaxStatusCore} from "../Common/Webservice";
 import {dispatchFieldChanged} from "./Reducers";
+
+const propTypes = {
+	account: PropTypes.object,
+	bodies: PropTypes.array.isRequired,
+	characters: PropTypes.array.isRequired,
+	files: PropTypes.array.isRequired,
+	printCharacter: PropTypes.object.isRequired,
+};
+const defaultProps = {
+	account: undefined,
+};
 
 class AppClass extends React.Component {
 
@@ -48,7 +60,7 @@ class AppClass extends React.Component {
 			output = <CharacterSelector {...this.props}/>;
 
 		// no characters, so check if still ajaxing for characters
-		} else if (this.props.ajaxingCount) {
+		} else if (ajaxStatusCore.isAjaxing()) {
 			output = <div>show spinner</div>;
 
 		// not ajaxing, still no characters, go to character creation
@@ -71,6 +83,7 @@ class AppClass extends React.Component {
 								printPercent={this.props.printCharacter.character ? parseFloat(this.props.printCharacter.character.data.printPercent) : undefined}
 								printName={this.props.printCharacter.character.data.printName ? this.props.printCharacter.character.data.name : undefined}
 								printCutBorder={this.props.printCharacter.character.data.printCutBorder}
+								{ ...this.props }
 							/>
 						</PrintPaper>
 						: undefined}
@@ -82,7 +95,7 @@ class AppClass extends React.Component {
 					</div>
 				</div>
 				<div id="main-container">
-					{(this.props.ajaxingCount && (!this.props.characters.length || !this.props.bodies.length || !this.props.files.length)) ? <div>Loading...</div> :
+					{(ajaxStatusCore.isAjaxing() && (!this.props.characters.length || !this.props.bodies.length || !this.props.files.length)) ? <div>Loading...</div> :
 						<Switch>
 							<Route path="/admin" render={() => <Admin {...this.props}/>}/>
 							<Route path="/character/new" render={() => <NewCharacter {...this.props}/>}/>
@@ -100,8 +113,8 @@ class AppClass extends React.Component {
 	}
 }
 
-AppClass.propTypes = {
-};
+AppClass.propTypes = propTypes;
+AppClass.defaultProps = defaultProps;
 
 const App = withRouter(connect(state => state)(AppClass));
 

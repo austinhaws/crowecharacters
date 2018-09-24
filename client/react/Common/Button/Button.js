@@ -1,6 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+const propTypes = {
+	title: PropTypes.string.isRequired,
+	onClick: PropTypes.func,
+	disabled: PropTypes.bool,
+	className: PropTypes.string,
+	isNotOpaque: PropTypes.bool,
+};
+const defaultProps = {};
+
 export default class Button extends React.Component {
 	render() {
 		return (
@@ -18,11 +27,6 @@ export default class Button extends React.Component {
 	}
 }
 
-Button.propTypes = {
-	title: PropTypes.string.isRequired,
-	onClick: PropTypes.func,
-	disabled: PropTypes.bool,
-	className: PropTypes.string,
-	isNotOpaque: PropTypes.bool,
-};
+Button.propTypes = propTypes;
+Button.defaultProps = defaultProps;
 

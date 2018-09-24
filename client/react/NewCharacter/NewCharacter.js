@@ -9,6 +9,14 @@ import webservice from "../Common/Webservice";
 import {joinClassNames} from "dts-react-common";
 import {dispatchFieldChanged} from "../App/Reducers";
 
+const propTypes = {
+	newCharacter: PropTypes.object.isRequired,
+	bodies: PropTypes.array.isRequired,
+	account: PropTypes.object,
+	history: PropTypes.object,
+};
+const defaultProps = {};
+
 export default class NewCharacter extends React.Component {
 	saveCharacter() {
 		webservice.character.create(this.props.newCharacter.editingCharacter).then(guid => {
@@ -76,10 +84,6 @@ export default class NewCharacter extends React.Component {
 	}
 }
 
-NewCharacter.propTypes = {
-	newCharacter: PropTypes.object.isRequired,
-	bodies: PropTypes.array.isRequired,
-	account: PropTypes.object,
-	history: PropTypes.object,
-};
+NewCharacter.propTypes = propTypes;
+NewCharacter.defaultProps = defaultProps;
 

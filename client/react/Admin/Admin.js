@@ -6,6 +6,13 @@ import AdminBodyEdit from "./AdminBodyEdit";
 import AdminBodyList from "./AdminBodyList";
 import AdminBodyNew from "./AdminBodyNew";
 
+const propTypes = {
+	history: PropTypes.object.isRequired,
+};
+
+const defaultProps = {
+};
+
 export default class Admin extends React.Component {
 	render() {
 		return (
@@ -23,6 +30,5 @@ export default class Admin extends React.Component {
 	}
 }
 
-Admin.propTypes = {
-	history: PropTypes.object.isRequired,
-};
+Admin.propTypes = propTypes;
+Admin.defaultProps = defaultProps;

@@ -13,7 +13,7 @@ const defaultProps = {
 	canGoBack: false,
 	history: undefined,
 	backUrl: undefined,
-}
+};
 
 export default class TopNavigation extends React.Component {
 

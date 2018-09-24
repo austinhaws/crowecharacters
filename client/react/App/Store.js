@@ -20,8 +20,6 @@ const store = createStore((state, action) => {
 	}, {
 		// === default data ===
 
-		ajaxingCount: 0,
-
 		// cached data from server
 		bodies: [],
 		files: [],

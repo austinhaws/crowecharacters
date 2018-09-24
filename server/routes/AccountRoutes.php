@@ -1,5 +1,6 @@
 <?php
 
+require_once('WebResponse.php');
 
 $router->group(['prefix' => 'account'], function () use ($router) {
 
@@ -44,7 +45,7 @@ $router->group(['prefix' => 'account'], function () use ($router) {
 
 	$router->get('new', function () {
 		$account = newAccount();
-		return response(json_encode(cleanRecord($account)));
+		return webResponse(cleanRecord($account));
 	});
 
 	$router->get('get/{phrase}', function ($phrase) {
@@ -52,6 +53,6 @@ $router->group(['prefix' => 'account'], function () use ($router) {
 		if (!$account) {
 			$account = newAccount();
 		}
-		return response(json_encode(cleanRecord($account)));
+		return webResponse(cleanRecord($account));
 	});
 });

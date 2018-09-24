@@ -5,6 +5,24 @@ import clone from "clone";
 import _ from "lodash";
 import {handleEvent} from "dts-react-common";
 
+const propTypes = {
+	// the images to show
+	imageFiles: PropTypes.array.isRequired,
+	// which images are currently selected
+	selectedImages: PropTypes.array.isRequired,
+
+	// which images are selected have changed
+	selectedChanged: PropTypes.func.isRequired,
+	// which component to show for the detail editing of an image
+	renderSelectedDetail: PropTypes.func,
+	onDrop: PropTypes.func,
+};
+
+const defaultProps = {
+	renderSelectedDetail: undefined,
+	onDrop: undefined,
+};
+
 export default class ImageList extends React.Component {
 	constructor(props) {
 		super(props);
@@ -64,20 +82,5 @@ export default class ImageList extends React.Component {
 	}
 }
 
-ImageList.propTypes = {
-	// the images to show
-	imageFiles: PropTypes.array.isRequired,
-	// which images are currently selected
-	selectedImages: PropTypes.array.isRequired,
-
-	// which images are selected have changed
-	selectedChanged: PropTypes.func.isRequired,
-	// which component to show for the detail editing of an image
-	renderSelectedDetail: PropTypes.func,
-	onDrop: PropTypes.func,
-};
-
-ImageList.defaultProps = {
-	renderSelectedDetail: undefined,
-	onDrop: undefined,
-};
+ImageList.propTypes = propTypes;
+ImageList.defaultProps = defaultProps;

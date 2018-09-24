@@ -2,6 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import ToggleButton from "../ToggleButton/ToggleButton";
 
+const propTypes = {
+	// which image to show
+	image: PropTypes.object.isRequired,
+
+	// is this row selected
+	selected: PropTypes.bool.isRequired,
+
+	// called when the toggle button is clicked
+	onToggle: PropTypes.func.isRequired,
+
+	// called when the image row has been clicked: image => {}
+	onSelect: PropTypes.func
+};
+const defaultProps = {};
+
 export default class ImageToggleRow extends React.Component {
 	constructor(props) {
 		super(props);
@@ -20,16 +35,5 @@ export default class ImageToggleRow extends React.Component {
 	}
 }
 
-ImageToggleRow.propTypes = {
-	// which image to show
-	image: PropTypes.object.isRequired,
-
-	// is this row selected
-	selected: PropTypes.bool.isRequired,
-
-	// called when the toggle button is clicked
-	onToggle: PropTypes.func.isRequired,
-
-	// called when the image row has been clicked: image => {}
-	onSelect: PropTypes.func
-};
+ImageToggleRow.propTypes = propTypes;
+ImageToggleRow.defaultProps = defaultProps;

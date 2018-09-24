@@ -5,12 +5,20 @@ import ItemList from "../Common/ItemList/ItemList";
 import PropTypes from "prop-types";
 import dataGetter from "../Common/DataGetter";
 
+const propTypes = {
+	bodies: PropTypes.array.isRequired,
+	history: PropTypes.object.isRequired,
+};
+
+const defaultProps = {};
+
 export default class AdminBodyList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			selectedBodyGuid: undefined,
 			search: '',
+			selectedImage: undefined,
 		};
 	}
 	render() {
@@ -39,8 +47,6 @@ export default class AdminBodyList extends React.Component {
 	}
 }
 
-AdminBodyList.propTypes = {
-	bodies: PropTypes.array.isRequired,
-	history: PropTypes.object.isRequired,
-};
+AdminBodyList.propTypes = propTypes;
+AdminBodyList.defaultProps = defaultProps;
 

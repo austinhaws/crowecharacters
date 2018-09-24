@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+const propTypes = {
+	children: PropTypes.any.isRequired,
+};
+const defaultProps = {};
 export default class LeftPanel extends React.Component {
 	render() {
 		return (
@@ -14,6 +18,5 @@ export default class LeftPanel extends React.Component {
 	}
 }
 
-LeftPanel.propTypes = {
-	children: PropTypes.any.isRequired,
-};
+LeftPanel.propTypes = propTypes;
+LeftPanel.defaultProps = defaultProps;

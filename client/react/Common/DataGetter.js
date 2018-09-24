@@ -6,4 +6,3 @@ export default {
 		filesForBodyImages: body => body ? body.data.images.map(image => store.getState().files.find(file => file.guid === image.fileGuid)) : undefined,
 		characterByGuid: guid => guid ? store.getState().characters.find(character => character.guid === guid) : undefined,
 };
-

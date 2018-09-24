@@ -11,11 +11,21 @@ import webservice from "../Common/Webservice";
 import dataGetter from "../Common/DataGetter";
 import {dispatchFieldChanged} from "../App/Reducers";
 
-export default class EditCharacter extends React.Component {
-	saveCharacter() {
-		// shared.ajax.character.create(this.props.newCharacter.editCharacter, guid => this.props.history.push(`/character/${guid}`));
-	}
+const propTypes = {
+	// guid of the character to edit
+	guid: PropTypes.string.isRequired,
 
+	// files from redux state
+	files: PropTypes.array.isRequired,
+
+	// comes from React Router for routing history
+	history: PropTypes.object.isRequired,
+
+	editCharacter: PropTypes.object.isRequired,
+};
+const defaultProps = {};
+
+export default class EditCharacter extends React.Component {
 	componentDidMount() {
 		if (!this.props.editCharacter.character || this.props.editCharacter.character.guid !== this.props.guid) {
 			const character = this.props.characters.filter(c => c.guid === this.props.guid)[0];
@@ -60,6 +70,7 @@ export default class EditCharacter extends React.Component {
 							<BodyView
 								bodyGuid={this.props.editCharacter.character.data.bodyGuid}
 								fileImages={this.props.editCharacter.character.data.images ? this.props.editCharacter.character.data.images.map(dataGetter.fileByGuid) : undefined}
+								{ ...this.props }
 							/>
 							<div className="bottom-buttons-container body-bottom">
 								<Button title="Print" className="print-button" onClick={() => this.props.history.push(`/character/print/${this.props.editCharacter.character.guid}`)}/>
@@ -73,14 +84,6 @@ export default class EditCharacter extends React.Component {
 	}
 }
 
-EditCharacter.propTypes = {
-	// guid of the character to edit
-	guid: PropTypes.string.isRequired,
-
-	// files from redux state
-	files: PropTypes.array.isRequired,
-
-	// comes from React Router for routing history
-	history: PropTypes.object.isRequired,
-};
+EditCharacter.propTypes = propTypes;
+EditCharacter.defaultProps = defaultProps;
 

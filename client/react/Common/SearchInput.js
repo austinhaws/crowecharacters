@@ -4,6 +4,12 @@ import images from "../Common/Images";
 import {objectAtPath} from "dts-react-common";
 import {dispatchFieldChanged} from "../App/Reducers";
 
+const propTypes = {
+	// path in the store to the object that holds the searchText field
+	objectPath: PropTypes.string.isRequired,
+};
+const defaultProps = {};
+
 export default class SearchInput extends React.Component {
 
 	render() {
@@ -21,8 +27,5 @@ export default class SearchInput extends React.Component {
 	}
 }
 
-SearchInput.propTypes = {
-	// path in the store to the object that holds the searchText field
-	objectPath: PropTypes.string.isRequired,
-};
-
+SearchInput.propTypes = propTypes;
+SearchInput.defaultProps = defaultProps;

@@ -6,9 +6,28 @@ import BodyView from "../BodyView/BodyView";
 import PropTypes from "prop-types";
 import ImageList from "../Common/ImageList/ImageList";
 import _ from "lodash";
-import shared from "../App/Shared";
 import Slider from 'react-rangeslider';
 import {handleEvent} from "dts-react-common";
+import webservice from "../Common/Webservice";
+
+const propTypes = {
+	// body to edit
+	bodyGuid: PropTypes.string.isRequired,
+
+	// image to edit on the body (used if uploaded image and want to edit that image)
+	imageGuide: PropTypes.string,
+
+	// bodies to show
+	bodies: PropTypes.array,
+
+	history: PropTypes.object.isRequired,
+
+	files: PropTypes.array.isRequired,
+};
+
+const defaultProps = {
+
+};
 
 export default class AdminBodyEdit extends React.Component {
 	constructor(props) {
@@ -38,7 +57,7 @@ export default class AdminBodyEdit extends React.Component {
 						this.editingImage.zIndex = value;
 						bodyImage.zIndex = value;
 						this.setState(this.state);
-						shared.ajax.body.save(body);
+						webservice.body.save(body);
 					}}
 				/>
 			</div>
@@ -50,7 +69,7 @@ export default class AdminBodyEdit extends React.Component {
 			const body = this.props.bodies ? this.props.bodies.filter(body => body.guid === this.props.bodyGuid)[0] : undefined;
 			if (body) {
 				body.data.images = body.data.images.filter(image => !this.state.selectedImages.includes(image.fileGuid));
-				shared.ajax.body.save(body)
+				webservice.body.save(body);
 			}
 		}
 	}
@@ -74,16 +93,17 @@ export default class AdminBodyEdit extends React.Component {
 	}
 
 	uploadFile(file) {
-		shared.ajax.file.upload(file, 'article', fileGuid => {
-			const body = this.props.bodies.filter(body => body.guid === this.props.bodyGuid)[0];
-			if (!body.data.images) {
-				body.data.images = [];
-			}
-			body.data.images.push({fileGuid: fileGuid, zIndex: 100, freeFloat: false});
-			shared.ajax.body.save(body, () => shared.ajax.file.all(
-				() => shared.ajax.body.all(() => this.props.history.push(`/admin/body/edit/${this.props.bodyGuid}/${fileGuid}`))
-			));
-		});
+		webservice.file.upload(file, 'article')
+			.then(fileGuid => {
+				const body = this.props.bodies.filter(body => body.guid === this.props.bodyGuid)[0];
+				if (!body.data.images) {
+					body.data.images = [];
+				}
+				body.data.images.push({fileGuid: fileGuid, zIndex: 100, freeFloat: false});
+				return webservice.body.save(body).then(() => fileGuid);
+			})
+			.then(fileGuid => webservice.file.all().then(fileGuid))
+			.then(fileGuid => webservice.body.all(() => this.props.history.push(`/admin/body/edit/${this.props.bodyGuid}/${fileGuid}`)));
 
 	}
 
@@ -127,14 +147,6 @@ export default class AdminBodyEdit extends React.Component {
 	}
 }
 
-AdminBodyEdit.propTypes = {
-	// body to edit
-	bodyGuid: PropTypes.string.isRequired,
-
-	// image to edit on the body (used if uploaded image and want to edit that image)
-	imageGuide: PropTypes.string,
-
-	// bodies to show
-	bodies: PropTypes.array,
-};
+AdminBodyEdit.propTypes = propTypes;
+AdminBodyEdit.defaultProps = defaultProps;
 

@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+require_once('WebResponse.php');
+
 // name of the file on disc
 define('FIELD_FILE_NAME', 'name');
 // body, image
@@ -23,7 +25,7 @@ $router->group(['prefix' => 'file'], function () use ($router) {
  * create a new account and return it
  *
  * @param Request $request
- * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+ * @return \Illuminate\Http\JsonResponse
  */
 function uploadFile(Request $request)
 {
@@ -54,5 +56,5 @@ function uploadFile(Request $request)
 
 	DB::table(TABLE_FILES)->where('id', $id)->update(['data' => json_encode($fileData)]);
 
-	return response($guid);
+	return webResponse($guid);
 }

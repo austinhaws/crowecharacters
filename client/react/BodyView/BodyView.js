@@ -4,6 +4,20 @@ import _ from "lodash";
 import dataGetter from "../Common/DataGetter";
 import constants from "../Common/Constants";
 
+const propTypes = {
+	// the character to display
+	bodyGuid: PropTypes.string.isRequired,
+	// the fileImages to display on the body
+	fileImages: PropTypes.array,
+	// can override draw percent for the body (for printing)
+	printPercent: PropTypes.number,
+	// if !undefined then shows the given name above the body
+	printName: PropTypes.string,
+	// should the cutting outline be printed
+	printCutBorder: PropTypes.bool,
+};
+const defaultProps = {};
+
 export default class BodyView extends React.Component {
 	render() {
 
@@ -80,15 +94,5 @@ export default class BodyView extends React.Component {
 	}
 }
 
-BodyView.propTypes = {
-	// the character to display
-	bodyGuid: PropTypes.string.isRequired,
-	// the fileImages to display on the body
-	fileImages: PropTypes.array,
-	// can override draw percent for the body (for printing)
-	printPercent: PropTypes.number,
-	// if !undefined then shows the given name above the body
-	printName: PropTypes.string,
-	// should the cutting outline be printed
-	printCutBorder: PropTypes.bool,
-};
+BodyView.propTypes = propTypes;
+BodyView.defaultProps = defaultProps;

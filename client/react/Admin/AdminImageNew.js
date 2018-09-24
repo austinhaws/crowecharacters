@@ -6,6 +6,13 @@ import PropTypes from "prop-types";
 import BodyView from "../BodyView/BodyView";
 import webservice from "../Common/Webservice";
 
+const propTypes = {
+	bodyGuid: PropTypes.string.isRequired,
+	history: PropTypes.object.isRequired,
+	bodies: PropTypes.array.isRequired,
+};
+const defaultProps = {};
+
 export default class AdminImageNew extends React.Component {
 
 	uploadImage(e) {
@@ -44,11 +51,5 @@ export default class AdminImageNew extends React.Component {
 	}
 }
 
-AdminImageNew.propTypes = {
-	bodyGuid: PropTypes.string.isRequired,
-	history: PropTypes.object.isRequired,
-	bodies: PropTypes.array.isRequired,
-};
-
-AdminImageNew.defaultProps = {
-};
+AdminImageNew.propTypes = propTypes;
+AdminImageNew.defaultProps = defaultProps;

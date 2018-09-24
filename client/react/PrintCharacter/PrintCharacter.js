@@ -11,6 +11,24 @@ import PrintPaperWithCharacter from "../PrintPaper/PrintPaperWithCharacter";
 import webservice from "../Common/Webservice";
 import {dispatchFieldChanged} from "../App/Reducers";
 
+const propTypes = {
+	// guid of the character to edit
+	guid: PropTypes.string.isRequired,
+
+	// the print character view data
+	printCharacter: PropTypes.object.isRequired,
+
+	// files from redux state
+	files: PropTypes.array.isRequired,
+
+	// comes from React Router for routing history
+	history: PropTypes.object.isRequired,
+
+	// list of characters to show
+	characters: PropTypes.array.isRequired,
+};
+const defaultProps = {};
+
 export default class PrintCharacter extends React.Component {
 	componentDidMount() {
 		if (!this.props.printCharacter.character || this.props.printCharacter.character.guid !== this.props.guid) {
@@ -69,19 +87,5 @@ export default class PrintCharacter extends React.Component {
 	}
 }
 
-PrintCharacter.propTypes = {
-	// guid of the character to edit
-	guid: PropTypes.string.isRequired,
-
-	// the print character view data
-	printCharacter: PropTypes.object.isRequired,
-
-	// files from redux state
-	files: PropTypes.array.isRequired,
-
-	// comes from React Router for routing history
-	history: PropTypes.object.isRequired,
-
-	// list of characters to show
-	characters: PropTypes.array.isRequired,
-};
+PrintCharacter.propTypes = propTypes;
+PrintCharacter.defaultProps = defaultProps;

@@ -4,6 +4,11 @@ import BodyView from "../BodyView/BodyView";
 import PrintPaper from "./PrintPaper";
 import dataGetter from "../Common/DataGetter";
 
+const propTypes = {
+	character: PropTypes.object,
+};
+const defaultProps = {};
+
 export default class PrintPaperWithCharacter extends React.Component {
 	render() {
 		const data = this.props.character ? this.props.character.data : undefined;
@@ -22,6 +27,5 @@ export default class PrintPaperWithCharacter extends React.Component {
 	}
 }
 
-PrintPaperWithCharacter.propTypes = {
-	character: PropTypes.object,
-};
+PrintPaperWithCharacter.propTypes = propTypes;
+PrintPaperWithCharacter.defaultProps = defaultProps;

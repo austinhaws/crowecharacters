@@ -13,7 +13,6 @@ const webservice = {
 
 	account: {
 		new: () => webserviceCore.get('account/new'),
-
 		get: phrase => webserviceCore.get(`account/get/${phrase}`),
 	},
 

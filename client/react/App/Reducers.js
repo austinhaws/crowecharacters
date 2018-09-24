@@ -15,17 +15,9 @@ export const dispatchFieldChanged = (objectPath, field, value) => {
 
 let reducers = {
 	ACTION_TYPES: {
-		// set ajaxing start/stop
-		SET_AJAXING: 'SET_AJAXING',
 		// set a field on any object by a dot path in the state
 		SET_OBJECT_FIELD: 'SET_OBJECT_FIELD',
 	}
-};
-
-// reducer: update ajaxing count
-// payload: boolean truey for an ajax began, falsey an ajax ended
-reducers[reducers.ACTION_TYPES.SET_AJAXING] = (state, action) => {
-	return Object.assign({...state}, { ajaxingCount: state.ajaxingCount + (action.payload ? 1 : -1) });
 };
 
 // reducer: sets a field in an object in the state

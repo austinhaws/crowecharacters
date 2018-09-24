@@ -3,10 +3,12 @@ import LeftPanel from "../Panels/LeftPanel";
 import TopNavigation from "../App/TopNavigation";
 import PropTypes from "prop-types";
 import webservice from "../Common/Webservice";
+import AdminBodyList from "./AdminBodyList";
 
 const propTypes = {
 	history: PropTypes.object.isRequired,
 };
+const defaultProps = {};
 
 export default class AdminBodyNew extends React.Component {
 
@@ -71,4 +73,5 @@ export default class AdminBodyNew extends React.Component {
 	}
 }
 
-AdminBodyNew.propTypes = propTypes;
+AdminBodyList.propTypes = propTypes;
+AdminBodyList.defaultProps = defaultProps;

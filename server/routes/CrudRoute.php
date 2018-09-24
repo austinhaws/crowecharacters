@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 
 
 require_once('CrudData.php');
+require_once('WebResponse.php');
 
 /**
  * Class Crud
@@ -36,19 +37,19 @@ class CrudRoute
 
 			if ($options[CrudRoute::OPTION_NEW]) {
 				$router->post('new', function () use ($crudData) {
-					return response()->json($crudData->create());
+					return webResponse($crudData->create());
 				});
 			}
 
 			if ($options[CrudRoute::OPTION_GET]) {
 				$router->get('get/{guid}', function ($guid) use ($crudData) {
-					return response()->json($crudData->read($guid));
+					return webResponse($crudData->read($guid));
 				});
 			}
 
 			if ($options[CrudRoute::OPTION_ALL]) {
 				$router->get('all', function () use ($crudData) {
-					return response()->json($crudData->readAll());
+					return webResponse($crudData->readAll());
 				});
 			}
 
@@ -90,5 +91,5 @@ class CrudRoute
  * @return \Illuminate\Http\JsonResponse
  */
 function messageSuccess() {
-	return response()->json(['result' => 'success']);
+	return webResponse(['result' => 'success']);
 }
