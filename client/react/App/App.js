@@ -15,6 +15,7 @@ import BodyView from "../BodyView/BodyView";
 import dataGetter from "../Common/DataGetter";
 import webservice, {ajaxStatusCore} from "../Common/Webservice";
 import {dispatchFieldChanged} from "./Reducers";
+import Test from "../Test/Test";
 
 const propTypes = {
 	account: PropTypes.object,
@@ -97,6 +98,7 @@ class AppClass extends React.Component {
 				<div id="main-container">
 					{(ajaxStatusCore.isAjaxing() && (!this.props.characters.length || !this.props.bodies.length || !this.props.files.length)) ? <div>Loading...</div> :
 						<Switch>
+							<Route path="/test" render={() => <Test {...this.props}/>}/>
 							<Route path="/admin" render={() => <Admin {...this.props}/>}/>
 							<Route path="/character/new" render={() => <NewCharacter {...this.props}/>}/>
 							<Route path="/character/edit/:guid" render={router => <EditCharacter guid={router.match.params.guid} {...this.props}/>}/>

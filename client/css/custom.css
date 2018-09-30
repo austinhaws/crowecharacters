@@ -392,3 +392,15 @@ button.midget {
 .print-only {
 	display: none;
 }
+
+button {
+	background-color: #6b3e27;
+}
+
+button.size-large {
+	width: 200px;
+	height: 80px;
+}
+.output {
+	background-color: white;
+}

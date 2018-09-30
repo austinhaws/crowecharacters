@@ -18,7 +18,10 @@ const webservice = {
 
 
 	body: {
-		all: () => webserviceCore.get('body/all').then(data => dispatchFieldChanged(undefined, 'bodies', data)),
+		all: () => webserviceCore.get('body/all').then(data => {
+			dispatchFieldChanged(undefined, 'bodies', data);
+			return data;
+		}),
 
 		save: body => webserviceCore.post(`body/save/${body.guid}`, { data: JSON.stringify(body.data) }),
 
@@ -38,7 +41,10 @@ const webservice = {
 
 	character: {
 		all: () => webserviceCore.get(`character/all/${store.getState().account.guid}`)
-			.then(characters => dispatchFieldChanged(undefined, 'characters', characters)),
+			.then(characters => {
+				dispatchFieldChanged(undefined, 'characters', characters);
+				return characters;
+			}),
 
 		create: character => webserviceCore.post(`character/new/${store.getState().account.guid}`)
 			.then(data => {
@@ -49,12 +55,15 @@ const webservice = {
 			.then(character => character.guid),
 
 		update: character => webserviceCore.post(`character/save/${character.guid}`, { data: JSON.stringify(character.data) })
-			.then(result => webservice.character.all().then(result)),
+			.then(result => webservice.character.all().then(() => result)),
 	},
 
 	file: {
 		all: () => webserviceCore.get('file/all')
-			.then(data => dispatchFieldChanged(undefined, 'files', data)),
+			.then(data => {
+				dispatchFieldChanged(undefined, 'files', data);
+				return data;
+			}),
 
 		upload: (file, fileType) => {
 			const formData = new FormData();
