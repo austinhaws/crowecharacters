@@ -4,7 +4,6 @@ import MainPanel from "../Panels/MainPanel";
 import PropTypes from "prop-types";
 import SearchInput from "../Common/SearchInput";
 import TopNavigation from "../App/TopNavigation";
-import BodyView from "../BodyView/BodyView";
 
 const propTypes = {
 	characters: PropTypes.array.isRequired,
@@ -52,5 +51,5 @@ export default class CharacterSelector extends React.Component {
 	}
 }
 
-BodyView.propTypes = propTypes;
-BodyView.defaultProps = defaultProps;
+CharacterSelector.propTypes = propTypes;
+CharacterSelector.defaultProps = defaultProps;

@@ -19,10 +19,11 @@ const defaultProps = {};
 
 export default class NewCharacter extends React.Component {
 	saveCharacter() {
-		webservice.character.create(this.props.newCharacter.editingCharacter).then(guid => {
-			this.props.history.push(`/character/edit/${guid}`);
-			dispatchFieldChanged('newCharacter', 'editingCharacter', {data: {name: '', bodyGuid: ''}});
-		});
+		webservice.character.create(this.props.newCharacter.editingCharacter)
+			.then(guid => {
+				this.props.history.push(`/character/edit/${guid}`);
+				dispatchFieldChanged('newCharacter', 'editingCharacter', {data: {name: '', bodyGuid: ''}});
+			});
 	}
 
 	render() {

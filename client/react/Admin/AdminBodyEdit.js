@@ -102,7 +102,7 @@ export default class AdminBodyEdit extends React.Component {
 				body.data.images.push({fileGuid: fileGuid, zIndex: 100, freeFloat: false});
 				return webservice.body.save(body).then(() => fileGuid);
 			})
-			.then(fileGuid => webservice.file.all().then(fileGuid))
+			.then(fileGuid => webservice.file.all().then(() => fileGuid))
 			.then(fileGuid => webservice.body.all(() => this.props.history.push(`/admin/body/edit/${this.props.bodyGuid}/${fileGuid}`)));
 
 	}
