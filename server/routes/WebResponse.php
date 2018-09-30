@@ -5,5 +5,5 @@ function webResponse($data) {
 		'errors' => null,
 		'roles' => [],
 		'data' => $data,
-	]);
+	], 200, [], JSON_UNESCAPED_UNICODE);
 }
