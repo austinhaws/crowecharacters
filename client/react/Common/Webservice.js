@@ -9,6 +9,8 @@ const webserviceCore = new WebserviceCore({
 	allResultsCallback: response => response.data,
 });
 
+
+// !!!!!!!!!  Make sure to add calls to TestWebservice.js !!!!!!! //
 const webservice = {
 
 	account: {
