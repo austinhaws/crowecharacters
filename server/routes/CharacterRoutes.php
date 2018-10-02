@@ -21,7 +21,7 @@ $router->group(['prefix' => 'character'], function () use ($router) {
 			cleanRecord($record);
 		}
 
-		return webResponse($records);
+		return webResponse($records, $accountGuid);
 	});
 
 	$router->post('new/{accountGuid}', function ($accountGuid) {
@@ -41,6 +41,6 @@ $router->group(['prefix' => 'character'], function () use ($router) {
 		// link to account
 		DB::table('characters_x_accounts')->insert(['characters_id' => $characterId, 'accounts_id' => $account->id]);
 
-		return webResponse(cleanRecord($character));
+		return webResponse(cleanRecord($character), $accountGuid);
 	});
 });

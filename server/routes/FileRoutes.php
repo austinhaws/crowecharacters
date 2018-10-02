@@ -16,18 +16,18 @@ define('TABLE_FILES', 'files');
 
 $router->group(['prefix' => 'file'], function () use ($router) {
 	// upload a new body image
-	$router->post('upload', function (Request $request) {
-		return uploadFile($request);
+	$router->post('upload/{accountGuid}', function (string $accountGuid, Request $request) {
+		return uploadFile($request, $accountGuid);
 	});
 });
 
 /**
- * create a new account and return it
  *
  * @param Request $request
+ * @param string $accountGuid
  * @return \Illuminate\Http\JsonResponse
  */
-function uploadFile(Request $request)
+function uploadFile(Request $request, string $accountGuid)
 {
 	// create a new guid
 	$guid = uniqid();
@@ -56,5 +56,5 @@ function uploadFile(Request $request)
 
 	DB::table(TABLE_FILES)->where('id', $id)->update(['data' => json_encode($fileData)]);
 
-	return webResponse($guid);
+	return webResponse($guid, $accountGuid);
 }
