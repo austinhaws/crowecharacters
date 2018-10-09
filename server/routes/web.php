@@ -14,7 +14,6 @@
 require_once('CrudRoute.php');
 
 $crudRoutes = [
-	'accounts' => new CrudRoute($router, 'accounts', 'account', CrudRoute::optionsAllRoutes([CrudRoute::OPTION_DELETE, CrudRoute::OPTION_ALL, CrudRoute::OPTION_NEW, CrudRoute::OPTION_GET])),
 	'bodies' => new CrudRoute($router, 'bodies', 'body', CrudRoute::optionsAllRoutes([CrudRoute::OPTION_DELETE])),
 	'characters' => new CrudRoute($router, 'characters', 'character', CrudRoute::optionsAllRoutes([CrudRoute::OPTION_ALL, CrudRoute::OPTION_NEW])),
 	'files' => new CrudRoute($router, 'files', 'file', CrudRoute::optionsAllRoutes([CrudRoute::OPTION_DELETE])),

@@ -49,6 +49,11 @@ class AccountDao {
 	{
 		return DB::table('accounts')->where('phrase', '=' , $phrase)->first();
 	}
+
+	public function update($guid, $data)
+	{
+		return DB::table('accounts')->where('guid', '=', $guid)->update(['data' => $data]);
+	}
 }
 
 function accountDao() {

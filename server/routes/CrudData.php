@@ -98,3 +98,18 @@ function cleanRecord(&$record)
 	$record->data = json_decode($record->data);
 	return $record;
 }
+
+/**
+ * clean an array of records
+ *
+ * @param $records array records to clean
+ * @return array cleaned records
+ */
+function cleanRecords(&$records)
+{
+	foreach ($records as $key => $dontuse) {
+		cleanRecord($records[$key]);
+	}
+
+	return $records;
+}

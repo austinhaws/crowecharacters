@@ -36,34 +36,34 @@ class CrudRoute
 		$router->group(['prefix' => $routePrefix], function () use ($router, $crudData, $options) {
 
 			if ($options[CrudRoute::OPTION_NEW]) {
-				$router->post('new', function () use ($crudData) {
-					return webResponse($crudData->create());
+				$router->post('new/{accountGuid}', function ($accountGuid) use ($crudData) {
+					return webResponse($crudData->create(), $accountGuid);
 				});
 			}
 
 			if ($options[CrudRoute::OPTION_GET]) {
-				$router->get('get/{guid}', function ($guid) use ($crudData) {
-					return webResponse($crudData->read($guid));
+				$router->get('get/{guid}/{accountGuid}', function ($guid, $accountGuid) use ($crudData) {
+					return webResponse($crudData->read($guid), $accountGuid);
 				});
 			}
 
 			if ($options[CrudRoute::OPTION_ALL]) {
-				$router->get('all', function () use ($crudData) {
-					return webResponse($crudData->readAll());
+				$router->get('all/{accountGuid}', function ($accountGuid) use ($crudData) {
+					return webResponse($crudData->readAll(), $accountGuid);
 				});
 			}
 
 			if ($options[CrudRoute::OPTION_SAVE]) {
-				$router->post('save/{guid}', function ($guid, Request $request) use ($crudData) {
-					$crudData->update($guid, $request->input('data'));
-					return messageSuccess();
+				$router->post('save/{guid}/{accountGuid}', function ($guid, $accountGuid, Request $request) use ($crudData) {
+					$crudData->update($guid, $request->input('data'), $accountGuid);
+					return webResponse(['result' => 'success'], $accountGuid);
 				});
 			}
 
 			if ($options[CrudRoute::OPTION_DELETE]) {
-				$router->delete('delete/{guid}', function ($guid) use ($crudData) {
+				$router->delete('delete/{guid}/accountGuid', function ($guid, $accountGuid) use ($crudData) {
 					$crudData->delete($guid);
-					return messageSuccess();
+					return webResponse(['result' => 'success'], $accountGuid);
 				});
 			}
 		});
@@ -83,13 +83,4 @@ class CrudRoute
 			return $carry;
 		}, []);
 	}
-}
-
-/**
- * simple success message
- *
- * @return \Illuminate\Http\JsonResponse
- */
-function messageSuccess() {
-	return webResponse(['result' => 'success']);
 }
