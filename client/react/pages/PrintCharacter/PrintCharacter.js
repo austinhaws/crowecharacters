@@ -1,15 +1,15 @@
 import React from "react";
-import LeftPanel from "../Panels/LeftPanel";
-import PropTypes from "prop-types";
-import TopNavigation from "../App/TopNavigation";
-import clone from "clone";
-import MainPanel from "../Panels/MainPanel";
-import ToggleButton from "../Common/ToggleButton/ToggleButton";
-import Button from "../Common/Button/Button";
 import Slider from 'react-rangeslider';
+import PropTypes from "prop-types";
+import clone from "clone";
+import {Button} from "dts-react-common";
+import LeftPanel from "../../Common/Panels/LeftPanel";
+import TopNavigation from "../../App/TopNavigation";
+import MainPanel from "../../Common/Panels/MainPanel";
+import ToggleButton from "../../Common/ToggleButton/ToggleButton";
 import PrintPaperWithCharacter from "../PrintPaper/PrintPaperWithCharacter";
-import webservice from "../Common/Webservice";
-import {dispatchFieldChanged} from "../App/Reducers";
+import webservice from "../../Common/Webservice";
+import {dispatchFieldChanged} from "../../App/Reducers";
 
 const propTypes = {
 	// guid of the character to edit

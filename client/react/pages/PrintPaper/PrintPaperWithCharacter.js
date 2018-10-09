@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import BodyView from "../BodyView/BodyView";
 import PrintPaper from "./PrintPaper";
-import dataGetter from "../Common/DataGetter";
+import dataGetter from "../../Common/DataGetter";
 
 const propTypes = {
 	character: PropTypes.object,

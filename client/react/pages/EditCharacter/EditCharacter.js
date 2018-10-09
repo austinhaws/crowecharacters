@@ -1,16 +1,16 @@
 import React from "react";
-import LeftPanel from "../Panels/LeftPanel";
-import MainPanel from "../Panels/MainPanel";
 import PropTypes from "prop-types";
-import TopNavigation from "../App/TopNavigation";
 import clone from "clone";
+import {dispatchFieldChanged} from "../../App/Reducers";
+import LeftPanel from "../../Common/Panels/LeftPanel";
+import MainPanel from "../../Common/Panels/MainPanel";
+import TopNavigation from "../../App/TopNavigation";
 import BodyView from "../BodyView/BodyView";
-import ImageList from "../Common/ImageList/ImageList";
-import Button from "../Common/Button/Button";
-import webservice from "../Common/Webservice";
-import dataGetter from "../Common/DataGetter";
-import {dispatchFieldChanged} from "../App/Reducers";
-import history from "../Common/History/History";
+import ImageList from "../../Common/ImageList/ImageList";
+import webservice from "../../Common/Webservice";
+import dataGetter from "../../Common/DataGetter";
+import history from "../../Common/History/History";
+import {Button} from "dts-react-common";
 
 const propTypes = {
 	// guid of the character to edit

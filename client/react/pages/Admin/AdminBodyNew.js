@@ -1,9 +1,9 @@
 import React from "react";
-import LeftPanel from "../Panels/LeftPanel";
-import TopNavigation from "../App/TopNavigation";
-import webservice from "../Common/Webservice";
 import AdminBodyList from "./AdminBodyList";
-import history from "../Common/History/History";
+import LeftPanel from "../../Common/Panels/LeftPanel";
+import TopNavigation from "../../App/TopNavigation";
+import webservice from "../../Common/Webservice";
+import history from "../../Common/History/History";
 
 const propTypes = {};
 const defaultProps = {};

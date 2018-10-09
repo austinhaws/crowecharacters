@@ -3,20 +3,20 @@ import React from "react";
 import {render} from "react-dom";
 import {connect, Provider} from "react-redux";
 import store from "./Store";
-import NewCharacter from "../NewCharacter/NewCharacter";
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import {Redirect, withRouter} from "react-router";
-import CharacterSelector from "../CharacterSelector/CharacterSelector";
-import EditCharacter from "../EditCharacter/EditCharacter";
-import Admin from "../Admin/Admin";
-import PrintCharacter from "../PrintCharacter/PrintCharacter";
-import PrintPaper from "../PrintPaper/PrintPaper";
-import BodyView from "../BodyView/BodyView";
-import dataGetter from "../Common/DataGetter";
+import {ReactRouterGlobalHistory} from '../Common/History/HistoryListener';
 import webservice, {ajaxStatusCore} from "../Common/Webservice";
 import {dispatchFieldChanged} from "./Reducers";
-import Test from "../Test/Test";
-import {ReactRouterGlobalHistory} from '../Common/History/HistoryListener';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Redirect, withRouter} from "react-router";
+import NewCharacter from "../pages/NewCharacter/NewCharacter";
+import CharacterSelector from "../pages/CharacterSelector/CharacterSelector";
+import EditCharacter from "../pages/EditCharacter/EditCharacter";
+import Admin from "../pages/Admin/Admin";
+import PrintCharacter from "../pages/PrintCharacter/PrintCharacter";
+import PrintPaper from "../pages/PrintPaper/PrintPaper";
+import BodyView from "../pages/BodyView/BodyView";
+import dataGetter from "../Common/DataGetter";
+import Test from "../pages/Test/Test";
 
 const propTypes = {
 	account: PropTypes.object,

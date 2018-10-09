@@ -1,10 +1,10 @@
 import React from "react";
-import LeftPanel from "../Panels/LeftPanel";
-import TopNavigation from "../App/TopNavigation";
-import ItemList from "../Common/ItemList/ItemList";
 import PropTypes from "prop-types";
-import dataGetter from "../Common/DataGetter";
-import history from "../Common/History/History";
+import LeftPanel from "../../Common/Panels/LeftPanel";
+import TopNavigation from "../../App/TopNavigation";
+import ItemList from "../../Common/ItemList/ItemList";
+import dataGetter from "../../Common/DataGetter";
+import history from "../../Common/History/History";
 
 const propTypes = {
 	bodies: PropTypes.array.isRequired,

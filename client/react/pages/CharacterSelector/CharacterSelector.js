@@ -1,10 +1,10 @@
 import React from "react";
-import LeftPanel from "../Panels/LeftPanel";
-import MainPanel from "../Panels/MainPanel";
 import PropTypes from "prop-types";
-import SearchInput from "../Common/SearchInput";
-import TopNavigation from "../App/TopNavigation";
-import history from "../Common/History/History";
+import LeftPanel from "../../Common/Panels/LeftPanel";
+import MainPanel from "../../Common/Panels/MainPanel";
+import SearchInput from "../../Common/SearchInput";
+import TopNavigation from "../../App/TopNavigation";
+import history from "../../Common/History/History";
 
 const propTypes = {
 	characters: PropTypes.array.isRequired,

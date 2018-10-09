@@ -1,11 +1,11 @@
 import React from "react";
-import LeftPanel from "../Panels/LeftPanel";
-import MainPanel from "../Panels/MainPanel";
-import TopNavigation from "../App/TopNavigation";
 import PropTypes from "prop-types";
+import LeftPanel from "../../Common/Panels/LeftPanel";
+import MainPanel from "../../Common/Panels/MainPanel";
+import TopNavigation from "../../App/TopNavigation";
 import BodyView from "../BodyView/BodyView";
-import webservice from "../Common/Webservice";
-import history from "../Common/History/History";
+import webservice from "../../Common/Webservice";
+import history from "../../Common/History/History";
 
 const propTypes = {
 	bodyGuid: PropTypes.string.isRequired,

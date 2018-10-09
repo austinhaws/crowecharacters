@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
-import dataGetter from "../Common/DataGetter";
-import constants from "../Common/Constants";
+import dataGetter from "../../Common/DataGetter";
+import constants from "../../Common/Constants";
 
 const propTypes = {
 	// the character to display

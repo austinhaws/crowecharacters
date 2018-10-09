@@ -1,14 +1,14 @@
 import React from "react";
-import LeftPanel from "../Panels/LeftPanel";
-import MainPanel from "../Panels/MainPanel";
 import PropTypes from "prop-types";
-import images from "../Common/Images";
-import TopNavigation from "../App/TopNavigation";
-import BodyView from "../BodyView/BodyView";
-import webservice from "../Common/Webservice";
 import {joinClassNames} from "dts-react-common";
-import {dispatchFieldChanged} from "../App/Reducers";
-import history from "../Common/History/History";
+import LeftPanel from "../../Common/Panels/LeftPanel";
+import MainPanel from "../../Common/Panels/MainPanel";
+import images from "../../Common/Images";
+import TopNavigation from "../../App/TopNavigation";
+import BodyView from "../BodyView/BodyView";
+import webservice from "../../Common/Webservice";
+import {dispatchFieldChanged} from "../../App/Reducers";
+import history from "../../Common/History/History";
 
 const propTypes = {
 	newCharacter: PropTypes.object.isRequired,
