@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 require_once('WebResponse.php');
+require_once('dao/FileDao.php');
 
 // name of the file on disc
 define('FIELD_FILE_NAME', 'name');
@@ -44,17 +45,14 @@ function uploadFile(Request $request, string $accountGuid)
 		'height' => $height,
 	];
 
-
-
 	// create new record and gets its id
-	$id = DB::table(TABLE_FILES)->insertGetId([FIELD_GUID => $guid]);
+	$id = fileDao()->insertFile($guid);
 
 	$fileData[FIELD_FILE_NAME] = "$id.{$file->getClientOriginalExtension()}";
 
 	$file->move(env(CONFIG_IMAGES_FOLDER) . "/{$fileData[FIELD_FILE_FILE_TYPE]}/", $fileData[FIELD_FILE_NAME]);
 
-
-	DB::table(TABLE_FILES)->where('id', $id)->update(['data' => json_encode($fileData)]);
+	fileDao()->updateFile($id, $fileData);
 
 	return webResponse($guid, $accountGuid);
 }
