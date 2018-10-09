@@ -1,17 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import images from "../Common/Images";
+import history from "../Common/History/History";
 
 const propTypes = {
 	pageTitle: PropTypes.string.isRequired,
 	backUrl: PropTypes.string,
-	history: PropTypes.object,
 	canGoBack: PropTypes.bool,
 };
 
 const defaultProps = {
 	canGoBack: false,
-	history: undefined,
 	backUrl: undefined,
 };
 
@@ -24,7 +23,7 @@ export default class TopNavigation extends React.Component {
 					<div id="top-opaque"/>
 					<div id="page-title">
 						{(this.props.backUrl || this.props.canGoBack) ?
-							<div className="top-nav-back-arrow" onClick={() => this.props.canGoBack ? this.props.history.goBack() : this.props.history.push(this.props.backUrl)}>{images.backArrow()}</div>
+							<div className="top-nav-back-arrow" onClick={() => this.props.canGoBack ? history.goBack() : history.push(this.props.backUrl)}>{images.backArrow()}</div>
 							: undefined}
 						<div className="top-nav-title">{this.props.pageTitle}</div>
 					</div>

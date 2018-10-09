@@ -4,11 +4,11 @@ import MainPanel from "../Panels/MainPanel";
 import PropTypes from "prop-types";
 import SearchInput from "../Common/SearchInput";
 import TopNavigation from "../App/TopNavigation";
+import history from "../Common/History/History";
 
 const propTypes = {
 	characters: PropTypes.array.isRequired,
 	selectCharacter: PropTypes.object.isRequired,
-	history: PropTypes.object.isRequired,
 };
 const defaultProps = {};
 
@@ -33,7 +33,7 @@ export default class CharacterSelector extends React.Component {
 								<div
 									key={`${character.guid}`}
 									className="search-result"
-									onClick={() => this.props.history.push(`/character/edit/${character.guid}`)}
+									onClick={() => history.character.edit(character.guid)}
 								>
 									<div className="name">{character.data.name}</div>
 								</div>
@@ -41,7 +41,7 @@ export default class CharacterSelector extends React.Component {
 					</div>
 
 					<div className="bottom-buttons-container">
-						<button className="cancelAction" onClick={() => this.props.history.push('/character/new')}>Add New</button>
+						<button className="cancelAction" onClick={history.character.new}>Add New</button>
 					</div>
 				</LeftPanel>
 				<MainPanel>

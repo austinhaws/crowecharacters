@@ -16,6 +16,7 @@ import dataGetter from "../Common/DataGetter";
 import webservice, {ajaxStatusCore} from "../Common/Webservice";
 import {dispatchFieldChanged} from "./Reducers";
 import Test from "../Test/Test";
+import {ReactRouterGlobalHistory} from '../Common/History/HistoryListener';
 
 const propTypes = {
 	account: PropTypes.object,
@@ -44,12 +45,13 @@ class AppClass extends React.Component {
 
 				// dispatch set account information
 				dispatchFieldChanged(undefined, 'account', account);
+				return account;
 			})
 			// load account information
-			.then(() => {
-				webservice.body.all();
-				webservice.file.all();
-				webservice.character.all();
+			.then(account => {
+				webservice.body.all(account.guid);
+				webservice.file.all(account.guid);
+				webservice.character.all(account.guid);
 			});
 	}
 
@@ -75,6 +77,7 @@ class AppClass extends React.Component {
 	render() {
 		return (
 			<div id="app-container">
+				<ReactRouterGlobalHistory/>
 				<div className="print-container print-only">
 					{this.props.printCharacter.character ?
 						<PrintPaper>

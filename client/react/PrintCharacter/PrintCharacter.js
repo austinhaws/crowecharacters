@@ -21,9 +21,6 @@ const propTypes = {
 	// files from redux state
 	files: PropTypes.array.isRequired,
 
-	// comes from React Router for routing history
-	history: PropTypes.object.isRequired,
-
 	// list of characters to show
 	characters: PropTypes.array.isRequired,
 };
@@ -50,7 +47,7 @@ export default class PrintCharacter extends React.Component {
 	render() {
 		return this.props.printCharacter.character ? (
 			<React.Fragment>
-				<TopNavigation pageTitle={this.props.printCharacter.character ? `Print ${this.props.printCharacter.character.data.name}` : ''} backUrl="/" history={this.props.history}/>
+				<TopNavigation pageTitle={this.props.printCharacter.character ? `Print ${this.props.printCharacter.character.data.name}` : ''} backUrl="/"/>
 
 				<LeftPanel>
 

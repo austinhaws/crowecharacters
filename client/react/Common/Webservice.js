@@ -20,7 +20,7 @@ const webservice = {
 
 
 	body: {
-		all: () => webserviceCore.get('body/all').then(data => {
+		all: () => webserviceCore.get(`body/all/${store.getState().account.guid}`).then(data => {
 			dispatchFieldChanged(undefined, 'bodies', data);
 			return data;
 		}),
@@ -61,7 +61,7 @@ const webservice = {
 	},
 
 	file: {
-		all: () => webserviceCore.get('file/all')
+		all: () => webserviceCore.get(`file/all/${store.getState().account.guid}`)
 			.then(data => {
 				dispatchFieldChanged(undefined, 'files', data);
 				return data;

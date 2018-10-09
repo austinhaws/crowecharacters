@@ -5,10 +5,10 @@ import TopNavigation from "../App/TopNavigation";
 import PropTypes from "prop-types";
 import BodyView from "../BodyView/BodyView";
 import webservice from "../Common/Webservice";
+import history from "../Common/History/History";
 
 const propTypes = {
 	bodyGuid: PropTypes.string.isRequired,
-	history: PropTypes.object.isRequired,
 	bodies: PropTypes.array.isRequired,
 };
 const defaultProps = {};
@@ -23,11 +23,11 @@ export default class AdminImageNew extends React.Component {
 					body.data.images = [];
 				}
 				body.data.images.push({fileGuid: fileGuid, zIndex: 100, freeFloat: false});
-				return webservice.body.save(body);
+				return webservice.body.save(body).then(() => fileGuid);
 			})
-			.then(() => webservice.file.all())
-			.then(() => webservice.body.all())
-			.then(() => this.props.history.push(`/admin/body/edit/${this.props.bodyGuid}/${fileGuid}`));
+			.then(fileGuid => webservice.file.all().then(() => fileGuid))
+			.then(fileGuid => webservice.body.all().then(() => fileGuid))
+			.then(fileGuid => history.admin.body.edit(this.props.bodyGuid, fileGuid));
 	}
 
 	render() {

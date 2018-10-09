@@ -9,6 +9,7 @@ import _ from "lodash";
 import Slider from 'react-rangeslider';
 import {handleEvent} from "dts-react-common";
 import webservice from "../Common/Webservice";
+import history from "../Common/History/History";
 
 const propTypes = {
 	// body to edit
@@ -19,8 +20,6 @@ const propTypes = {
 
 	// bodies to show
 	bodies: PropTypes.array,
-
-	history: PropTypes.object.isRequired,
 
 	files: PropTypes.array.isRequired,
 };
@@ -103,7 +102,7 @@ export default class AdminBodyEdit extends React.Component {
 				return webservice.body.save(body).then(() => fileGuid);
 			})
 			.then(fileGuid => webservice.file.all().then(() => fileGuid))
-			.then(fileGuid => webservice.body.all(() => this.props.history.push(`/admin/body/edit/${this.props.bodyGuid}/${fileGuid}`)));
+			.then(fileGuid => webservice.body.all(() => history.admin.body.edit(this.props.bodyGuid, fileGuid)));
 
 	}
 
@@ -116,7 +115,6 @@ export default class AdminBodyEdit extends React.Component {
 				<TopNavigation
 					pageTitle={`Admin - Body: ${body ? body.data.name : ''}`}
 					backUrl="/admin"
-					history={this.props.history}
 				/>
 
 				<LeftPanel>
@@ -131,7 +129,7 @@ export default class AdminBodyEdit extends React.Component {
 					<div className="bottom-buttons-container">
 						<button className="midget minusButton" disabled={!_.size(this.state.selectedImages)} onClick={this.deleteSelectedImage.bind(this)}>-</button>
 						Can drag and drop files here
-						<button className="midget plusButton" disabled={this.state.bodyGuid} onClick={() => this.props.history.push(`/admin/image/new/${this.props.bodyGuid}`)}>+</button>
+						<button className="midget plusButton" disabled={this.state.bodyGuid} onClick={() => history.admin.image.new(this.props.bodyGuid)}>+</button>
 					</div>
 				</LeftPanel>
 

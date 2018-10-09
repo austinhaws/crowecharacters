@@ -8,12 +8,12 @@ import BodyView from "../BodyView/BodyView";
 import webservice from "../Common/Webservice";
 import {joinClassNames} from "dts-react-common";
 import {dispatchFieldChanged} from "../App/Reducers";
+import history from "../Common/History/History";
 
 const propTypes = {
 	newCharacter: PropTypes.object.isRequired,
 	bodies: PropTypes.array.isRequired,
 	account: PropTypes.object,
-	history: PropTypes.object,
 };
 const defaultProps = {};
 
@@ -21,7 +21,7 @@ export default class NewCharacter extends React.Component {
 	saveCharacter() {
 		webservice.character.create(this.props.newCharacter.editingCharacter)
 			.then(guid => {
-				this.props.history.push(`/character/edit/${guid}`);
+				history.character.edit(guid);
 				dispatchFieldChanged('newCharacter', 'editingCharacter', {data: {name: '', bodyGuid: ''}});
 			});
 	}
@@ -73,7 +73,7 @@ export default class NewCharacter extends React.Component {
 					</div>
 
 					<div className="bottom-buttons-container">
-						<button className="cancel-action" onClick={() => this.props.history.push('/')}>Cancel</button>
+						<button className="cancel-action" onClick={() => history.home()}>Cancel</button>
 						<button className="default-action" disabled={!isSaveable} onClick={this.saveCharacter.bind(this)}>Let's Go</button>
 					</div>
 				</LeftPanel>

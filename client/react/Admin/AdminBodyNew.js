@@ -1,13 +1,11 @@
 import React from "react";
 import LeftPanel from "../Panels/LeftPanel";
 import TopNavigation from "../App/TopNavigation";
-import PropTypes from "prop-types";
 import webservice from "../Common/Webservice";
 import AdminBodyList from "./AdminBodyList";
+import history from "../Common/History/History";
 
-const propTypes = {
-	history: PropTypes.object.isRequired,
-};
+const propTypes = {};
 const defaultProps = {};
 
 export default class AdminBodyNew extends React.Component {
@@ -41,7 +39,7 @@ export default class AdminBodyNew extends React.Component {
 					.then(() => bodyGuid))
 				// get all files and go to editing the body
 				.then(bodyGuid => webservice.file.all()
-					.then(() => this.props.history.push(`/admin/body/edit/${bodyGuid}`)));
+					.then(() => history.admin.body.edit(bodyGuid)));
 
 		}
 	}
@@ -64,7 +62,7 @@ export default class AdminBodyNew extends React.Component {
 					<input type="file" onChange={e => this.setState({files: e.target.files})}/>
 
 					<div className="bottom-buttons-container">
-						<button className="cancelAction" onClick={this.props.history.goBack}>Cancel</button>
+						<button className="cancelAction" onClick={history.goBack}>Cancel</button>
 						<button className="defaultAction" onClick={this.uploadBody}>Save</button>
 					</div>
 				</LeftPanel>

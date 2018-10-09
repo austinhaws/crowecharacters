@@ -1,17 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
 import webservice from "../Common/Webservice";
 import {Button, InputInformation} from "dts-react-common";
 import store from "../App/Store.js";
 import LeftPanel from "../Panels/LeftPanel";
 import MainPanel from "../Panels/MainPanel";
 
-const propTypes = {
-	history: PropTypes.object.isRequired,
-};
+const propTypes = {};
 
-const defaultProps = {
-};
+const defaultProps = {};
 
 export default class TestWebservice extends React.Component {
 

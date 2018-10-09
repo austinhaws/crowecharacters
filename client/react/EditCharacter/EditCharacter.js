@@ -10,6 +10,7 @@ import Button from "../Common/Button/Button";
 import webservice from "../Common/Webservice";
 import dataGetter from "../Common/DataGetter";
 import {dispatchFieldChanged} from "../App/Reducers";
+import history from "../Common/History/History";
 
 const propTypes = {
 	// guid of the character to edit
@@ -17,9 +18,6 @@ const propTypes = {
 
 	// files from redux state
 	files: PropTypes.array.isRequired,
-
-	// comes from React Router for routing history
-	history: PropTypes.object.isRequired,
 
 	editCharacter: PropTypes.object.isRequired,
 };
@@ -47,7 +45,7 @@ export default class EditCharacter extends React.Component {
 		const body = this.props.editCharacter.character ? dataGetter.bodyByGuid(this.props.editCharacter.character.data.bodyGuid) : undefined;
 		return this.props.editCharacter.character ? (
 			<React.Fragment>
-				<TopNavigation pageTitle={this.props.editCharacter.character ? this.props.editCharacter.character.data.name : ''} backUrl="/" history={this.props.history}/>
+				<TopNavigation pageTitle={this.props.editCharacter.character ? this.props.editCharacter.character.data.name : ''} backUrl="/"/>
 
 				<LeftPanel>
 
@@ -73,7 +71,7 @@ export default class EditCharacter extends React.Component {
 								{ ...this.props }
 							/>
 							<div className="bottom-buttons-container body-bottom">
-								<Button title="Print" className="print-button" onClick={() => this.props.history.push(`/character/print/${this.props.editCharacter.character.guid}`)}/>
+								<Button title="Print" className="print-button" onClick={() => history.character.print(this.props.editCharacter.character.guid)}/>
 							</div>
 						</React.Fragment>
 						: undefined}

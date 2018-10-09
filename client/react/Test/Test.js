@@ -1,14 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {Route, Switch} from "react-router";
 import TestWebservice from "./TestWebservice";
 
-const propTypes = {
-	history: PropTypes.object.isRequired,
-};
+const propTypes = {};
 
-const defaultProps = {
-};
+const defaultProps = {};
 
 export default class Test extends React.Component {
 	render() {

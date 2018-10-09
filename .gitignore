@@ -74,3 +74,4 @@ fabric.properties
 .idea/
 
 server/public/images**
+package-lock.json
