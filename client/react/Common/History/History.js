@@ -5,8 +5,9 @@ export default {
 
 	admin: {
 		body: {
-			edit: (bodyGuid, fileGuid = undefined) => history.push(`/admin/body/edit/${this.props.bodyGuid}${fileGuid ? `/${fileGuid}` : ''}`),
-			new: () => history.then().push('/admin/body/new'),
+			edit: (bodyGuid, imageGuid = undefined) => history.push(`/admin/body/edit/${this.props.bodyGuid}${imageGuid ? `/${imageGuid}` : ''}`),
+			new: () => history.push('/admin/body/new'),
+			list: () => history.push('/admin/body/list'),
 		},
 
 		image: {

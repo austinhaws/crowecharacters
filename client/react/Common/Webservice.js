@@ -6,7 +6,10 @@ export const ajaxStatusCore = new AjaxStatusCore();
 const webserviceCore = new WebserviceCore({
 	baseUrl: globals.urlBase,
 	ajaxStatusCore: ajaxStatusCore,
-	allResultsCallback: response => response.data,
+	allResultsCallback: response => {
+		dispatchFieldChanged(undefined, 'roles', response.roles);
+		return response.data;
+	}
 });
 
 

@@ -17,6 +17,9 @@ import PrintPaper from "../pages/PrintPaper/PrintPaper";
 import BodyView from "../pages/BodyView/BodyView";
 import dataGetter from "../Common/DataGetter";
 import Test from "../pages/Test/Test";
+import {Button} from "dts-react-common";
+import roles from '../Common/Roles';
+import history from "../Common/History/History";
 
 const propTypes = {
 	account: PropTypes.object,
@@ -94,6 +97,9 @@ class AppClass extends React.Component {
 				</div>
 				<div id="top-title-container">
 					<div id="top-title">Crowe Character</div>
+					<div id="left-account">
+						{roles.hasRole('admin') ? <Button onClick={() => history.admin.body.list()} label="Admin Area"/> : undefined}
+					</div>
 					<div id="right-account">
 						Your Id: {this.props.account ? this.props.account.phrase : 'Loading...'} <button>Login to Save</button>
 					</div>

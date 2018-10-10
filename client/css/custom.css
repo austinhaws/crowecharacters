@@ -29,6 +29,13 @@ body {
 	padding: 13px;
 }
 
+#left-account {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 13px;
+}
+
 #main-container {
 	background: url("../img/background.png") no-repeat;
 	background-size: contain;

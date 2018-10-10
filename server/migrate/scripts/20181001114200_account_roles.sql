@@ -33,6 +33,9 @@ CREATE TABLE accounts_x_roles (
 )
 ;
 
+INSERT INTO roles (role) VALUES ('admin')
+;
+
 -- //@UNDO
 -- SQL to undo the change goes here.
 

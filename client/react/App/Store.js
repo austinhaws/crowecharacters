@@ -25,6 +25,7 @@ const store = createStore((state, action) => {
 		files: [],
 		characters: [],
 		account: undefined,
+		roles: undefined,
 
 		// New Character view
 		newCharacter: {
