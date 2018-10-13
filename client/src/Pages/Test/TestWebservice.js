@@ -26,7 +26,7 @@ export default class TestWebservice extends React.Component {
 
 			{ title: 'Account: Get', testFunc: () => webservice.account.get().then(this.outputData) },
 			{ title: 'Account: new', testFunc: () => {
-				storage.account.setPhrase(undefined);
+				storage.account.setGuid(undefined);
 				webservice.account.get().then(this.outputData);
 			}},
 

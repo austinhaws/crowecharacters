@@ -1,7 +1,9 @@
+const ACCOUNT_GUID = 'accountGuid';
+
 export default {
 
 	account: {
-		getPhrase: () => localStorage.getItem('accountPhrase'),
-		setPhrase: phrase => localStorage.setItem('accountPhrase', phrase),
+		getGuid: () => localStorage.getItem(ACCOUNT_GUID),
+		setGuid: guid => localStorage.setItem(ACCOUNT_GUID, guid),
 	},
 };

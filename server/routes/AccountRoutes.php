@@ -9,8 +9,7 @@ require_once('service/AccountService.php');
 $router->group(['prefix' => 'account'], function () use ($router) {
 
 	$router->get('get', function () {
-		$phrase = accountService()->accountGuidFromHeader();
-		$account = accountDao()->selectByPhrase($phrase);
+		$account = accountDao()->selectByGuid(accountService()->accountGuidFromHeader());
 		if (!$account) {
 			$account = accountDao()->insert(accountService()->randomAccountPhrase());
 		}

@@ -10,7 +10,7 @@ const webserviceCore = new WebserviceCore({
 		response && dispatchFieldChanged(undefined, 'roles', response.roles);
 		return response && response.data;
 	},
-	loadDefaultsCallback: defaults => defaults.headers.common['Authorization'] = storage.account.getPhrase(),
+	loadDefaultsCallback: defaults => defaults.headers.common['Authorization'] = storage.account.getGuid(),
 });
 
 
@@ -19,7 +19,7 @@ const webservice = {
 
 	account: {
 		get: () => webserviceCore.get(`account/get`).then(account => {
-			account.phrase && storage.account.setPhrase(account.phrase);
+			account.guid && storage.account.setGuid(account.guid);
 			return account;
 		}),
 	},
