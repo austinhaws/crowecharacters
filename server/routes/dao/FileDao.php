@@ -4,12 +4,12 @@ class FileDao {
 
 	public function insertFile($fileGuid)
 	{
-		return DB::table('files')->insertGetId([FIELD_GUID => $fileGuid]);
+		return DB::table('file')->insertGetId([FIELD_GUID => $fileGuid]);
 	}
 
 	public function updateFile($fileId, $fileData)
 	{
-		DB::table(TABLE_FILES)->where('id', $fileId)->update(['data' => json_encode($fileData)]);
+		DB::table('file')->where('id', $fileId)->update(['data' => json_encode($fileData)]);
 	}
 }
 

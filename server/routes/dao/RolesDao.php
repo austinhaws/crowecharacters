@@ -1,14 +1,15 @@
 <?php
 
+
 class RolesDao {
 
 	public function selectByAccountGuid(string $accountGuid)
 	{
-		return DB::table('roles')
-			->select('roles.*')
-			->join('accounts_x_roles', 'roles.id', '=', 'accounts_x_roles.roles_id')
-			->join('accounts', 'accounts.id', '=', 'accounts_x_roles.accounts_id')
-			->where('accounts.guid', '=' , $accountGuid)
+		return DB::table('role')
+			->select('role' . '.*')
+			->join('account_x_role', 'role.id', '=', 'account_x_role.role_id')
+			->join('account', 'account.id', '=', 'account_x_role.account_id')
+			->where('account.guid', '=' , $accountGuid)
 			->get();
 	}
 }

@@ -4,22 +4,22 @@ class CharacterDao {
 
 	public function selectAllByAccountGuid(string $accountGuid)
 	{
-		return DB::table('characters')
-			->select('characters.*')
-			->join('characters_x_accounts', 'characters_x_accounts.characters_id', '=', 'characters.id')
-			->join('accounts', 'characters_x_accounts.accounts_id', '=', 'accounts.id')
-			->where('accounts.guid', $accountGuid)
+		return DB::table('account')
+			->select('character.*')
+			->join('character_x_account', 'character_x_account.character_id', '=', 'character.id')
+			->join('accounts', 'character_x_account.account_id', '=', 'account.id')
+			->where('account.guid', $accountGuid)
 			->get();
 	}
 
 	public function insertCharacter(array $character)
 	{
-		return DB::table('characters')->insertGetId($character);
+		return DB::table('account')->insertGetId($character);
 	}
 
 	public function selectCharacterById($characterId)
 	{
-		return DB::table('characters')->where('id', '=', $characterId)->first();
+		return DB::table('account')->where('id', '=', $characterId)->first();
 	}
 }
 

@@ -1,6 +1,7 @@
 import store from "../App/Store";
 import {dispatchFieldChanged} from "../App/Reducers";
 import {AjaxStatusCore, WebserviceCore} from "dts-react-common";
+import storage from "./LocalStorage";
 
 export const ajaxStatusCore = new AjaxStatusCore();
 const webserviceCore = new WebserviceCore({
@@ -9,7 +10,8 @@ const webserviceCore = new WebserviceCore({
 	allResultsCallback: response => {
 		dispatchFieldChanged(undefined, 'roles', response.roles);
 		return response.data;
-	}
+	},
+	loadDefaultsCallback: defaults => defaults.headers.common['Authorization'] = storage.account.getPhrase(),
 });
 
 
@@ -17,8 +19,7 @@ const webserviceCore = new WebserviceCore({
 const webservice = {
 
 	account: {
-		new: () => webserviceCore.get('account/new'),
-		get: phrase => webserviceCore.get(`account/get/${phrase}`),
+		get: () => webserviceCore.get(`account/get/`),
 	},
 
 

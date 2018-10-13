@@ -5,7 +5,7 @@ import {connect, Provider} from "react-redux";
 import store from "./Store";
 import webservice, {ajaxStatusCore} from "../Common/Webservice";
 import {dispatchFieldChanged} from "./Reducers";
-import {Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {Redirect, withRouter} from "react-router";
 import NewCharacter from "../pages/NewCharacter/NewCharacter";
 import CharacterSelector from "../pages/CharacterSelector/CharacterSelector";
@@ -18,7 +18,8 @@ import dataGetter from "../Common/DataGetter";
 import Test from "../pages/Test/Test";
 import {Button} from "dts-react-common";
 import roles from '../Common/Roles';
-import routes, {HistoryBrowserRouter} from "../Common/Routes";
+import routes from "../Common/Routes";
+import storage from "../Common/LocalStorage";
 
 const propTypes = {
 	account: PropTypes.object,
@@ -37,13 +38,13 @@ class AppClass extends React.Component {
 		super(props);
 
 		// get current account guid from localstorage
-		const accountGuid = localStorage.getItem('accountPhrase');
+		const accountGuid = storage.account.getPhrase();
 
 		// if not found, then create new account
 		webservice.account[accountGuid ? 'get' : 'new'](accountGuid)
 			.then(account => {
 				// store accountGuid in localstorage
-				localStorage.setItem('accountPhrase', account.phrase);
+				storage.account.setPhrase(account.phrase);
 
 				// dispatch set account information
 				dispatchFieldChanged(undefined, 'account', account);
@@ -127,4 +128,4 @@ AppClass.defaultProps = defaultProps;
 
 const App = withRouter(connect(state => state)(AppClass));
 
-render(<HistoryBrowserRouter><Provider store={store}><App/></Provider></HistoryBrowserRouter>, document.getElementById('react'));
+render(<BrowserRouter><Provider store={store}><App/></Provider></BrowserRouter>, document.getElementById('react'));

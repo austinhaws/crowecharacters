@@ -95,7 +95,6 @@ class CrudData
 function cleanRecord(&$record)
 {
 	unset($record->id);
-	$record->data = json_decode($record->data);
 	return $record;
 }
 

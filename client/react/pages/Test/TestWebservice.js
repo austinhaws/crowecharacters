@@ -22,8 +22,7 @@ export default class TestWebservice extends React.Component {
 
 		this.testUrls = [
 			{ title: 'All', testFunc: () => this.testUrls.filter(testUrl => testUrl.title !== 'All').forEach(testUrl => testUrl.testFunc()) },
-			{ title: 'Account: New', testFunc: () => webservice.account.new().then(this.outputData) },
-			{ title: 'Account: Get', testFunc: () => webservice.account.get(store.getState().account.phrase).then(this.outputData) },
+			{ title: 'Account: Get', testFunc: () => webservice.account.get().then(this.outputData) },
 
 			{ title: 'Body: All', testFunc: () => webservice.body.all().then(this.outputData)},
 			{ title: 'Body: Save', testFunc: () => webservice.body.save(store.getState().bodies[0]).then(this.outputData)},

@@ -4,7 +4,7 @@ class CharacterXAccountDao {
 
 	public function linkCharacterAccount(int $characterId, int $accountId)
 	{
-		return DB::table('characters_x_accounts')->insert(['characters_id' => $characterId, 'accounts_id' => $accountId]);
+		return DB::table('character_x_account')->insert(['character_id' => $characterId, 'account_id' => $accountId]);
 	}
 }
 

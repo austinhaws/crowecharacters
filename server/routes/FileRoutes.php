@@ -13,8 +13,6 @@ define('FIELD_FILE_FILE_TYPE', 'fileType');
 // what the file was called when it was posted
 define('FIELD_FILE_ORIGINAL_NAME', 'originalName');
 
-define('TABLE_FILES', 'files');
-
 $router->group(['prefix' => 'file'], function () use ($router) {
 	// upload a new body image
 	$router->post('upload/{accountGuid}', function (string $accountGuid, Request $request) {

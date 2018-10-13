@@ -2,6 +2,7 @@ import React from "react";
 import LeftPanel from "../../Common/Panels/LeftPanel";
 import TopNavigation from "../../App/TopNavigation";
 import ItemList from "../../Common/ItemList/ItemList";
+import * as PropTypes from "prop-types";
 
 const propTypes = {
 	bodies: PropTypes.array.isRequired,

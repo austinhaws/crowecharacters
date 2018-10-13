@@ -1,21 +1,18 @@
 <?php
 
-use Illuminate\Http\Request;
-
 require_once('WebResponse.php');
 require_once('dao/AccountDao.php');
+require_once('dao/WordDao.php');
+require_once('service/AccountService.php');
+
 
 $router->group(['prefix' => 'account'], function () use ($router) {
 
-	$router->get('new', function () {
-		$account = accountDao()->insert();
-		return webResponse(cleanRecord($account), $account->guid);
-	});
-
-	$router->get('get/{phrase}', function ($phrase) {
+	$router->get('get', function () {
+		$phrase = accountService()->accountGuidFromHeader();
 		$account = accountDao()->selectByPhrase($phrase);
 		if (!$account) {
-			$account = accountDao()->insert();
+			$account = accountDao()->insert(accountService()->randomAccountPhrase());
 		}
 		return webResponse(cleanRecord($account), $account->guid);
 	});

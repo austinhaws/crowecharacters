@@ -11,6 +11,7 @@
 |
 */
 
+require_once('AccountRoutes.php');
 require_once('CrudRoute.php');
 
 $crudRoutes = [
@@ -20,7 +21,6 @@ $crudRoutes = [
 ];
 require_once('FileRoutes.php');
 require_once('CharacterRoutes.php');
-require_once('AccountRoutes.php');
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
