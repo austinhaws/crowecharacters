@@ -19,7 +19,7 @@ const webserviceCore = new WebserviceCore({
 const webservice = {
 
 	account: {
-		get: () => webserviceCore.get(`account/get/`),
+		get: () => webserviceCore.get(`account/get`),
 	},
 
 

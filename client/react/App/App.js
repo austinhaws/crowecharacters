@@ -37,13 +37,10 @@ class AppClass extends React.Component {
 	constructor(props) {
 		super(props);
 
-		// get current account guid from localstorage
-		const accountGuid = storage.account.getPhrase();
-
 		// if not found, then create new account
-		webservice.account[accountGuid ? 'get' : 'new'](accountGuid)
+		webservice.account.get()
 			.then(account => {
-				// store accountGuid in localstorage
+				// store accountGuid in localstorage in case it changed
 				storage.account.setPhrase(account.phrase);
 
 				// dispatch set account information

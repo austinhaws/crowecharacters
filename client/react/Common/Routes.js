@@ -2,9 +2,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
 
 // https://github.com/ReactTraining/react-router/issues/5237
-export const history = createBrowserHistory({
-	basename: '/crowe/client',
-});
+export const history = createBrowserHistory();
 
 export class HistoryBrowserRouter extends BrowserRouter {
 	history;
