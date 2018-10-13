@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import images from "../../Common/Images";
+import images from "../../../Common/Images";
 import {handleEvent} from "dts-react-common";
 
 const propTypes = {

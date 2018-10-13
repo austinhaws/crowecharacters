@@ -3,10 +3,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // where does source live
-const APP_DIR = path.resolve(__dirname, '');
+const APP_DIR = path.resolve(__dirname, 'src');
 
 // where does compiled code go
-const BUILD_DIR = path.resolve(__dirname, '../js/bundles');
+const BUILD_DIR = path.resolve(__dirname, 'dist');
 
 // put the scss and css into a single file
 const cssExtract = new MiniCssExtractPlugin({
@@ -26,6 +26,7 @@ const config = {
 	output: {
 		path: BUILD_DIR,
 		filename: '[name].bundle.js',
+		publicPath: '/'
 	},
 	optimization: {
 		splitChunks: {

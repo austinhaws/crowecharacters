@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import images from "../Common/Images";
+import images from "../../Images";
 import {objectAtPath} from "dts-react-common";
-import {dispatchFieldChanged} from "../App/Reducers";
+import {dispatchFieldChanged} from "../../../App/Reducers";
 
 const propTypes = {
 	// path in the store to the object that holds the searchText field

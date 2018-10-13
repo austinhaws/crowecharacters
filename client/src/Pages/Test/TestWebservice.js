@@ -2,8 +2,8 @@ import React from "react";
 import webservice from "../../Common/Webservice";
 import {Button, InputInformation} from "dts-react-common";
 import store from "../../App/Store.js";
-import LeftPanel from "../../Common/Panels/LeftPanel";
-import MainPanel from "../../Common/Panels/MainPanel";
+import LeftPanel from "../../Common/Components/Panels/LeftPanel";
+import MainPanel from "../../Common/Components/Panels/MainPanel";
 
 const propTypes = {};
 

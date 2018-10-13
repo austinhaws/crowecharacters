@@ -1,7 +1,7 @@
 import React from "react";
-import LeftPanel from "../../Common/Panels/LeftPanel";
+import LeftPanel from "../../Common/Components/Panels/LeftPanel";
 import TopNavigation from "../../App/TopNavigation";
-import ItemList from "../../Common/ItemList/ItemList";
+import ItemList from "../../Common/Components/ItemList/ItemList";
 import * as PropTypes from "prop-types";
 
 const propTypes = {

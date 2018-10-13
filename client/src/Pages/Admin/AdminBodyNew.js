@@ -1,8 +1,8 @@
 import React from "react";
-import LeftPanel from "../../Common/Panels/LeftPanel";
+import LeftPanel from "../../Common/Components/Panels/LeftPanel";
 import TopNavigation from "../../App/TopNavigation";
 import webservice from "../../Common/Webservice";
-import routes, { history }  from "../../Common/Routes";
+import routes, {history} from "../../Common/Routes";
 
 const propTypes = {};
 const defaultProps = {};

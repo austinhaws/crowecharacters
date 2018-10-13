@@ -3,11 +3,11 @@ import _ from "lodash";
 import Slider from 'react-rangeslider';
 import {handleEvent} from "dts-react-common";
 import PropTypes from "prop-types";
-import LeftPanel from "../../Common/Panels/LeftPanel";
+import LeftPanel from "../../Common/Components/Panels/LeftPanel";
 import TopNavigation from "../../App/TopNavigation";
-import MainPanel from "../../Common/Panels/MainPanel";
+import MainPanel from "../../Common/Components/Panels/MainPanel";
 import BodyView from "../BodyView/BodyView";
-import ImageList from "../../Common/ImageList/ImageList";
+import ImageList from "../../Common/Components/ImageList/ImageList";
 import routes from "../../Common/Routes";
 
 const propTypes = {

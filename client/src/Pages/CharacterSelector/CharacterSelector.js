@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import LeftPanel from "../../Common/Panels/LeftPanel";
-import MainPanel from "../../Common/Panels/MainPanel";
-import SearchInput from "../../Common/SearchInput";
+import LeftPanel from "../../Common/Components/Panels/LeftPanel";
+import MainPanel from "../../Common/Components/Panels/MainPanel";
+import SearchInput from "../../Common/Components/SearchInput/SearchInput";
 import TopNavigation from "../../App/TopNavigation";
 import routes from "../../Common/Routes";
 
