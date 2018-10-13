@@ -3,10 +3,9 @@ import React from "react";
 import {render} from "react-dom";
 import {connect, Provider} from "react-redux";
 import store from "./Store";
-import {ReactRouterGlobalHistory} from '../Common/History/HistoryListener';
 import webservice, {ajaxStatusCore} from "../Common/Webservice";
 import {dispatchFieldChanged} from "./Reducers";
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import {Redirect, withRouter} from "react-router";
 import NewCharacter from "../pages/NewCharacter/NewCharacter";
 import CharacterSelector from "../pages/CharacterSelector/CharacterSelector";
@@ -19,7 +18,7 @@ import dataGetter from "../Common/DataGetter";
 import Test from "../pages/Test/Test";
 import {Button} from "dts-react-common";
 import roles from '../Common/Roles';
-import history from "../Common/History/History";
+import routes, {HistoryBrowserRouter} from "../Common/Routes";
 
 const propTypes = {
 	account: PropTypes.object,
@@ -80,7 +79,6 @@ class AppClass extends React.Component {
 	render() {
 		return (
 			<div id="app-container">
-				<ReactRouterGlobalHistory/>
 				<div className="print-container print-only">
 					{this.props.printCharacter.character ?
 						<PrintPaper>
@@ -98,7 +96,7 @@ class AppClass extends React.Component {
 				<div id="top-title-container">
 					<div id="top-title">Crowe Character</div>
 					<div id="left-account">
-						{roles.hasRole('admin') ? <Button onClick={() => history.admin.body.list()} label="Admin Area"/> : undefined}
+						{roles.hasRole('admin') ? <Button onClick={() => routes.admin.body.list()} label="Admin Area"/> : undefined}
 					</div>
 					<div id="right-account">
 						Your Id: {this.props.account ? this.props.account.phrase : 'Loading...'} <button>Login to Save</button>
@@ -129,4 +127,4 @@ AppClass.defaultProps = defaultProps;
 
 const App = withRouter(connect(state => state)(AppClass));
 
-render(<BrowserRouter basename="/crowe/client"><Provider store={store}><App/></Provider></BrowserRouter>, document.getElementById('react'));
+render(<HistoryBrowserRouter><Provider store={store}><App/></Provider></HistoryBrowserRouter>, document.getElementById('react'));

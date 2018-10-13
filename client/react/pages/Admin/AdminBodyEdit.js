@@ -8,8 +8,7 @@ import TopNavigation from "../../App/TopNavigation";
 import MainPanel from "../../Common/Panels/MainPanel";
 import BodyView from "../BodyView/BodyView";
 import ImageList from "../../Common/ImageList/ImageList";
-import webservice from "../../Common/Webservice";
-import history from "../../Common/History/History";
+import routes from "../../Common/Routes";
 
 const propTypes = {
 	// body to edit
@@ -102,7 +101,7 @@ export default class AdminBodyEdit extends React.Component {
 				return webservice.body.save(body).then(() => fileGuid);
 			})
 			.then(fileGuid => webservice.file.all().then(() => fileGuid))
-			.then(fileGuid => webservice.body.all(() => history.admin.body.edit(this.props.bodyGuid, fileGuid)));
+			.then(fileGuid => webservice.body.all(() => routes.admin.body.edit(this.props.bodyGuid, fileGuid)));
 
 	}
 
@@ -112,10 +111,7 @@ export default class AdminBodyEdit extends React.Component {
 
 		return (
 			<React.Fragment>
-				<TopNavigation
-					pageTitle={`Admin - Body: ${body ? body.data.name : ''}`}
-					backUrl="/admin"
-				/>
+				<TopNavigation pageTitle={`Admin - Body: ${body ? body.data.name : ''}`} backUrl="/admin"/>
 
 				<LeftPanel>
 					<ImageList
@@ -129,7 +125,7 @@ export default class AdminBodyEdit extends React.Component {
 					<div className="bottom-buttons-container">
 						<button className="midget minusButton" disabled={!_.size(this.state.selectedImages)} onClick={this.deleteSelectedImage.bind(this)}>-</button>
 						Can drag and drop files here
-						<button className="midget plusButton" disabled={this.state.bodyGuid} onClick={() => history.admin.image.new(this.props.bodyGuid)}>+</button>
+						<button className="midget plusButton" disabled={this.state.bodyGuid} onClick={() => routes.admin.image.new(this.props.bodyGuid)}>+</button>
 					</div>
 				</LeftPanel>
 

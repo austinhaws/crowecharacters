@@ -53,7 +53,8 @@
 		"redux": "^4.0.0",
 		"sass-loader": "^6.0.6",
 		"style-loader": "^0.20.1",
-		"webpack": "^4.12.2"
+		"webpack": "^4.12.2",
+		"history": "latest"
 	},
 	"devDependencies": {
 		"autoprefixer": "^8.0.0",

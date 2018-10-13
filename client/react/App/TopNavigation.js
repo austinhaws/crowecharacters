@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import images from "../Common/Images";
-import history from "../Common/History/History";
+import {history} from "../Common/Routes";
 
 const propTypes = {
 	pageTitle: PropTypes.string.isRequired,

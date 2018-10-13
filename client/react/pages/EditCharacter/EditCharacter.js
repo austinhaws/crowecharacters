@@ -9,7 +9,7 @@ import BodyView from "../BodyView/BodyView";
 import ImageList from "../../Common/ImageList/ImageList";
 import webservice from "../../Common/Webservice";
 import dataGetter from "../../Common/DataGetter";
-import history from "../../Common/History/History";
+import routes from "../../Common/Routes";
 import {Button} from "dts-react-common";
 
 const propTypes = {
@@ -71,7 +71,7 @@ export default class EditCharacter extends React.Component {
 								{ ...this.props }
 							/>
 							<div className="bottom-buttons-container body-bottom">
-								<Button title="Print" className="print-button" onClick={() => history.character.print(this.props.editCharacter.character.guid)}/>
+								<Button title="Print" className="print-button" onClick={() => routes.character.print(this.props.editCharacter.character.guid)}/>
 							</div>
 						</React.Fragment>
 						: undefined}

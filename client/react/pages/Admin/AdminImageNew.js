@@ -5,7 +5,7 @@ import MainPanel from "../../Common/Panels/MainPanel";
 import TopNavigation from "../../App/TopNavigation";
 import BodyView from "../BodyView/BodyView";
 import webservice from "../../Common/Webservice";
-import history from "../../Common/History/History";
+import routes from "../../Common/Routes";
 
 const propTypes = {
 	bodyGuid: PropTypes.string.isRequired,
@@ -27,7 +27,7 @@ export default class AdminImageNew extends React.Component {
 			})
 			.then(fileGuid => webservice.file.all().then(() => fileGuid))
 			.then(fileGuid => webservice.body.all().then(() => fileGuid))
-			.then(fileGuid => history.admin.body.edit(this.props.bodyGuid, fileGuid));
+			.then(fileGuid => routes.admin.body.edit(this.props.bodyGuid, fileGuid));
 	}
 
 	render() {

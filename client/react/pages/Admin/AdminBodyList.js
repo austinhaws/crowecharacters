@@ -1,10 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import LeftPanel from "../../Common/Panels/LeftPanel";
 import TopNavigation from "../../App/TopNavigation";
 import ItemList from "../../Common/ItemList/ItemList";
-import dataGetter from "../../Common/DataGetter";
-import history from "../../Common/History/History";
 
 const propTypes = {
 	bodies: PropTypes.array.isRequired,
@@ -31,17 +28,15 @@ export default class AdminBodyList extends React.Component {
 					<input type="text" value={this.state.search} onChange={e => this.setState({search: e.target.value})}/>
 					<ItemList
 						items={this.props.bodies} selectedItem={body}
-						onSelectChange={body => history.admin.body.edit(body.guid)}
+						onSelectChange={body => routes.admin.body.edit(body.guid)}
 						onRenderItem={body => body.data.name}
 					/>
 
 					<div className="bottom-buttons-container">
 						<button className="midget minusButton" disabled={!this.state.selectedImage} onClick={() => console.log('remove this body')}>-</button>
-						<button className="midget plusButton" onClick={() => history.admin.body.new()}>+</button>
+						<button className="midget plusButton" onClick={() => routes.admin.body.new()}>+</button>
 					</div>
-
 				</LeftPanel>
-
 			</React.Fragment>
 		);
 	}

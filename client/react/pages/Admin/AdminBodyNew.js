@@ -1,14 +1,13 @@
 import React from "react";
-import AdminBodyList from "./AdminBodyList";
 import LeftPanel from "../../Common/Panels/LeftPanel";
 import TopNavigation from "../../App/TopNavigation";
 import webservice from "../../Common/Webservice";
-import history from "../../Common/History/History";
+import routes, { history }  from "../../Common/Routes";
 
 const propTypes = {};
 const defaultProps = {};
 
-export default class AdminBodyNew extends React.Component {
+class AdminBodyNew extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -39,7 +38,7 @@ export default class AdminBodyNew extends React.Component {
 					.then(() => bodyGuid))
 				// get all files and go to editing the body
 				.then(bodyGuid => webservice.file.all()
-					.then(() => history.admin.body.edit(bodyGuid)));
+					.then(() => routes.admin.body.edit(bodyGuid)));
 
 		}
 	}
@@ -71,5 +70,7 @@ export default class AdminBodyNew extends React.Component {
 	}
 }
 
-AdminBodyList.propTypes = propTypes;
-AdminBodyList.defaultProps = defaultProps;
+AdminBodyNew.propTypes = propTypes;
+AdminBodyNew.defaultProps = defaultProps;
+
+export default AdminBodyNew;

@@ -8,7 +8,7 @@ import TopNavigation from "../../App/TopNavigation";
 import BodyView from "../BodyView/BodyView";
 import webservice from "../../Common/Webservice";
 import {dispatchFieldChanged} from "../../App/Reducers";
-import history from "../../Common/History/History";
+import routes from "../../Common/Routes";
 
 const propTypes = {
 	newCharacter: PropTypes.object.isRequired,
@@ -21,7 +21,7 @@ export default class NewCharacter extends React.Component {
 	saveCharacter() {
 		webservice.character.create(this.props.newCharacter.editingCharacter)
 			.then(guid => {
-				history.character.edit(guid);
+				routes.character.edit(guid);
 				dispatchFieldChanged('newCharacter', 'editingCharacter', {data: {name: '', bodyGuid: ''}});
 			});
 	}
@@ -73,7 +73,7 @@ export default class NewCharacter extends React.Component {
 					</div>
 
 					<div className="bottom-buttons-container">
-						<button className="cancel-action" onClick={() => history.home()}>Cancel</button>
+						<button className="cancel-action" onClick={() => routes.home()}>Cancel</button>
 						<button className="default-action" disabled={!isSaveable} onClick={this.saveCharacter.bind(this)}>Let's Go</button>
 					</div>
 				</LeftPanel>
