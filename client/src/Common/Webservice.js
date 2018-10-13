@@ -27,6 +27,7 @@ const webservice = {
 	imageSet: {
 		all: () => webserviceCore.get('imageset/all'),
 		save: imageSet => webserviceCore.post(`imageset/save`, imageSet),
+		get: imageSetGuid => webserviceCore.get(`imageset/get/${imageSetGuid}`),
 	},
 
 

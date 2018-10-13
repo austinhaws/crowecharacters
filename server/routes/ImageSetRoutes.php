@@ -11,7 +11,9 @@ $router->group(['prefix' => 'imageset'], function () use ($router) {
 	});
 
 	$router->get('get/{guid}', function ($guid) {
-		return webResponse(imageSetDao()->selectByGuid($guid));
+		$imageSet = imageSetDao()->selectByGuid($guid);
+//TODO:		$imageSet['images'] = imageSetImageDao()->selectImagesByImageSetId($imageSet['id']);
+		return webResponse($imageSet);
 	});
 
 	$router->post('save', function (\Illuminate\Http\Request $request) {

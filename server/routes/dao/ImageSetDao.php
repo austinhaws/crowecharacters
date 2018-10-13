@@ -9,7 +9,7 @@ class ImageSetDao {
 
 	public function selectByGuid(string $guid)
 	{
-		return DB::table('image_set')->where('guid', '=' , $guid)->first()->all();
+		return DB::table('image_set')->where('guid', '=' , $guid)->first();
 	}
 
 	public function save($imageSet) {

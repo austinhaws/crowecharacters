@@ -18,6 +18,7 @@ export default class TestWebservice extends React.Component {
 
 		this.state = {
 			output: '',
+			imageSetGuid: undefined,
 		};
 
 		this.testUrls = [
@@ -30,7 +31,14 @@ export default class TestWebservice extends React.Component {
 			}},
 
 			{ title: 'Image Set: New', testFunc: () => webservice.imageSet.save({ name: 'test' }).then(this.outputData) },
-			{ title: 'Image Set: All', testFunc: () => webservice.imageSet.all().then(this.outputData) },
+			{ title: 'Image Set: All', testFunc: () => webservice.imageSet.all().then(this.outputData).then(imageSets => this.setState({ imageSetGuid: imageSets[0].guid })) },
+			{ title: 'Image Set: Get', testFunc: () => {
+				if (!this.state.imageSetGuid) {
+					alert('run all first');
+				} else {
+					webservice.imageSet.get(this.state.imageSetGuid).then(this.outputData);
+				}
+			}},
 
 			// { title: 'Body: All', testFunc: () => webservice.body.all().then(this.outputData)},
 			// { title: 'Body: Save', testFunc: () => webservice.body.save(store.getState().bodies[0]).then(this.outputData)},
@@ -47,6 +55,7 @@ export default class TestWebservice extends React.Component {
 
 	outputData(data) {
 		this.setState({ output: JSON.stringify(data) });
+		return data;
 	}
 
 	render() {
