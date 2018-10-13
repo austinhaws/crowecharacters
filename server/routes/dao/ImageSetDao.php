@@ -4,16 +4,16 @@ class ImageSetDao {
 
 	public function selectAll()
 	{
-		return DB::table('image_set')->get();
+		return DB::table('image_set')->get()->all();
 	}
 
 	public function selectByGuid(string $guid)
 	{
-		return DB::table('image_set')->where('guid', '=' , $guid)->first();
+		return DB::table('image_set')->where('guid', '=' , $guid)->first()->all();
 	}
 
 	public function save($imageSet) {
-		if ($imageSet->guid) {
+		if (isset($imageSet['guid'])) {
 			DB::table('image_set')
 				->where('guid', '=', $imageSet['guid'])
 				->update($imageSet);

@@ -9,13 +9,24 @@ class CleanRecordService {
 	 */
 	public function cleanRecord(&$record)
 	{
-		$records = is_array($record) ? $record : [$record];
-		foreach ($records as $record) {
-			unset($record->id);
+		if (is_array($record) && !isset($record['id'])) {
+			foreach ($record as $key => $dontuse) {
+				$this->cleanSingleRecord($record[$key]);
+			}
+		} else {
+			$this->cleanSingleRecord($record);
 		}
 
 		// yes, return record so it remains an array/object, however it was passed in
 		return $record;
+	}
+
+	private function cleanSingleRecord(&$record) {
+		if (is_object($record)) {
+			unset($record->id);
+		} else if (is_array($record)) {
+			unset($record['id']);
+		}
 	}
 }
 
