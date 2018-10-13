@@ -11,7 +11,8 @@ export default class Test extends React.Component {
 		return (
 			<React.Fragment>
 				<Switch>
-					<Route path="/test/webservice" render={() => <TestWebservice {...this.props}/>}/>
+					<Route path="/test/webservice" component={TestWebservice}/>
+					<Route render={() => <div>Unknown test route</div>}/>
 				</Switch>
 			</React.Fragment>
 		);

@@ -19,7 +19,6 @@ import Test from "../Pages/Test/Test";
 import {Button} from "dts-react-common";
 import roles from '../Common/Roles';
 import routes from "../Common/Routes";
-import storage from "../Common/LocalStorage";
 
 const propTypes = {
 	account: PropTypes.object,
@@ -40,9 +39,6 @@ class AppClass extends React.Component {
 		// if not found, then create new account
 		webservice.account.get()
 			.then(account => {
-				// store accountGuid in localstorage in case it changed
-				storage.account.setPhrase(account.phrase);
-
 				// dispatch set account information
 				dispatchFieldChanged(undefined, 'account', account);
 				return account;
@@ -97,7 +93,7 @@ class AppClass extends React.Component {
 						{roles.hasRole('admin') ? <Button onClick={() => routes.admin.body.list()} label="Admin Area"/> : undefined}
 					</div>
 					<div id="right-account">
-						Your Id: {this.props.account ? this.props.account.phrase : 'Loading...'} <button>Login to Save</button>
+						{this.props.account ? this.props.account.phrase : 'Loading...'} <button>Login to Save</button>
 					</div>
 				</div>
 				<div id="main-container">

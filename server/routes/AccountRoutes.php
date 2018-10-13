@@ -14,11 +14,6 @@ $router->group(['prefix' => 'account'], function () use ($router) {
 		if (!$account) {
 			$account = accountDao()->insert(accountService()->randomAccountPhrase());
 		}
-		return webResponse(cleanRecord($account), $account->guid);
-	});
-
-	$router->post('save/{guid}', function ($guid, Request $request) {
-		accountDao()->update($guid, $request->input('data'));
-		return webResponse(['result' => 'success'], $guid);
+		return webResponse($account);
 	});
 });

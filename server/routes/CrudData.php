@@ -48,11 +48,7 @@ class CrudData
 		if ($where) {
 			$query->where($where);
 		}
-		$records = $query->get();
-		foreach ($records as $record) {
-			cleanRecord($record);
-		}
-		return $records;
+		return $query->get();
 	}
 
 	/**
@@ -63,8 +59,7 @@ class CrudData
 	 */
 	public function read($guid)
 	{
-		$record = DB::table($this->table)->where(FIELD_GUID, $guid)->first();
-		return cleanRecord($record);
+		return DB::table($this->table)->where(FIELD_GUID, $guid)->first();
 	}
 
 	/**
@@ -84,31 +79,4 @@ class CrudData
 		DB::table($this->table)->where(FIELD_GUID, $guid)->delete();
 	}
 
-}
-
-/**
- * pull out ids and convert data to json
- *
- * @param object $record the record to be cleaned (by address so parameter is changed)
- * @return object the cleaned record (for chaining)
- */
-function cleanRecord(&$record)
-{
-	unset($record->id);
-	return $record;
-}
-
-/**
- * clean an array of records
- *
- * @param $records array records to clean
- * @return array cleaned records
- */
-function cleanRecords(&$records)
-{
-	foreach ($records as $key => $dontuse) {
-		cleanRecord($records[$key]);
-	}
-
-	return $records;
 }

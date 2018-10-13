@@ -9,7 +9,7 @@ $router->group(['prefix' => 'character'], function () use ($router) {
 	// get all characters connected to this account id
 	$router->get('all/{accountGuid}', function ($accountGuid) {
 		$characters = characterDao()->selectAllByAccountGuid($accountGuid);
-		return webResponse(cleanRecords($characters), $accountGuid);
+		return webResponse($characters, $accountGuid);
 	});
 
 	$router->post('new/{accountGuid}', function ($accountGuid) {
@@ -28,6 +28,6 @@ $router->group(['prefix' => 'character'], function () use ($router) {
 		// link to account
 		characterXAccountDao()->linkCharacterAccount($characterId, $account->id);
 
-		return webResponse(cleanRecord($character), $accountGuid);
+		return webResponse($character, $accountGuid);
 	});
 });
