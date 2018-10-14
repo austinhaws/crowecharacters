@@ -29,7 +29,6 @@ class ImageSetEdit extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
 		return (
 			<React.Fragment>
 				<TopNavigation pageTitle={`ImageSet - ${this.props.imageSetEdit ? this.props.imageSetEdit.name : ''}`} backUrl="/admin"/>

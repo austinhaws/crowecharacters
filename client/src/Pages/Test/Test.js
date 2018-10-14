@@ -1,6 +1,7 @@
 import React from "react";
-import {Route, Switch} from "react-router";
+import {Route, Router, Switch} from "react-router";
 import TestWebservice from "./TestWebservice";
+import {history} from "../../Common/Routes";
 
 const propTypes = {};
 
@@ -10,10 +11,12 @@ export default class Test extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-				<Switch>
-					<Route path="/test/webservice" component={TestWebservice}/>
-					<Route render={() => <div>Unknown test route</div>}/>
-				</Switch>
+				<Router history={history}>
+					<Switch>
+						<Route path="/test/webservice" component={TestWebservice}/>
+						<Route render={() => <div>Unknown test route</div>}/>
+					</Switch>
+				</Router>
 			</React.Fragment>
 		);
 	}

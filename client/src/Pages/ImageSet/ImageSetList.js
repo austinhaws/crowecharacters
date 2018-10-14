@@ -33,7 +33,7 @@ class ImageSetList extends React.Component {
 								{this.props.globalData.imageSets.map(imageSet => (
 									<li
 										key={imageSet.guid}
-										onClick={routes.admin.imageSet.edit(imageSet.guid)}
+										onClick={() => routes.admin.imageSet.edit(imageSet.guid)}
 									>
 										{imageSet.name}
 									</li>
