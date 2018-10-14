@@ -7,7 +7,7 @@ import routes, {history} from "../../Common/Routes";
 const propTypes = {};
 const defaultProps = {};
 
-class AdminBodyNew extends React.Component {
+class AdminBodyNewDEAD extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -70,7 +70,7 @@ class AdminBodyNew extends React.Component {
 	}
 }
 
-AdminBodyNew.propTypes = propTypes;
-AdminBodyNew.defaultProps = defaultProps;
+AdminBodyNewDEAD.propTypes = propTypes;
+AdminBodyNewDEAD.defaultProps = defaultProps;
 
-export default AdminBodyNew;
+export default AdminBodyNewDEAD;

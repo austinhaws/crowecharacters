@@ -10,7 +10,7 @@ const propTypes = {
 
 const defaultProps = {};
 
-export default class AdminBodyList extends React.Component {
+export default class AdminBodyListDEAD extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -43,6 +43,6 @@ export default class AdminBodyList extends React.Component {
 	}
 }
 
-AdminBodyList.propTypes = propTypes;
-AdminBodyList.defaultProps = defaultProps;
+AdminBodyListDEAD.propTypes = propTypes;
+AdminBodyListDEAD.defaultProps = defaultProps;
 

@@ -418,3 +418,16 @@ button.size-large {
 	font-size: 40px;
 	text-align: center;
 }
+
+.main-panel__menu-list {
+	width: 60%;
+	margin: 175px auto 0;
+}
+.main-panel__menu-list-item {
+	height: 20px;
+	font-size: 50px;
+}
+.main-panel__menu-list-item:hover {
+	color: blue;
+	cursor: pointer;
+}

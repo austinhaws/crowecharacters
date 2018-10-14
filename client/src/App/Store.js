@@ -21,40 +21,42 @@ const store = createStore((state, action) => {
 		// === default data ===
 
 		// cached data from server
-		bodies: [],
-		files: [],
-		characters: [],
 		account: undefined,
-		roles: [],
-
-		// New Character view
-		newCharacter: {
-			editingCharacter: {data: {name: '', bodyGuid: ''}},
-			searchText: '',
+		roles: undefined,
+		globalData: {
+			imageSets: undefined,
 		},
 
-		// Edit Character view
-		editCharacter: {
-			character: undefined,
-			filters: {
-				groupBy: 'bodyPart',
-				search: '',
-				openGroup: '',
-			}
-		},
+		imageSetEdit: undefined,
 
-		printCharacter: {
-			character: undefined,
-		},
-
-		selectCharacter: {
-			searchText: '',
-		},
-
-		newImage: {
-			// can't put file here because it's not serializable for clone
-			// file: undefined,
-		},
+		// // New Character view
+		// newCharacter: {
+		// 	editingCharacter: {data: {name: '', bodyGuid: ''}},
+		// 	searchText: '',
+		// },
+		//
+		// // Edit Character view
+		// editCharacter: {
+		// 	character: undefined,
+		// 	filters: {
+		// 		groupBy: 'bodyPart',
+		// 		search: '',
+		// 		openGroup: '',
+		// 	}
+		// },
+		//
+		// printCharacter: {
+		// 	character: undefined,
+		// },
+		//
+		// selectCharacter: {
+		// 	searchText: '',
+		// },
+		//
+		// newImage: {
+		// 	// can't put file here because it's not serializable for clone
+		// 	// file: undefined,
+		// },
 	}
     // for chrome redux plugin
     , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

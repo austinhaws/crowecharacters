@@ -27,7 +27,7 @@ const defaultProps = {
 
 };
 
-export default class AdminBodyEdit extends React.Component {
+export default class AdminBodyEditDEAD extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -141,6 +141,6 @@ export default class AdminBodyEdit extends React.Component {
 	}
 }
 
-AdminBodyEdit.propTypes = propTypes;
-AdminBodyEdit.defaultProps = defaultProps;
+AdminBodyEditDEAD.propTypes = propTypes;
+AdminBodyEditDEAD.defaultProps = defaultProps;
 

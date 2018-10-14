@@ -19,13 +19,15 @@ import Test from "../Pages/Test/Test";
 import {Button} from "dts-react-common";
 import roles from '../Common/Roles';
 import routes from "../Common/Routes";
+import LeftPanel from "../Common/Components/Panels/LeftPanel";
+import MainPanel from "../Common/Components/Panels/MainPanel";
 
 const propTypes = {
 	account: PropTypes.object,
-	bodies: PropTypes.array.isRequired,
-	characters: PropTypes.array.isRequired,
-	files: PropTypes.array.isRequired,
-	printCharacter: PropTypes.object.isRequired,
+	// bodies: PropTypes.array.isRequired,
+	// characters: PropTypes.array.isRequired,
+	// files: PropTypes.array.isRequired,
+	// printCharacter: PropTypes.object.isRequired,
 };
 const defaultProps = {
 	account: undefined,
@@ -52,6 +54,7 @@ class AppClass extends React.Component {
 	}
 
 	renderDefault() {
+		return <React.Fragment><LeftPanel><div/></LeftPanel><MainPanel><div>Home Page</div></MainPanel></React.Fragment>;
 		let output;
 
 		// if there are characters then show the character picker
@@ -74,7 +77,7 @@ class AppClass extends React.Component {
 		return (
 			<div id="app-container">
 				<div className="print-container print-only">
-					{this.props.printCharacter.character ?
+					{(this.props.printCharacter && this.props.printCharacter.character) ?
 						<PrintPaper>
 							<BodyView
 								bodyGuid={this.props.printCharacter.character.data.bodyGuid}
@@ -90,23 +93,21 @@ class AppClass extends React.Component {
 				<div id="top-title-container">
 					<div id="top-title">Crowe Character</div>
 					<div id="left-account">
-						{roles.hasRole('admin') ? <Button onClick={() => routes.admin.body.list()} label="Admin Area"/> : undefined}
+						{roles.hasRole(roles.roles.ADMIN) ? <Button onClick={() => routes.admin.home()} label="Admin Area"/> : undefined}
 					</div>
 					<div id="right-account">
 						{this.props.account ? this.props.account.phrase : 'Loading...'} <button>Login to Save</button>
 					</div>
 				</div>
 				<div id="main-container">
-					{(ajaxStatusCore.isAjaxing() && (!this.props.characters.length || !this.props.bodies.length || !this.props.files.length)) ? <div>Loading...</div> :
-						<Switch>
-							<Route path="/test" render={() => <Test {...this.props}/>}/>
-							<Route path="/admin" render={() => <Admin {...this.props}/>}/>
-							<Route path="/character/new" render={() => <NewCharacter {...this.props}/>}/>
-							<Route path="/character/edit/:guid" render={router => <EditCharacter guid={router.match.params.guid} {...this.props}/>}/>
-							<Route path="/character/print/:guid" render={router => <PrintCharacter guid={router.match.params.guid} {...this.props}/>}/>
-							<Route render={this.renderDefault.bind(this)}/>
-						</Switch>
-					}
+					<Switch>
+						<Route path="/test" render={() => <Test {...this.props}/>}/>
+						<Route path="/admin" render={() => <Admin {...this.props}/>}/>
+						<Route path="/character/new" render={() => <NewCharacter {...this.props}/>}/>
+						<Route path="/character/edit/:guid" render={router => <EditCharacter guid={router.match.params.guid} {...this.props}/>}/>
+						<Route path="/character/print/:guid" render={router => <PrintCharacter guid={router.match.params.guid} {...this.props}/>}/>
+						<Route render={this.renderDefault.bind(this)}/>
+					</Switch>
 				</div>
 				<div id="credit-footer">
 					<div>Icons made by <a href="https://www.flaticon.com/authors/lucy-g" title="Lucy G">Lucy G</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
@@ -119,6 +120,6 @@ class AppClass extends React.Component {
 AppClass.propTypes = propTypes;
 AppClass.defaultProps = defaultProps;
 
-const App = withRouter(connect(state => state)(AppClass));
+const App = withRouter(connect(state => { return { account: state.account }; })(AppClass));
 
 render(<BrowserRouter><Provider store={store}><App/></Provider></BrowserRouter>, document.getElementById('react'));

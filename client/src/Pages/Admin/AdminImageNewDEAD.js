@@ -13,7 +13,7 @@ const propTypes = {
 };
 const defaultProps = {};
 
-export default class AdminImageNew extends React.Component {
+export default class AdminImageNewDEAD extends React.Component {
 
 	uploadImage(e) {
 		webservice.file.upload(e.target.files[0], 'article')
@@ -52,5 +52,5 @@ export default class AdminImageNew extends React.Component {
 	}
 }
 
-AdminImageNew.propTypes = propTypes;
-AdminImageNew.defaultProps = defaultProps;
+AdminImageNewDEAD.propTypes = propTypes;
+AdminImageNewDEAD.defaultProps = defaultProps;
