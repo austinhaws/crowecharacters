@@ -1,0 +1,13 @@
+.message-popup {
+	&__title {
+		font-size: 1.4rem;
+		font-weight: bold;
+		margin-bottom: $global-spacing-unit;
+	}
+	&__footer--single {
+		display: flex;
+		justify-content: flex-end;
+		background: $gray05;
+		padding: $global-spacing-unit-small $global-spacing-unit;
+	}
+}

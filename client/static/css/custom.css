@@ -248,16 +248,15 @@ input[type="text"]:focus::placeholder {
 
 button {
 	height: 40px;
-	line-height: 25px;
 	font-size: 15px;
 	text-align: center;
 	width: 100px;
 	cursor: pointer;
 	background-color: transparent;
-	border: 3px solid #f4d10b;
+	border: 1px solid #f2dc6d;
 	outline: none;
 	text-decoration: none;
-	color: #f4d10b;
+	color: #f2dc6d;
 }
 
 button:hover {
@@ -401,7 +400,7 @@ button.midget {
 }
 
 button {
-	background-color: #6b3e27;
+	background-color: #694431;
 }
 
 button.size-large {
@@ -430,4 +429,8 @@ button.size-large {
 .main-panel__menu-list-item:hover {
 	color: blue;
 	cursor: pointer;
+}
+
+.visually-hidden {
+	display: none;
 }

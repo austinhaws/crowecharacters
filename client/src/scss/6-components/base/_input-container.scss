@@ -1,0 +1,45 @@
+/*
+############     _input-container.scss      ############
+*/
+.input-container {
+	margin: 0 0 $global-spacing-unit 0;
+	$labelSelector: "label:not(.form-error)";
+
+	#{$labelSelector} {
+		margin: 0 $global-spacing-unit-small 0 0;
+		display: inline-block;
+		width: $labelWidth;
+		vertical-align: middle;
+		text-align: right;
+		font-weight: bold;
+		text-transform: uppercase;
+		padding: $global-spacing-unit-small 0;
+	}
+
+	&.stack-form {
+		#{$labelSelector} {
+			display: block;
+			width: $labelWidthFull;
+			text-align: left;
+		}
+	}
+
+	&.text-area {
+		#{$labelSelector} {
+			vertical-align: top;
+		}
+	}
+
+	&.required {
+		#{$labelSelector}:after {
+			content: "*";
+			color: $primaryColor;
+			display: inline-block;
+			margin: 0 0 0 .5rem;
+		}
+	}
+
+	table & {
+		margin: 0;
+	}
+}

@@ -1,0 +1,143 @@
+/*
+############     _table.scss      ############
+*/
+table {
+	width: 100%;
+	border-collapse: collapse;
+
+	tr {
+		transition: all 100ms ease-in-out;
+		&:nth-child(even) {
+			background-color: $primaryColorLight;
+		}
+		&.mouse-over, &.selected {
+			background: $primaryColor;
+			color: #ffffff;
+		}
+		&.mouse-over a {
+			color: #ffffff;
+		}
+		&.show-all-records-row {
+			td {
+				text-align: center;
+			}
+		}
+
+		td, th {
+			border: none;
+			padding: 0.5rem;
+			text-align: left;
+		}
+
+		&.level0 {
+			font-weight: bold;
+		}
+		&.level1 {
+			font-weight: bold;
+			& td:first-child {
+				padding: 0 0 0 2rem;
+			}
+		}
+		&.level2 {
+			& td:first-child {
+				padding: 0 0 0 4rem;
+			}
+		}
+
+		th {
+			border-bottom: 1px solid $gray80;
+			&.sortable {
+				position: relative;
+				cursor: pointer;
+				&.headerSortUp, &.headerSortDown {
+					border-bottom: 4px solid $primaryColor;
+					padding: 0.5rem 1rem 0.5rem 0.5rem;
+					&::after {
+						content: " ";
+						position: absolute;
+						display: block;
+						width: 6px;
+						height: 6px;
+						border: solid $primaryColor;
+						border-width: 0 2px 2px 0;
+						right: 10px;
+						top: 50%;
+						transform: rotate(45deg) translateY(-50%);
+					}
+				}
+				&.headerSortDown {
+					&::after {
+						transform: rotate(-135deg) translateY(-50%);
+						right: 5px;
+					}
+				}
+			}
+		}
+	}
+
+	&.filters {
+		& thead {
+			tr:nth-child(2) {
+				background-color: $gray05;
+
+				td {
+					padding: 0;
+					border-right: 2px solid #FFF;
+				}
+
+				td:last-child {
+					border-right: none;
+				}
+			}
+			& input[type="text"] {
+				border: none;
+				padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+				width: 100%;
+				background-size: auto 12px;
+				&::placeholder {
+					color: $gray13;
+				}
+			}
+			& div.Select {
+				width: 100%;
+			}
+
+			.table-date-filter {
+				.popover__popup {
+					padding: 0;
+
+					.date-filter-title {
+						padding: 10px;
+						text-align: center;
+						font-weight: bold;
+					}
+
+					.input-container {
+						margin: 0 10px 5px 10px;
+					}
+
+					label {
+						width: 50px;
+					}
+
+					input[type="text"] {
+						border: $formBorder;
+						width: 115px;
+						background: white;
+						padding: 0.5rem;
+					}
+
+					.date-filter-buttons button {
+						border: none;
+						border-radius: 0;
+					}
+				}
+			}
+		}
+
+		& thead th {
+			border-bottom: none;
+		}
+	}
+
+}

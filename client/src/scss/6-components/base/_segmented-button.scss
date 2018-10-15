@@ -1,0 +1,107 @@
+/*
+############     _segmented-button.scss      ############
+*/
+.segmented-button-wrapper {
+	display: inline-block;
+	button {
+		border-radius: 0;
+		border-right-width: 0;
+		background: white;
+		color: $primaryColor;
+		&:first-child {
+			border-top-left-radius: $formBorderRadius;
+			border-bottom-left-radius: $formBorderRadius;
+		}
+		&:last-child {
+			border-top-right-radius: $formBorderRadius;
+			border-bottom-right-radius: $formBorderRadius;
+			border-right-width: $formBorderWidth;
+		}
+		&.selected {
+			background-color: $primaryColor;
+			color: white;
+			&.complementary {
+				background-color: $complementaryColor;
+				border-color: $complementaryColor;
+			}
+			&.secondary {
+				background-color: $secondaryColor;
+				border-color: $secondaryColor;
+			}
+			&.neutral {
+				background-color: $neutralColor;
+				border-color: $neutralColor;
+			}
+
+			&:hover,
+			&.button--solid {
+				background-color: $primaryColorDark;
+				border-color: $primaryColorDark;
+				border-left-color: $primaryColorLight;
+				&.complementary {
+					background-color: $complementaryColorDark;
+					border-color: $complementaryColorDark;
+					border-left-color: $complementaryColorLight;
+				}
+				&.secondary {
+					background-color: $secondaryColorDark;
+					border-color: $secondaryColorDark;
+					border-left-color: $secondaryColorLight;
+				}
+				&.neutral {
+					background-color: $neutralColorDark;
+					border-color: $neutralColorDark;
+					border-left-color: $neutralColorLight;
+				}
+
+				&:first-child {
+					border-left-color: $primaryColorDark;
+					&.complementary {
+						border-left-color: $complementaryColorDark;
+					}
+					&.secondary {
+						border-left-color: $secondaryColorDark;
+					}
+					&.neutral {
+						border-left-color: $neutralColorDark;
+					}
+				}
+			}
+		}
+		&.button--solid {
+			border-left-color: $primaryColorLight;
+			&.complementary {
+				border-left-color: $complementaryColorLight;
+			}
+			&.secondary {
+				border-left-color: $secondaryColorLight;
+			}
+			&.neutral {
+				border-left-color: $neutralColorLight;
+			}
+
+			&:first-child {
+				border-left-color: $primaryColor;
+				&.complementary {
+					border-left-color: $complementaryColor;
+				}
+				&.secondary {
+					border-left-color: $secondaryColor;
+				}
+				&.neutral {
+					border-left-color: $neutralColor;
+				}
+			}
+		}
+		&[disabled], &[disabled]:hover {
+			background-color: white;
+			color: $gray30;
+			border-color: $gray40;
+			cursor: auto;
+		}
+		&[disabled].selected {
+			background-color: $gray40;
+			color: $gray05;
+		}
+	}
+}

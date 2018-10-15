@@ -1,0 +1,149 @@
+/*
+############     _settings-index.scss      ############
+variables and settings
+*/
+
+// COLORS
+$gray01: #FCFCFC;
+$gray03: #F7F7F7;
+$gray05: #F2F2F2;
+$gray08: #EAEAEA;
+$gray10: #E6E6E6;
+$gray13: #DDDDDD;
+$gray20: #CCCCCC;
+$gray30: #B2B2B2;
+$gray40: #999999;
+$gray50: #808080;
+$gray60: #666666;
+$gray70: #4C4C4C;
+$gray80: #333333;
+$gray90: #191919;
+
+/*
+	Color generator / color shades
+	https://coolors.co/007eff-1f2e3d-004e64-25a18e-ff5a36
+ */
+
+$primaryColor: #303641;
+$primaryColorLight: #DFE1E5;
+$primaryColorDark: #1E2329;
+
+$complementaryColor: #cc9c34;
+$complementaryColorLight: #f1bc4b;
+$complementaryColorDark: #b18424;
+
+$secondaryColor: #25A18E;
+$secondaryColorLight: #EBF6F4;
+$secondaryColorDark: #114A41;
+
+$tertiaryColor: #004E64;
+$tertiaryColorLight: #E7EEF0;
+$tertiaryColorDark: #00242E;
+
+$quaternaryColor: #1F2E3D;
+$quaternaryColorLight: #EAECED;
+$quaternaryColorDark: #111E22;
+
+$neutralColor: #647B82;
+$neutralColorLight: #F0F3F3;
+$neutralColorDark: #374447;
+
+// Used for .red-text and required "*"
+$red: #FF5A36;
+$redDark: #B84232;
+// Used for form errors
+$error: #FF5A36;
+
+// DROP SHADOW COLOR - see elevation mixin below
+$dsc: rgb(0,0,0);
+
+// BASE COLOR
+$baseColor: $gray80;
+
+// FONT SIZES
+$baseFontSize: 16px;
+$smallFontSize: 0.85rem;
+$vsmallFontSize: 0.7rem;
+
+// FONTS
+$normalFont: 'Muli', Helvetica, sans-serif;
+$normalFontBaseWeight: 400;
+$fixedWidthFont: "Roboto Mono", monospace;
+$fixedWidthFontBaseWeight: 400;
+
+$global-line-height: 1.5rem;
+
+// FORM ELEMENTS
+$formBorderWidth: 1px;
+$formBorder: $formBorderWidth solid $gray50;
+$formErrorBorder: $formBorderWidth solid $error;
+$formBorderRadius: 8px;
+$formBgColor: white;
+$formElementHeight: 30px;
+$buttonHeight: $formElementHeight;
+$formColor: $gray80;
+$formColorEmpty: $gray50;
+
+// FORM ELEMENT SIZES
+$xsmall: 100px;
+$small: 150px;
+$medium: 230px;
+$large: 300px;
+$xlarge: 400px;
+$xxlarge: 500px;
+$fullWidth: 100%;
+
+$labelWidth: 20%;
+$labelWidthFull: 100%;
+
+// SPACING LAYOUT
+$global-spacing-unit: 1rem;
+$global-spacing-unit-tiny: .25rem;
+$global-spacing-unit-small: .5rem;
+$global-spacing-unit-large: 1.5rem;
+$global-spacing-unit-huge: 2rem;
+
+/*
+	-------------------- MIXINS --------------------
+ */
+@mixin formElementSizes {
+	&.size-xsmall {
+		width: $xsmall;
+	}
+	&.size-small {
+		width: $small;
+	}
+	&.size-medium {
+		width: $medium;
+	}
+	&.size-large {
+		width: $large;
+	}
+	&.size-xlarge {
+		width: $xlarge;
+	}
+	&.size-xxlarge {
+		width: $xxlarge;
+	}
+	&.size-full {
+		width: calc(100% - #{$labelWidth} - #{$global-spacing-unit-small});
+	}
+}
+
+@mixin formElementSizesStacked {
+	&.size-full {
+		width: 100%;
+	}
+}
+
+@mixin elevation {
+	&--z2 {
+		box-shadow: 0 3px 1px -2px rgba($dsc,.2), 0 2px 2px 0 rgba($dsc,.14), 0 1px 5px 0 rgba($dsc,.12)
+	}
+	&--z4 {
+		box-shadow: 0 2px 4px -1px rgba($dsc,.2), 0 4px 5px 0 rgba($dsc,.14), 0 1px 10px 0 rgba($dsc,.12);
+	}
+	&--z6 {
+		box-shadow: 0 3px 5px -1px rgba($dsc,.2), 0 6px 10px 0 rgba($dsc,.14), 0 1px 18px 0 rgba($dsc,.12);
+	}
+}

@@ -23,6 +23,18 @@ class ImageSetDao {
 		}
 		return $imageSet;
 	}
+
+	public function delete(string $guid)
+	{
+		$imageSet = $this->selectByGuid($guid);
+		DB::table('image_set_x_image')
+			->where('image_set_id', '=', $imageSet->id)
+			->delete();
+
+		DB::table('image_set')
+			->where('id', '=', $imageSet->id)
+			->delete();
+	}
 }
 
 function imageSetDao() {

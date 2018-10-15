@@ -21,6 +21,7 @@ import roles from '../Common/Roles';
 import routes from "../Common/Routes";
 import LeftPanel from "../Common/Components/Panels/LeftPanel";
 import MainPanel from "../Common/Components/Panels/MainPanel";
+import "../scss/index.scss";
 
 const propTypes = {
 	account: PropTypes.object,
@@ -93,10 +94,10 @@ class AppClass extends React.Component {
 				<div id="top-title-container">
 					<div id="top-title">Crowe Character</div>
 					<div id="left-account">
-						{roles.hasRole(roles.roles.ADMIN) ? <Button onClick={() => routes.admin.home()} label="Admin Area"/> : undefined}
+						{roles.hasRole(roles.roles.ADMIN) ? <Button onClick={() => routes.admin.home()} label="Admin"/> : undefined}
 					</div>
 					<div id="right-account">
-						{this.props.account ? this.props.account.phrase : 'Loading...'} <button>Login to Save</button>
+						{this.props.account ? this.props.account.phrase : 'Loading...'} <button>Login</button>
 					</div>
 				</div>
 				<div id="main-container">

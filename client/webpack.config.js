@@ -114,3 +114,14 @@ const config = {
 };
 
 module.exports = config;
+
+const merge = require('webpack-merge');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+module.exports = merge(config, {
+	mode: 'development',
+	devtool: 'inline-source-map',
+	plugins: [
+		new CleanWebpackPlugin([config.output.path]),
+	]
+});

@@ -1,0 +1,161 @@
+/*
+############     _utilities.scss      ############
+utility classes, atomic css
+*/
+
+/* --------- Flex --------- */
+.flex {
+	display: flex;
+
+	&.space-between {
+		justify-content: space-between;
+	}
+	&.space-around {
+		justify-content: space-around;
+	}
+	&.center {
+		justify-content: center;
+	}
+	&.flex-start {
+		justify-content: flex-start;
+	}
+	&.flex-end {
+		justify-content: flex-end;
+	}
+
+	&.align-start {
+		align-items: flex-start;
+	}
+	&.align-end {
+		align-items: flex-end;
+	}
+	&.align-center {
+		align-items: center;
+	}
+	&.align-stretch {
+		align-items: stretch;
+	}
+	&.align-baseline {
+		align-items: baseline;
+	}
+
+	&.flex-wrap {
+		flex-wrap: wrap;
+	}
+
+	&.direction-col {
+		flex-direction: column;
+	}
+
+	.fifty {
+		width: 50%;
+	}
+
+	&-children {
+		& > div:first-child {
+			display: flex;
+
+			& > .input-container {
+				min-width: 260px;
+				margin-right: $global-spacing-unit-huge;
+			}
+		}
+	}
+
+	&-children-wrap {
+		& > div:first-child {
+			flex-wrap: wrap;
+		}
+	}
+}
+
+.flex1 {
+	flex: 1 1 0;
+}
+
+.flex2 {
+	flex: 2 1 0;
+}
+
+/* --------- Utility Classes --------- */
+.center-text, .text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-left {
+	text-align: left !important;
+}
+
+.text-red {
+	color: $red;
+}
+
+.hcenter {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.vcenter {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.vcenter.right {
+	right: 0;
+}
+
+.vcenter.left {
+	left: 0;
+}
+
+.vcenter.hcenter {
+	transform: translate(-50%, -50%);
+}
+
+.hcenter-margin {
+	display: block;
+	margin: 0 auto;
+}
+
+.mt-spacing {
+	margin-top: $global-spacing-unit;
+}
+
+.mb-spacing {
+	margin-bottom: $global-spacing-unit;
+}
+
+.mr-spacing {
+	margin-right: $global-spacing-unit;
+}
+
+.visually-hidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+.clearfix:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.elevation {
+	@include elevation;
+}
+
+.italic {
+	font-style: italic;
+}

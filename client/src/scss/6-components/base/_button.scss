@@ -1,0 +1,200 @@
+/*
+############     _button.scss      ############
+*/
+button, .button {
+	background: $primaryColor;
+	border-radius: $formBorderRadius;
+	border: 1px solid $gray70;
+	color: white;
+	cursor: pointer;
+	fill: $primaryColor;
+	font-family: $normalFont;
+	min-height: $buttonHeight;
+	padding: $buttonHeight / 3 $buttonHeight;
+	position: relative;
+	transition: all 200ms ease;
+	overflow: hidden;
+
+	&:hover {
+		background: $primaryColorDark;
+		color: white;
+		fill: white;
+	}
+
+	&.complementary {
+		color: $complementaryColor;
+		fill: $complementaryColor;
+		border-color: $complementaryColor;
+		&:hover {
+			background: $complementaryColor;
+			color: white;
+			fill: white;
+		}
+	}
+
+	&.secondary {
+		color: $secondaryColor;
+		fill: $secondaryColor;
+		border-color: $secondaryColor;
+		&:hover {
+			background: $secondaryColor;
+			color: white;
+			fill: white;
+		}
+	}
+
+	&.neutral {
+		color: $neutralColorDark;
+		fill: $neutralColor;
+		border-color: $neutralColor;
+		&:hover {
+			background: $neutralColor;
+			color: white;
+			fill: white;
+		}
+	}
+
+	&.danger {
+		fill: $red;
+		border-color: $red;
+		background: $red;
+		&:hover {
+			fill: $redDark;
+			border-color: $redDark;
+			background: $redDark;
+		}
+	}
+
+	&[disabled],
+	&[disabled]:hover {
+		color: $gray30;
+		border-color: $gray40;
+		background: white;
+		cursor: default;
+
+		&.button--solid {
+			color: $gray05;
+			background: $gray30;
+			border-color: $gray30;
+		}
+	}
+
+	&.button--solid {
+		color: white;
+		fill: white;
+		background: $primaryColor;
+		&:hover {
+			background: $primaryColorDark;
+			border-color: $primaryColorDark;
+		}
+		&.complementary {
+			background: $complementaryColor;
+			&:hover {
+				background: $complementaryColorDark;
+				border-color: $complementaryColorDark;
+			}
+		}
+		&.secondary {
+			background: $secondaryColor;
+			&:hover {
+				background: $secondaryColorDark;
+				border-color: $secondaryColorDark;
+			}
+		}
+		&.neutral {
+			background: $neutralColor;
+			&:hover {
+				background: $neutralColorDark;
+				border-color: $neutralColorDark;
+			}
+		}
+	}
+
+	&.button--small {
+		font-size: .6rem;
+		min-height: 30px;
+		height: 20px;
+		padding: 0 10px;
+		width: 50px;
+	}
+
+	&.button--large {
+		font-size: 1.1rem;
+		min-height: $buttonHeight + 10px;
+	}
+
+	&.button--icon {
+		.button-label {
+			padding: 0 1.2rem 0 0;
+		}
+		svg + .button-label {
+			padding: 0 0 0 1.2rem;
+		}
+		svg {
+			position: absolute;
+			top: 50%;
+			left: 0;
+			transform: translate(10px, -50%);
+		}
+		.button-label + svg {
+			left: 100%;
+			transform: translate(calc(-100% - 10px), -50%);
+		}
+		&.button--noLabel svg {
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+		&.button--noChildren .button-label {
+			padding: 0;
+		}
+	}
+
+	&.busy {
+		padding: 0 2.5rem 0 1.2rem;
+		.css-spinner {
+			display: block;
+			position: absolute;
+			left: 100%;
+			top: 50%;
+			transform: translate(calc(-100% - 10px), -50%);
+		}
+	}
+
+	// We assume the tab/icon is on the left
+	&.button--tab-icon {
+		.button-label {
+			padding: 0 0 0 1.6rem;
+		}
+		.icon-tab {
+			position: absolute;
+			top: 50%;
+			left: 0;
+			width: 2rem;
+			height: 100%;
+			transform: translate(0, -50%);
+			background: rgba(0,0,0,0.2);
+		}
+	}
+	&.button--icon-only {
+		min-width: 32px;
+	}
+
+	&-like {
+		display: inline-block;
+		cursor: default;
+		text-transform: uppercase;
+		min-height: 0;
+
+		&:hover {
+			background: $primaryColor;
+		}
+	}
+}
+
+a.button {
+	clear: both;
+	display: inline-block;
+	color: white;
+	text-decoration: none;
+	min-height: 0;
+}

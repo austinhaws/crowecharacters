@@ -1,0 +1,49 @@
+.calendar-input__wrapper {
+	&> div {
+		display: inline-block;
+		vertical-align: top;
+		height: $formElementHeight;
+	}
+	&> input[type=text] {
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+		border-right: 0;
+	}
+}
+
+.date-picker-button {
+	padding: 0 9px;
+	color: white;
+	fill: white;
+	background: $gray80;
+	border-color: $gray80;
+	width: $formElementHeight;
+	position: relative;
+
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+
+	&:hover {
+		border-color: $primaryColor;
+	}
+
+	&__icon {
+		font-size: 1.1rem;
+		display: block;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
+
+.react-datepicker__navigation {
+	min-height: auto;
+	border-radius: 0;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range {
+	background-color: $primaryColor;
+}

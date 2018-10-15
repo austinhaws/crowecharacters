@@ -1,0 +1,72 @@
+/* ########     POPUP WINDOW     ######## */
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes drop-in {
+	0% {
+		opacity: 0;
+		transform: translate(-50%, -100%);
+	}
+	100% {
+		opacity: 1;
+		transform: translate(-50%, -50%);
+	}
+}
+
+.popup-window {
+	position: absolute;
+	left: 50%;
+	top: 35%;
+	transform: translateX(-50%);
+	background: white;
+	min-width: 500px;
+	animation: 400ms ease-in-out 100ms drop-in both;
+	border-radius: 5px;
+	overflow: hidden;
+
+	&--large {
+		top: 50%;
+	}
+	&__backdrop {
+		position: fixed;
+		z-index: 10000;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background: rgba(0, 0, 0, 0.3);
+		animation: 300ms ease-in 100ms fade-in both;
+	}
+
+	&__content {
+		padding: 30px;
+		max-height: calc(100vh - 200px);
+		overflow: auto;
+	}
+
+	&__close-button {
+		display: block;
+		position: absolute;
+		top: 8px;
+		right: 8px;
+		width: 12px;
+		height: 12px;
+		text-indent: 20000px;
+		overflow: hidden;
+		svg {
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		&:hover {
+			fill: $red;
+		}
+	}
+
+}

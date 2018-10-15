@@ -1,0 +1,116 @@
+/*
+############     _select-input.scss      ############
+*/
+.Select {
+	display: inline-block;
+	vertical-align: middle;
+
+	@include formElementSizes;
+}
+
+.Select-control {
+	border: $formBorder;
+	background: $formBgColor;
+	height: $formElementHeight;
+	font-family: $fixedWidthFont;
+	font-weight: $fixedWidthFontBaseWeight;
+}
+
+.Select-input {
+	height: $formElementHeight;
+	padding: 0;
+	&> input {
+		padding: 0;
+		line-height: $formElementHeight;
+	}
+	.Select--multi & {
+		padding: 0;
+	}
+}
+
+.Select--single .Select-input {
+	&> input {
+		padding: 0 10px;
+	}
+}
+
+.Select-placeholder,
+.Select--single > .Select-control .Select-value {
+	line-height: $formElementHeight - 2px;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.Select.resizable {
+	min-width: $medium;
+}
+
+.Select.has-value.is-clearable.Select--single > .Select-control .Select-value {
+	padding-right: inherit;
+}
+
+.Select--multi .Select-value {
+	line-height: 1rem;
+	margin-top: 4px;
+	border: 1px solid $gray40;
+	background: $gray03;
+	color: $formColor;
+}
+
+.Select--multi .Select-value-icon {
+	padding: 1px 5px 1px;
+	border-right: 1px solid $gray30;
+}
+
+.Select-arrow-zone {
+	background: $formColor;
+}
+
+.Select-arrow {
+	content: ' ';
+	border-color: white;
+	border-style: solid;
+	border-width: 0 2px 2px 0;
+	right: 5px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(45deg);
+	width: 7px;
+	height: 7px;
+}
+
+.Select.is-open > .Select-control .Select-arrow {
+	top: inherit;
+	border-color: white;
+	border-width: 0 2px 2px 0;
+	transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+/* Table Filter Specific */
+table.filters {
+	tr.filters {
+		.Select-control {
+			border: 0;
+			background: transparent;
+			border-radius: 0;
+		}
+
+		.Select-placeholder, .Select--single > .Select-control .Select-value {
+			line-height: $formElementHeight;
+			position: absolute;
+			color: $gray13;
+		}
+
+		.Select-arrow-zone {
+			background: $gray13;
+			width: 15px;
+		}
+
+		.Select-clear-zone {
+			background: $gray20;
+			color: white;
+			width: 15px;
+		}
+	}
+}

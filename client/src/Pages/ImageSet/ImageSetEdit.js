@@ -6,33 +6,53 @@ import webservice from "../../Common/Webservice";
 import {dispatchFieldChanged} from "../../App/Reducers";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {delayedInput, TextInput} from "dts-react-common";
+import ImageList from "../../Common/Components/ImageList/ImageList";
+import defaultState from "../../App/Store";
 
 const propTypes = {
 	globalData: PropTypes.object.isRequired,
 	match: PropTypes.object,
+	imageSetEdit: PropTypes.object.isRequired,
 };
 const defaultProps = {
 	match: undefined,
 };
 
+const DelayedTextInput = delayedInput(TextInput);
+
 class ImageSetEdit extends React.Component {
-	componentDidMount() {
-		if (this.props.match) {
-			webservice.imageSet.get(this.props.match.params.guid)
-				.then(imageSet => dispatchFieldChanged(undefined, 'imageSetEdit', imageSet));
+	constructor(props) {
+		super(props);
+
+		this.imageSetEditFieldChange = this.imageSetEditFieldChange.bind(this);
+
+		this.state = {
+			selectedImages: [],
+		};
+	}
+
+	componentWillReceiveProps(props) {
+		if (props.match) {
+			if (!props.imageSetEdit || props.match.params.guid !== props.imageSetEdit.guid) {
+				webservice.imageSet.get(props.match.params.guid).then(imageSet => dispatchFieldChanged(undefined, 'imageSetEdit', imageSet));
+			}
 		} else {
-			dispatchFieldChanged(undefined, 'imageSetEdit', {
-				name: undefined,
-				guid: undefined,
-			});
+			dispatchFieldChanged(undefined, 'imageSetEdit', defaultState.imageSetEdit);
 		}
+	}
+
+	imageSetEditFieldChange(field, value) {
+		dispatchFieldChanged('imageSetEdit', field, value);
 	}
 
 	render() {
 		return (
 			<React.Fragment>
-				<TopNavigation pageTitle={`ImageSet - ${this.props.imageSetEdit ? this.props.imageSetEdit.name : ''}`} backUrl="/admin"/>
+				<TopNavigation pageTitle={`ImageSet - ${this.props.imageSetEdit.name}`} backUrl="/admin"/>
 				<LeftPanel>
+					<DelayedTextInput label="Name" field="name" onChange={this.imageSetEditFieldChange} showLabel={false} value={this.props.imageSetEdit.name}/>
+					<ImageList imageFiles={this.props.imageSetEdit.images} selectedImages={this.state.selectedImages} selectedChanged={console.log}/>
 					show list of images - drag and drop files on to list to add images super (use image list?)
 					delete images
 					reorder z-index of images (going to be much easier with drag and drop ordering)
@@ -41,7 +61,7 @@ class ImageSetEdit extends React.Component {
 					z-index allows ordering images to show which ones sit on top of the other
 
 					on image line also show category menu
-					save changes as they are made
+					save changes as they are made - delayed input for name
 				</LeftPanel>
 				<MainPanel>
 					show the image set images stacked in to the shown image

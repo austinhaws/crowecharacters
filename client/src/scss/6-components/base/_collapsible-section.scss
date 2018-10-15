@@ -1,0 +1,26 @@
+/*
+############     _collapsible-section.scss      ############
+*/
+
+.collapsible-section {
+
+	&__title,
+	&__title:visited {
+		display: block;
+		background: $primaryColor;
+		color: white;
+		padding: $global-spacing-unit;
+		text-decoration: none;
+	}
+	&__title:hover {
+		background: $primaryColorDark;
+	}
+
+	&__content {
+		padding: $global-spacing-unit 0;
+		line-height: $global-line-height;
+	}
+}
+.collapsible-section + .collapsible-section {
+	margin: $global-spacing-unit 0 0 0;
+}

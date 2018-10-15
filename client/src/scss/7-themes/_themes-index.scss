@@ -1,0 +1,14 @@
+/*
+############     _themes-index.scss      ############
+overall theme options for the css higher in the inverted css triangle
+*/
+
+.headline {
+  	padding: $formElementHeight / 4 $formElementHeight / 2;
+  	background-color: $gray10;
+  	border-radius: $formBorderRadius;
+  	border: 1px solid $gray80;
+	text-transform: uppercase;
+  	font-size: $baseFontSize;
+  	font-weight: $normalFontBaseWeight;
+}

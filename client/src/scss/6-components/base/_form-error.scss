@@ -1,0 +1,26 @@
+/*
+############     _form-error.scss      ############
+*/
+.form-error {
+	display: inline-block;
+	position: relative;
+	background: $error;
+	color: white;
+	padding: $global-spacing-unit-tiny $global-spacing-unit-small;
+	margin: 0 0 0 8px;
+	width: auto;
+	text-align: left;
+	&:before {
+		content: "";
+		display: block;
+		position: absolute;
+		left: -8px;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 5px 8px 5px 0;
+		border-color: transparent $error transparent transparent;
+	}
+}

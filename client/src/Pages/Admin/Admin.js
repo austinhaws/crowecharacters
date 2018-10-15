@@ -13,7 +13,6 @@ const defaultProps = {};
 
 export default class Admin extends React.Component {
 	render() {
-console.log('rendering admin');
 		return (
 			<React.Fragment>
 				<Router history={history}>

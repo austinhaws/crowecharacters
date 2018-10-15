@@ -25,9 +25,13 @@ const webservice = {
 	},
 
 	imageSet: {
-		all: () => webserviceCore.get('imageset/all'),
-		save: imageSet => webserviceCore.post(`imageset/save`, imageSet),
+		all: () => webserviceCore.get('imageset/all').then(imageSets => {
+			dispatchFieldChanged('globalData', 'imageSets', imageSets);
+			return imageSets;
+		}),
+		delete: imageSetGuid => webserviceCore.get(`imageset/delete/${imageSetGuid}`),
 		get: imageSetGuid => webserviceCore.get(`imageset/get/${imageSetGuid}`),
+		save: imageSet => webserviceCore.post(`imageset/save`, imageSet),
 	},
 
 

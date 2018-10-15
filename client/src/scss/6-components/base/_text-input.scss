@@ -1,0 +1,33 @@
+/*
+############     _text-input.scss      ############
+*/
+input[type=text] {
+	border: $formBorder;
+	border-radius: $formBorderRadius;
+	color: $formColor;
+	background: $formBgColor;
+	height: $formElementHeight;
+	box-sizing: border-box;
+	padding: 0 10px;
+	font-family: $fixedWidthFont;
+	font-weight: $fixedWidthFontBaseWeight;
+
+	.error & {
+		border: $formErrorBorder;
+	}
+
+	&.empty {
+		color: $formColorEmpty;
+	}
+
+	&[disabled],
+	&[readonly] {
+		border-color: $gray10;
+	}
+
+	@include formElementSizes;
+
+	.stack-form & {
+		@include formElementSizesStacked;
+	}
+}

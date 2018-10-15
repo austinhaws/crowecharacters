@@ -1,0 +1,23 @@
+/*
+############     _components-index.scss      ############
+component specific, BEM (Block, Element, Modifier)
+@media for each component should be contained with the component.
+*/
+
+/* ---- Base Components ---- */
+@import "base/button";
+@import "base/calendar-input";
+@import "base/collapsible-section";
+@import "base/form-error";
+@import "base/input-container";
+@import "base/pop-over";
+@import "base/popup-window";
+@import "base/segmented-button";
+@import "base/select-input";
+@import "base/table";
+@import "base/text-area";
+@import "base/text-input";
+@import "base/message-popup";
+
+/* ---- Pages ---- */
+@import "pages/image-set-list";

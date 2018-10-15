@@ -1,0 +1,69 @@
+/*
+############     _pop-over.scss      ############
+*/
+$popover-arrow-size: 12px;
+$popover-arrow-color: $primaryColor;
+
+.popover {
+
+	&__anchor {
+		display: inline-block;
+	}
+
+	&__popup {
+		z-index: 10;
+		position: fixed;
+		top: 0;
+		left: 0;
+		background: $primaryColor;
+		padding: .5rem;
+		border: 1px solid $popover-arrow-color;
+		border-radius: $formBorderRadius;
+		animation: 0.75s popover-fade-in;
+		display: inline-block;
+		color: white;
+	}
+
+	&__arrow {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 0;
+		height: 0;
+		border: 0 solid red;
+
+		&--top {
+			border-left: $popover-arrow-size solid transparent;
+			border-right: $popover-arrow-size solid transparent;
+			border-top: $popover-arrow-size solid $popover-arrow-color;
+		}
+
+		&--bottom {
+			border-left: $popover-arrow-size solid transparent;
+			border-right: $popover-arrow-size solid transparent;
+			border-bottom: $popover-arrow-size solid $popover-arrow-color;
+		}
+
+		&--left {
+			border-top: $popover-arrow-size solid transparent;
+			border-bottom: $popover-arrow-size solid transparent;
+			border-left: $popover-arrow-size solid $popover-arrow-color;
+		}
+
+		&--right {
+			border-top: $popover-arrow-size solid transparent;
+			border-bottom: $popover-arrow-size solid transparent;
+			border-right: $popover-arrow-size solid $popover-arrow-color;
+		}
+	}
+}
+
+@keyframes popover-fade-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}

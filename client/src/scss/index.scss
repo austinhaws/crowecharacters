@@ -1,0 +1,31 @@
+// variables and settings
+@import "./1-settings/settings-index";
+
+// mixins, functions
+@import "./2-tools/tools-index";
+
+// normalize.css
+@import "./3-generic/normalize.css";
+
+// css resets, etc.
+@import "./3-generic/generic-index";
+
+// elemental html: h1, h2, h3, ul, li, etc.
+@import "./4-elements/elements-index";
+
+// containers and general design patterns, 2up, 3up etc
+@import "./5-objects/objects-index";
+
+// component specific, BEM
+// @media for each component should be contained with the component.
+@import "./6-components/components-index";
+
+// overall theme options for the above
+@import "./7-themes/themes-index";
+
+// utility classes
+@import "./8-utilities/utilities-index";
+
+// test css, temporary css,
+// this css should eventually be categorized above
+@import "./9-tip/tip-index";

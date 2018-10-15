@@ -1,0 +1,14 @@
+/*
+############     _objects-index.scss      ############
+containers and general design patterns, 2up, 3up, layout grids, etc.
+*/
+
+.content {
+  padding: $formElementHeight / 2 $formElementHeight;
+
+  .info {
+    p:not(:last-child) {
+      margin: 0;
+    }
+  }
+}
