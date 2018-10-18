@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Services\ImageService;
+use Illuminate\Http\Request;
+use Laravel\Lumen\Routing\Controller as BaseController;
+
+class ImageController extends BaseController
+{
+	private $imageService;
+
+	public function __construct(
+		ImageService $imageService)
+	{
+		$this->imageService = $imageService;
+	}
+
+	public function upload(Request $request)
+	{
+		return $this->imageService->upload($request);
+	}
+}

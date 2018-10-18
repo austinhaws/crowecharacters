@@ -20,6 +20,8 @@ $router->group([], function ($router) {
 	$router->get('imageset/delete/{guid}', 'ImageSetController@delete');
 	$router->get('imageset/get/{guid}', 'ImageSetController@get');
 	$router->post('imageset/save', 'ImageSetController@save');
+
+	$router->post('upload', 'ImageController@uplaod');
 });
 
 $router->get('/', function () use ($router) {
