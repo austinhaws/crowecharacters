@@ -4,7 +4,7 @@ namespace App\Http\Services;
 
 use App\Http\Daos\RolesDao;
 
-class WebResponse
+class WebResponseService
 {
 	private $rolesDao;
 	private $cleanRecordService;

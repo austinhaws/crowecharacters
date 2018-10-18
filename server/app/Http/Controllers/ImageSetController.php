@@ -2,43 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Daos\ImageSetDao;
-use App\Http\Services\WebResponse;
+use App\Http\Services\ImageSetService;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class ImageSetController extends BaseController
 {
-	private $webResponse;
-	private $imageSetDao;
+	private $imageSetService;
 
 	public function __construct(
-		WebResponse $webResponse,
-		ImageSetDao $imageSetDao)
+		ImageSetService $imageSetService)
 	{
-		$this->webResponse = $webResponse;
-		$this->imageSetDao = $imageSetDao;
+		$this->imageSetService = $imageSetService;
 	}
 
 	public function all()
 	{
-		return $this->webResponse->response($this->imageSetDao->selectAll());
+		return $this->imageSetService->all();
 	}
 
 	public function get(string $guid)
 	{
-		$imageSet = $this->imageSetDao->selectByGuid($guid);
-		$imageSet->images = $this->imageSetDao->selectImagesByImageSetId($imageSet->id);
-		return $this->webResponse->response($imageSet);
+		return $this->imageSetService->get($guid);
 	}
 
 	public function delete(string $guid)
 	{
-		$this->imageSetDao->delete($guid);
-		return $this->webResponse->response(null);
+		return $this->imageSetService->delete($guid);
 	}
 
 	public function save(\Illuminate\Http\Request $request)
 	{
-		return $this->webResponse->response($this->imageSetDao->save($request->json()->all()));
+		return $this->imageSetService->save($request->json()->all());
 	}
 }

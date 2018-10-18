@@ -5,14 +5,15 @@ namespace App\Http\Services;
 use App\Http\Daos\ImageDao;
 use Illuminate\Http\Request;
 
-class ImageService {
+class ImageService
+{
 
-	private $webResponse;
+	private $webResponseService;
 	private $imageDao;
 
-	public function __construct(WebResponse $webResponse, ImageDao $imageDao)
+	public function __construct(WebResponseService $webResponseService, ImageDao $imageDao)
 	{
-		$this->webResponse = $webResponse;
+		$this->webResponseService = $webResponseService;
 		$this->imageDao = $imageDao;
 	}
 
@@ -38,13 +39,12 @@ class ImageService {
 		$this->imageDao->save($imageData);
 
 
-
 		$imageData['disk_name'] = $this->fileName($imageData, $file);
 		$file->move(env(CONFIG_IMAGES_FOLDER) . "/", $imageData['name']);
 
 		$this->imageDao->save($imageData);
 
-		return $this->webResponse->response($imageData);
+		return $this->webResponseService->response($imageData);
 	}
 
 	/**
