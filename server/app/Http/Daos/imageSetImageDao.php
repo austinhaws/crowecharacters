@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Http\Daos;
+
+use Illuminate\Support\Facades\DB;
+
 class ImageSetImageDao {
 
 	public function selectImagesByImageSetId(string $imageSetId)
@@ -10,8 +14,4 @@ class ImageSetImageDao {
 			->where('image_set_x_image.image_set_id', '=', $imageSetId)
 			->get()->all();
 	}
-}
-
-function imageSetImageDao() {
-	return new ImageSetImageDao();
 }

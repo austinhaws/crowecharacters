@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Http\Daos;
+
+use Illuminate\Support\Facades\DB;
+
 class WordDao {
 
 	/**
@@ -16,8 +20,4 @@ class WordDao {
 			->limit(1)
 			->where('word_type.type', '=', $type)->get()[0]->word;
 	}
-}
-
-function wordDao() {
-	return new WordDao();
 }

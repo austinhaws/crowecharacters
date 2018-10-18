@@ -17,13 +17,11 @@ export default class Admin extends React.Component {
 			<React.Fragment>
 				<Router history={history}>
 					<Switch>
-						{/*<Route path="/admin/body/edit/:bodyGuid/:imageGuid" render={props => <AdminBodyEditDEAD {...this.props} bodyGuid={props.match.params.bodyGuid} imageGuid={props.match.params.imageGuid}/>}/>*/}
-						{/*<Route path="/admin/body/edit/:bodyGuid" render={props => <AdminBodyEditDEAD {...this.props} bodyGuid={props.match.params.bodyGuid}/>}/>*/}
-						{/*<Route path="/admin/image/new/:guid" render={props => <AdminImageNewDEAD {...this.props} bodyGuid={props.match.params.guid}/>}/>*/}
-						{/*<Route path="/admin/body/list" render={() => <AdminBodyListDEAD {...this.props}/>}/>*/}
-						{/*<Route path="/admin/body/new" render={() => <AdminBodyNewDEAD {...this.props}/>}/>*/}
-						<Route path="/admin/imageSet/edit/:guid" component={ImageSetEdit}/>
 						<Route path="/admin/imageSet/list" component={ImageSetList}/>
+
+						<Route path="/admin/imageSet/edit" component={ImageSetEdit}/>
+						<Route path="/admin/imageSet/edit/:guid" component={ImageSetEdit}/>
+
 						<Route component={AdminHome}/>
 					</Switch>
 				</Router>

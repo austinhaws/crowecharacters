@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Http\Daos;
+
+use Illuminate\Support\Facades\DB;
+
 class ImageSetDao {
 
 	public function selectAll()
@@ -10,6 +14,15 @@ class ImageSetDao {
 	public function selectByGuid(string $guid)
 	{
 		return DB::table('image_set')->where('guid', '=' , $guid)->first();
+	}
+
+	public function selectImagesByImageSetId($imageSetId)
+	{
+		return DB::table('image')
+			->join('image_set_x_image', 'image_set_x_image.image_id', '=', 'image.id')
+			->where('image_set_x_image.image_set_id', '=', $imageSetId)
+			->get()
+			->all();
 	}
 
 	public function save($imageSet) {
@@ -35,8 +48,4 @@ class ImageSetDao {
 			->where('id', '=', $imageSet->id)
 			->delete();
 	}
-}
-
-function imageSetDao() {
-	return new ImageSetDao();
 }

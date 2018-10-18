@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Http\Daos;
+
+use Illuminate\Support\Facades\DB;
+
 class AccountDao {
 
 	public function selectByGuid(string $guid)
@@ -33,8 +37,4 @@ class AccountDao {
 	{
 		return DB::table('account')->where('guid', '=', $guid)->update(['data' => $data]);
 	}
-}
-
-function accountDao() {
-	return new AccountDao();
 }

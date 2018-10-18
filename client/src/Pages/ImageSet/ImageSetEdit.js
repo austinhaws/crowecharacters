@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {delayedInput, TextInput} from "dts-react-common";
 import ImageList from "../../Common/Components/ImageList/ImageList";
-import defaultState from "../../App/Store";
+import {defaultState} from "../../App/Store";
 
 const propTypes = {
 	globalData: PropTypes.object.isRequired,
@@ -26,6 +26,7 @@ class ImageSetEdit extends React.Component {
 		super(props);
 
 		this.imageSetEditFieldChange = this.imageSetEditFieldChange.bind(this);
+		this.uploadFiles = this.uploadFiles.bind(this);
 
 		this.state = {
 			selectedImages: [],
@@ -46,22 +47,22 @@ class ImageSetEdit extends React.Component {
 		dispatchFieldChanged('imageSetEdit', field, value);
 	}
 
+	uploadFiles(files) {
+		files.forEach(file => webservice.image.upload(file));
+	}
+
 	render() {
 		return (
 			<React.Fragment>
 				<TopNavigation pageTitle={`ImageSet - ${this.props.imageSetEdit.name}`} backUrl="/admin"/>
 				<LeftPanel>
 					<DelayedTextInput label="Name" field="name" onChange={this.imageSetEditFieldChange} showLabel={false} value={this.props.imageSetEdit.name}/>
-					<ImageList imageFiles={this.props.imageSetEdit.images} selectedImages={this.state.selectedImages} selectedChanged={console.log}/>
-					show list of images - drag and drop files on to list to add images super (use image list?)
-					delete images
-					reorder z-index of images (going to be much easier with drag and drop ordering)
-					toggle on/off (checkbox is ok since clicking starts a drag and want to do drag and drop ordering)
-
-					z-index allows ordering images to show which ones sit on top of the other
-
-					on image line also show category menu
-					save changes as they are made - delayed input for name
+					<ImageList
+						imageFiles={this.props.imageSetEdit.images}
+						selectedImages={this.state.selectedImages}
+						selectedChanged={console.log}
+						onDrop={this.uploadFiles}
+					/>
 				</LeftPanel>
 				<MainPanel>
 					show the image set images stacked in to the shown image

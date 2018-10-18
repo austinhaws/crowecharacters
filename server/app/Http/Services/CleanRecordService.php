@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Services;
+
 class CleanRecordService {
 	/**
 	 * pull out ids and convert data to json
@@ -28,8 +30,4 @@ class CleanRecordService {
 			unset($record['id']);
 		}
 	}
-}
-
-function cleanRecordService() {
-	return new CleanRecordService();
 }

@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Http\Daos;
+
+use Illuminate\Support\Facades\DB;
 
 class RolesDao {
 
@@ -12,8 +15,4 @@ class RolesDao {
 			->where('account.guid', '=' , $accountGuid)
 			->get();
 	}
-}
-
-function rolesDao() {
-	return new RolesDao();
 }
