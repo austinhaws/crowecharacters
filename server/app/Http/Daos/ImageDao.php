@@ -13,7 +13,7 @@ class ImageDao {
 				->update($image);
 		} else {
 			$image['guid'] = uniqid();
-			$image['id'] = DB::table('image_set')->insertGetId($image);
+			$image['id'] = DB::table('image')->insertGetId($image);
 		}
 		return $image;
 	}

@@ -18,6 +18,6 @@ class ImageController extends BaseController
 
 	public function upload(Request $request)
 	{
-		return $this->imageService->upload($request);
+		return $this->imageService->uploadImage($request);
 	}
 }

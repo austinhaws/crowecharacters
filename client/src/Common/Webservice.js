@@ -34,6 +34,14 @@ const webservice = {
 		save: imageSet => webserviceCore.post(`imageset/save`, imageSet),
 	},
 
+	image: {
+		upload: file => {
+			const formData = new FormData();
+			formData.append("file", file);
+			return webserviceCore.post('image/upload', formData);
+		},
+	},
+
 
 	body: {
 		all: () => console.log/*webserviceCore.get(`body/all/${store.getState().account.guid}`).then(data => {

@@ -21,7 +21,7 @@ $router->group([], function ($router) {
 	$router->get('imageset/get/{guid}', 'ImageSetController@get');
 	$router->post('imageset/save', 'ImageSetController@save');
 
-	$router->post('upload', 'ImageController@uplaod');
+	$router->post('image/upload', 'ImageController@upload');
 });
 
 $router->get('/', function () use ($router) {

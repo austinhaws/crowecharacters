@@ -25,14 +25,13 @@ class ImageService
 	public function uploadImage(Request $request)
 	{
 		$file = $request->file('file');
-
 		list($width, $height) = getimagesize($file->getPathname());
 
 		$imageData = [
-			'originalName' => $file->getClientOriginalName(),
+			'original_name' => $file->getClientOriginalName(),
 			'width' => $width,
 			'height' => $height,
-			'name' => null,
+			'disk_name' => 'pre-load',
 		];
 
 		// create new record and gets its id
@@ -40,7 +39,7 @@ class ImageService
 
 
 		$imageData['disk_name'] = $this->fileName($imageData, $file);
-		$file->move(env(CONFIG_IMAGES_FOLDER) . "/", $imageData['name']);
+		$file->move(env('IMAGES_FOLDER'), $imageData['disk_name']);
 
 		$this->imageDao->save($imageData);
 

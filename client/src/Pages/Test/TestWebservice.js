@@ -15,10 +15,12 @@ export default class TestWebservice extends React.Component {
 		super(props);
 
 		this.outputData = this.outputData.bind(this);
+		this.fileChangeHandler = this.fileChangeHandler.bind(this);
 
 		this.state = {
 			output: '',
 			imageSetGuid: undefined,
+			selectedFile: undefined,
 		};
 
 		this.testUrls = [
@@ -52,6 +54,16 @@ export default class TestWebservice extends React.Component {
 					}
 				}
 			},
+			{
+				title: 'Image: Upload', testFunc: () => {
+					if (!this.state.selectedFile) {
+						alert('Select a file first');
+					} else {
+						webservice.image.upload(this.state.selectedFile)
+							.then(this.outputData);
+					}
+				}
+			},
 
 			// { title: 'Body: All', testFunc: () => webservice.body.all().then(this.outputData)},
 			// { title: 'Body: Save', testFunc: () => webservice.body.save(store.getState().bodies[0]).then(this.outputData)},
@@ -71,6 +83,10 @@ export default class TestWebservice extends React.Component {
 		return data;
 	}
 
+	fileChangeHandler(e) {
+		this.setState({ selectedFile: e.target.files[0] });
+	}
+
 	render() {
 		return (
 			<React.Fragment>
@@ -83,6 +99,9 @@ export default class TestWebservice extends React.Component {
 				</LeftPanel>
 				<MainPanel>
 					<div className="test-webservice__disclaimer">This will set data in the database! It will change your account!! Don't run these!!!</div>
+					<div className="test-webservice__image-upload">
+						Image file to upload: <input type="file" onChange={this.fileChangeHandler}/>
+					</div>
 					<div className="output">{this.state.output}</div>
 				</MainPanel>
 			</React.Fragment>

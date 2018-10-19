@@ -411,13 +411,6 @@ button.size-large {
 	background-color: white;
 }
 
-.test-webservice__disclaimer {
-	color: red;
-	background-color: #ebebeb;
-	font-size: 40px;
-	text-align: center;
-}
-
 .main-panel__menu-list {
 	width: 60%;
 	margin: 175px auto 0;
