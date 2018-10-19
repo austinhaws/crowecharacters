@@ -3,6 +3,8 @@
 namespace App\Http\Services;
 
 use App\Http\Daos\ImageDao;
+use App\Http\Daos\ImageSetDao;
+use App\Http\Daos\ImageSetXImageDao;
 use Illuminate\Http\Request;
 
 class ImageService
@@ -10,11 +12,20 @@ class ImageService
 
 	private $webResponseService;
 	private $imageDao;
+	private $imageSetDao;
+	private $imageSetXImageDao;
 
-	public function __construct(WebResponseService $webResponseService, ImageDao $imageDao)
+	public function __construct(
+		WebResponseService $webResponseService,
+		ImageDao $imageDao,
+		ImageSetDao $imageSetDao,
+		ImageSetXImageDao $imageSetXImageDao
+	)
 	{
 		$this->webResponseService = $webResponseService;
 		$this->imageDao = $imageDao;
+		$this->imageSetDao = $imageSetDao;
+		$this->imageSetXImageDao = $imageSetXImageDao;
 	}
 
 	/**
@@ -54,5 +65,13 @@ class ImageService
 	private function fileName($imageData, $file)
 	{
 		return "{$imageData['id']}.{$file->getClientOriginalExtension()}";
+	}
+
+	public function connectImageToImageSet(string $imageGuid, string $imageSetGuid)
+	{
+		$image = $this->imageDao->selectByGuid($imageGuid);
+		$imageSet = $this->imageSetDao->selectByGuid($imageSetGuid);
+		$this->imageSetXImageDao->connectImageToImageSet($image->id, $imageSet->id);
+		return $this->webResponseService->response([$image, $imageSet]);
 	}
 }

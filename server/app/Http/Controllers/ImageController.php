@@ -20,4 +20,9 @@ class ImageController extends BaseController
 	{
 		return $this->imageService->uploadImage($request);
 	}
+
+	public function connect(string $imageGuid, string $imageSetGuid)
+	{
+		return $this->imageService->connectImageToImageSet($imageGuid, $imageSetGuid);
+	}
 }

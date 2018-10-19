@@ -4,7 +4,7 @@ namespace App\Http\Daos;
 
 use Illuminate\Support\Facades\DB;
 
-class ImageSetImageDao {
+class ImageSetXImageDao {
 
 	public function selectImagesByImageSetId(string $imageSetId)
 	{
@@ -14,4 +14,15 @@ class ImageSetImageDao {
 			->where('image_set_x_image.image_set_id', '=', $imageSetId)
 			->get()->all();
 	}
+
+
+	public function connectImageToImageSet(int $imageId, int $imageSetId)
+	{
+		DB::table('image_set_x_image')
+			->insert([
+				'image_id' => $imageId,
+				'image_set_id' => $imageSetId,
+			]);
+	}
+
 }

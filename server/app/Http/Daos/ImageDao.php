@@ -4,9 +4,11 @@ namespace App\Http\Daos;
 
 use Illuminate\Support\Facades\DB;
 
-class ImageDao {
+class ImageDao
+{
 
-	public function save(&$image) {
+	public function save(&$image)
+	{
 		if (isset($image['guid'])) {
 			DB::table('image')
 				->where('guid', '=', $image['guid'])
@@ -16,5 +18,12 @@ class ImageDao {
 			$image['id'] = DB::table('image')->insertGetId($image);
 		}
 		return $image;
+	}
+
+	public function selectByGuid($guid)
+	{
+		return DB::table('image')
+			->where('guid', '=', $guid)
+			->first();
 	}
 }

@@ -19,8 +19,9 @@ export default class TestWebservice extends React.Component {
 
 		this.state = {
 			output: '',
-			imageSetGuid: undefined,
+			imageSet: undefined,
 			selectedFile: undefined,
+			uploadedImage: undefined,
 		};
 
 		this.testUrls = [
@@ -34,23 +35,23 @@ export default class TestWebservice extends React.Component {
 				}
 			},
 
-			{title: 'Image Set: All', testFunc: () => webservice.imageSet.all().then(this.outputData).then(imageSets => this.setState({imageSetGuid: imageSets[0].guid}))},
+			{title: 'Image Set: All', testFunc: () => webservice.imageSet.all().then(this.outputData).then(imageSets => this.setState({imageSet: imageSets[0]}))},
 			{title: 'Image Set: New', testFunc: () => webservice.imageSet.save({name: 'test'}).then(this.outputData)},
 			{
 				title: 'Image Set: Get', testFunc: () => {
-					if (!this.state.imageSetGuid) {
+					if (!this.state.imageSet) {
 						alert('run Image Set: All first');
 					} else {
-						webservice.imageSet.get(this.state.imageSetGuid).then(this.outputData);
+						webservice.imageSet.get(this.state.imageSet.guid).then(this.outputData);
 					}
 				}
 			},
 			{
 				title: 'Image Set: Delete', testFunc: () => {
-					if (!this.state.imageSetGuid) {
+					if (!this.state.imageSet.guid) {
 						alert('run Image Set: All first');
 					} else {
-						webservice.imageSet.delete(this.state.imageSetGuid).then(this.outputData);
+						webservice.imageSet.delete(this.state.imageSet.guid).then(this.outputData);
 					}
 				}
 			},
@@ -60,21 +61,31 @@ export default class TestWebservice extends React.Component {
 						alert('Select a file first');
 					} else {
 						webservice.image.upload(this.state.selectedFile)
+							.then(uploadedImage => {
+								this.setState({ uploadedImage });
+								return uploadedImage;
+							})
 							.then(this.outputData);
 					}
 				}
 			},
-
-			// { title: 'Body: All', testFunc: () => webservice.body.all().then(this.outputData)},
-			// { title: 'Body: Save', testFunc: () => webservice.body.save(store.getState().bodies[0]).then(this.outputData)},
-			// // { title: 'Body: Create', testFunc: () => webservice.body.create(store.getState().bodies[0]).then(this.outputData)}, <-- need a file to test this one
-			//
-			// { title: 'Character: Create', testFunc: () => webservice.character.create({}).then(this.outputData) },
-			// { title: 'Character: All', testFunc: () => webservice.character.all().then(this.outputData) },
-			// { title: 'Character: Update', testFunc: () => webservice.character.update(store.getState().characters.length ? store.getState().characters[0] : {}).then(this.outputData) },
-			//
-			// { title: 'File: All', testFunc: () => webservice.file.all().then(this.outputData) },
-			// { title: 'File: Upload', testFunc: () => webservice.file.upload().then(this.outputData()) },  <-- requires a file
+			{
+				title: 'Image: Tie to ImageSet', testFunc: () => {
+					if (!this.state.imageSet) {
+						alert('run Image Set: All first');
+					} else if (!this.state.uploadedImage) {
+						alert('Upload a file first');
+					} else {
+						webservice.image.tieToImageSet(this.state.uploadedImage.guid, this.state.imageSet.guid)
+							.then(data => {
+								// can't tie it together again since that creates a unique constraint error
+								this.setState({ uploadedImage: undefined });
+								return data;
+							})
+							.then(this.outputData);
+					}
+				},
+			},
 		];
 	}
 
