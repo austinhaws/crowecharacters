@@ -29,7 +29,7 @@ export default class ImageToggleRow extends React.Component {
 		return (
 			<div className="image-row" onClick={() => this.props.onSelect(this.props.image)}>
 				<ToggleButton selected={this.props.selected} onToggle={() => this.props.onToggle(this.props.image)}/>
-				<div className="image-name">{this.props.image.data.originalName}</div>
+				<div className="image-name">{this.props.image.original_name}</div>
 			</div>
 		);
 	}

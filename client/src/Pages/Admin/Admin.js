@@ -19,8 +19,8 @@ export default class Admin extends React.Component {
 					<Switch>
 						<Route path="/admin/imageSet/list" component={ImageSetList}/>
 
-						<Route path="/admin/imageSet/edit" component={ImageSetEdit}/>
 						<Route path="/admin/imageSet/edit/:guid" component={ImageSetEdit}/>
+						<Route path="/admin/imageSet/edit" component={ImageSetEdit}/>
 
 						<Route component={AdminHome}/>
 					</Switch>

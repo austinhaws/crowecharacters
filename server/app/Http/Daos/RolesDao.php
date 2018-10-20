@@ -4,7 +4,16 @@ namespace App\Http\Daos;
 
 use Illuminate\Support\Facades\DB;
 
-class RolesDao {
+class RolesDao extends BaseDao
+{
+
+	public function knownFields()
+	{
+		return [
+			'id',
+			'role',
+		];
+	}
 
 	public function selectByAccountGuid(string $accountGuid)
 	{
@@ -12,7 +21,7 @@ class RolesDao {
 			->select('role.*')
 			->join('account_x_role', 'role.id', '=', 'account_x_role.role_id')
 			->join('account', 'account.id', '=', 'account_x_role.account_id')
-			->where('account.guid', '=' , $accountGuid)
+			->where('account.guid', '=', $accountGuid)
 			->get();
 	}
 }

@@ -103,10 +103,13 @@ class AppClass extends React.Component {
 				<div id="main-container">
 					<Switch>
 						<Route path="/test" render={() => <Test {...this.props}/>}/>
+
 						<Route path="/admin" render={() => <Admin {...this.props}/>}/>
+
 						<Route path="/character/new" render={() => <NewCharacter {...this.props}/>}/>
 						<Route path="/character/edit/:guid" render={router => <EditCharacter guid={router.match.params.guid} {...this.props}/>}/>
 						<Route path="/character/print/:guid" render={router => <PrintCharacter guid={router.match.params.guid} {...this.props}/>}/>
+
 						<Route render={this.renderDefault.bind(this)}/>
 					</Switch>
 				</div>

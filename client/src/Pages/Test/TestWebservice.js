@@ -25,8 +25,7 @@ export default class TestWebservice extends React.Component {
 		};
 
 		this.testUrls = [
-			{title: 'All', testFunc: () => this.testUrls.filter(testUrl => testUrl.title !== 'All').forEach(testUrl => testUrl.testFunc())},
-
+			// ===== Account ==== //
 			{title: 'Account: Get', testFunc: () => webservice.account.get().then(this.outputData)},
 			{
 				title: 'Account: new', testFunc: () => {
@@ -35,6 +34,7 @@ export default class TestWebservice extends React.Component {
 				}
 			},
 
+			// ===== Image Set ==== //
 			{title: 'Image Set: All', testFunc: () => webservice.imageSet.all().then(this.outputData).then(imageSets => this.setState({imageSet: imageSets[0]}))},
 			{title: 'Image Set: New', testFunc: () => webservice.imageSet.save({name: 'test'}).then(this.outputData)},
 			{
@@ -55,6 +55,9 @@ export default class TestWebservice extends React.Component {
 					}
 				}
 			},
+
+
+			// ===== Image ==== //
 			{
 				title: 'Image: Upload', testFunc: () => {
 					if (!this.state.selectedFile) {

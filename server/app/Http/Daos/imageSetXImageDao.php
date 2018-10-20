@@ -4,7 +4,17 @@ namespace App\Http\Daos;
 
 use Illuminate\Support\Facades\DB;
 
-class ImageSetXImageDao {
+class ImageSetXImageDao extends BaseDao
+{
+
+	public function knownFields()
+	{
+		return [
+			'id',
+			'image_set_id',
+			'image_id',
+		];
+	}
 
 	public function selectImagesByImageSetId(string $imageSetId)
 	{

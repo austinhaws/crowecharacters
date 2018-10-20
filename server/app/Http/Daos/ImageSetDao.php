@@ -4,7 +4,17 @@ namespace App\Http\Daos;
 
 use Illuminate\Support\Facades\DB;
 
-class ImageSetDao {
+class ImageSetDao extends BaseDao
+{
+	public function knownFields()
+	{
+		return [
+			'id',
+			'guid',
+			'name',
+			'z_index',
+		];
+	}
 
 	public function selectAll()
 	{
@@ -13,7 +23,7 @@ class ImageSetDao {
 
 	public function selectByGuid(string $guid)
 	{
-		return DB::table('image_set')->where('guid', '=' , $guid)->first();
+		return DB::table('image_set')->where('guid', '=', $guid)->first();
 	}
 
 	public function selectImagesByImageSetId($imageSetId)
@@ -25,14 +35,18 @@ class ImageSetDao {
 			->all();
 	}
 
-	public function save($imageSet) {
+	public function save($imageSet)
+	{
+		$cleanData = $this->cleanDaoRecord($imageSet);
+
 		if (isset($imageSet['guid'])) {
 			DB::table('image_set')
 				->where('guid', '=', $imageSet['guid'])
-				->update($imageSet);
+				->update($cleanData);
 		} else {
 			$imageSet['guid'] = uniqid();
-			$imageSet['id'] = DB::table('image_set')->insertGetId($imageSet);
+			$cleanData['guid'] = $imageSet['guid'];
+			$imageSet['id'] = DB::table('image_set')->insertGetId($cleanData);
 		}
 		return $imageSet;
 	}

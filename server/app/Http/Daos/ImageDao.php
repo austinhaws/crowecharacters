@@ -4,8 +4,20 @@ namespace App\Http\Daos;
 
 use Illuminate\Support\Facades\DB;
 
-class ImageDao
+class ImageDao extends BaseDao
 {
+
+	public function knownFields()
+	{
+		return [
+			'id',
+			'guid',
+			'width',
+			'height',
+			'original_name',
+			'disk_name',
+		];
+	}
 
 	public function save(&$image)
 	{

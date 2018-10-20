@@ -27,6 +27,7 @@ class ImageSetEdit extends React.Component {
 
 		this.imageSetEditFieldChange = this.imageSetEditFieldChange.bind(this);
 		this.uploadFiles = this.uploadFiles.bind(this);
+		this.reloadImageSet = this.reloadImageSet.bind(this);
 
 		this.state = {
 			selectedImages: [],
@@ -36,19 +37,33 @@ class ImageSetEdit extends React.Component {
 	componentWillReceiveProps(props) {
 		if (props.match) {
 			if (!props.imageSetEdit || props.match.params.guid !== props.imageSetEdit.guid) {
-				webservice.imageSet.get(props.match.params.guid).then(imageSet => dispatchFieldChanged(undefined, 'imageSetEdit', imageSet));
+				this.reloadImageSet(props.match.params.guid);
 			}
 		} else {
 			dispatchFieldChanged(undefined, 'imageSetEdit', defaultState.imageSetEdit);
 		}
 	}
 
+	reloadImageSet(imageSetGuid) {
+		webservice.imageSet.get(imageSetGuid)
+			.then(imageSet => dispatchFieldChanged(undefined, 'imageSetEdit', imageSet));
+	}
+
 	imageSetEditFieldChange(field, value) {
+		const saveData = Object.assign({}, this.props.imageSetEdit, { [field]: value });
+		delete saveData.images;
+		webservice.imageSet.save(saveData);
+
 		dispatchFieldChanged('imageSetEdit', field, value);
 	}
 
 	uploadFiles(files) {
-		files.forEach(file => webservice.image.upload(file));
+		files.forEach(file =>
+			webservice.image.upload(file)
+				.then(image => webservice.image.tieToImageSet(image.guid, this.props.imageSetEdit.guid))
+				// reload to get new images list (easier than adding image to existing list) and makes sure it gets same information
+				.then(() => this.reloadImageSet(this.props.imageSetEdit.guid))
+		);
 	}
 
 	render() {
