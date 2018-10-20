@@ -40,6 +40,7 @@ class ImageService
 
 		$imageData = [
 			'original_name' => $file->getClientOriginalName(),
+			'pretty_name' => explode('.', $file->getClientOriginalName())[0],
 			'width' => $width,
 			'height' => $height,
 			'disk_name' => 'pre-load',
@@ -73,5 +74,10 @@ class ImageService
 		$imageSet = $this->imageSetDao->selectByGuid($imageSetGuid);
 		$this->imageSetXImageDao->connectImageToImageSet($image->id, $imageSet->id);
 		return $this->webResponseService->response([$image, $imageSet]);
+	}
+
+	public function save($image)
+	{
+		return $this->webResponseService->response($this->imageDao->save($image));
 	}
 }

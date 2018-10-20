@@ -89,6 +89,18 @@ export default class TestWebservice extends React.Component {
 					}
 				},
 			},
+			{
+				title: 'Image: Update', testFunc: () => {
+					if (!this.state.uploadedImage) {
+						alert('Upload a file first');
+					} else {
+						this.state.uploadedImage.pretty_name += '.';
+						this.setState({ uploadedImage: {...this.state.uploadedImage }});
+						webservice.image.save(this.state.uploadedImage)
+							.then(this.outputData);
+					}
+				}
+			}
 		];
 	}
 

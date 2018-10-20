@@ -16,6 +16,7 @@ class ImageDao extends BaseDao
 			'height',
 			'original_name',
 			'disk_name',
+			'pretty_name',
 		];
 	}
 
@@ -24,10 +25,10 @@ class ImageDao extends BaseDao
 		if (isset($image['guid'])) {
 			DB::table('image')
 				->where('guid', '=', $image['guid'])
-				->update($image);
+				->update($this->cleanDaoRecord($image));
 		} else {
 			$image['guid'] = uniqid();
-			$image['id'] = DB::table('image')->insertGetId($image);
+			$image['id'] = DB::table('image')->insertGetId($this->cleanDaoRecord($image));
 		}
 		return $image;
 	}

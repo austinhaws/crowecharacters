@@ -56,9 +56,9 @@ body {
 }
 
 input[type="text"] {
-	border: 3px solid #f4d10b;
+	border: 1px solid #f2d43d;
 	background-color: transparent;
-	color: #f4d10b;
+	color: #f0da78;
 	padding: 8px;
 	/* pull out padding of container */
 	width: calc(100% - 23px);

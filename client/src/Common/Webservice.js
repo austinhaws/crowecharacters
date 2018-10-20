@@ -41,6 +41,7 @@ const webservice = {
 			return webserviceCore.post('image/upload', formData);
 		},
 		tieToImageSet: (imageGuid, imageSetGuid) => webserviceCore.get(`image/connect/${imageGuid}/${imageSetGuid}`),
+		save: image => webserviceCore.post(`image/save`, image),
 	},
 
 

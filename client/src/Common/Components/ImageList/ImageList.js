@@ -13,14 +13,14 @@ const propTypes = {
 
 	// which images are selected have changed
 	selectedChanged: PropTypes.func.isRequired,
-	// which component to show for the detail editing of an image
-	renderSelectedDetail: PropTypes.func,
+	// content to show when editing the inline list item
+	renderEditableDetail: PropTypes.func,
 	onDrop: PropTypes.func,
 };
 
 const defaultProps = {
-	renderSelectedDetail: undefined,
 	onDrop: undefined,
+	renderEditableDetail: undefined,
 };
 
 export default class ImageList extends React.Component {
@@ -30,19 +30,15 @@ export default class ImageList extends React.Component {
 		this.filesDrop = this.filesDrop.bind(this);
 
 		this.state = {
-			editImage: undefined,
+			// which image detail in the list is being edited
+			editableDetailImageGuid: undefined,
 		};
 	}
 
 	selectImage(image) {
-		if (this.props.renderSelectedDetail) {
-			this.setState({editImage: image.guid});
-			// if editing an image, also show it
-			if (!this.props.selectedImages.includes(image.guid)) {
-				this.toggleImage(image);
-			}
-		} else {
-			this.toggleImage(image);
+		// check if items have a editable list item
+		if (this.props.renderEditableDetail) {
+			this.setState({ editableDetailImageGuid: image.guid });
 		}
 	}
 
@@ -94,14 +90,15 @@ export default class ImageList extends React.Component {
 							selected={this.props.selectedImages.includes(image.guid)}
 							onToggle={this.toggleImage.bind(this)}
 							onSelect={this.selectImage.bind(this)}
-						/>
-						{
-							(this.props.renderSelectedDetail && this.state.editImage === image.guid) ?
-								<div className="image-list-detail">
-									{this.props.renderSelectedDetail(image)}
-								</div>
-							: undefined
-						}
+						>
+							{
+								this.state.editableDetailImageGuid === image.guid ? (
+									<div className="image-list-detail">
+										{this.props.renderEditableDetail(image)}
+									</div>
+								): image.pretty_name
+							}
+						</ImageToggleRow>
 					</React.Fragment>
 				))}
 			</div>

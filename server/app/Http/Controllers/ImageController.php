@@ -25,4 +25,9 @@ class ImageController extends BaseController
 	{
 		return $this->imageService->connectImageToImageSet($imageGuid, $imageSetGuid);
 	}
+
+	public function save(Request $request)
+	{
+		return $this->imageService->save($request->json()->all());
+	}
 }

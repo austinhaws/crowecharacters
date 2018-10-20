@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import {delayedInput, TextInput} from "dts-react-common";
 import ImageList from "../../Common/Components/ImageList/ImageList";
 import {defaultState} from "../../App/Store";
+import _ from "lodash";
 
 const propTypes = {
 	globalData: PropTypes.object.isRequired,
@@ -28,6 +29,7 @@ class ImageSetEdit extends React.Component {
 		this.imageSetEditFieldChange = this.imageSetEditFieldChange.bind(this);
 		this.uploadFiles = this.uploadFiles.bind(this);
 		this.reloadImageSet = this.reloadImageSet.bind(this);
+		this.renderEditableImage = this.renderEditableImage.bind(this);
 
 		this.state = {
 			selectedImages: [],
@@ -66,6 +68,28 @@ class ImageSetEdit extends React.Component {
 		);
 	}
 
+	// allow editing the selected image's name
+	renderEditableImage(image) {
+		return (
+			<DelayedTextInput
+				field="selectedImageName"
+				label="name"
+				showLabel={false}
+				value={image.pretty_name}
+				onChange={(field, value) => {
+					// find image in list to get its index
+					const idx = _.findIndex(this.props.imageSetEdit.images, imageSetImage => imageSetImage.guid === image.guid);
+					// dispatch to change that image's name
+					dispatchFieldChanged(`imageSetEdit.images.${idx}`, 'pretty_name', value);
+
+					// save to server
+					image.pretty_name = value;
+					webservice.image.save(image);
+				}}
+			/>
+		);
+	}
+
 	render() {
 		return (
 			<React.Fragment>
@@ -76,6 +100,7 @@ class ImageSetEdit extends React.Component {
 						imageFiles={this.props.imageSetEdit.images}
 						selectedImages={this.state.selectedImages}
 						selectedChanged={console.log}
+						renderEditableDetail={this.renderEditableImage}
 						onDrop={this.uploadFiles}
 					/>
 				</LeftPanel>
