@@ -9,11 +9,13 @@ class ImageSetService
 
 	private $webResponseService;
 	private $imageSetDao;
+	private $cleanRecordService;
 
-	public function __construct(WebResponseService $webResponseService, ImageSetDao $imageSetDao)
+	public function __construct(WebResponseService $webResponseService, ImageSetDao $imageSetDao, CleanRecordService $cleanRecordService)
 	{
 		$this->webResponseService = $webResponseService;
 		$this->imageSetDao = $imageSetDao;
+		$this->cleanRecordService = $cleanRecordService;
 	}
 
 	public function all()
@@ -24,7 +26,8 @@ class ImageSetService
 	public function get(string $guid)
 	{
 		$imageSet = $this->imageSetDao->selectByGuid($guid);
-		$imageSet->images = $this->imageSetDao->selectImagesByImageSetId($imageSet->id);
+		$images = $this->imageSetDao->selectImagesByImageSetId($imageSet->id);
+		$imageSet->images = $this->cleanRecordService->cleanRecord($images);
 		return $this->webResponseService->response($imageSet);
 	}
 

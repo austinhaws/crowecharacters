@@ -1,14 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
-import dataGetter from "../../Common/DataGetter";
 import constants from "../../Common/Constants";
 
 const propTypes = {
-	// the character to display
-	bodyGuid: PropTypes.string.isRequired,
 	// the fileImages to display on the body
-	fileImages: PropTypes.array,
+	fileImages: PropTypes.array.isRequired,
 	// can override draw percent for the body (for printing)
 	printPercent: PropTypes.number,
 	// if !undefined then shows the given name above the body
@@ -16,27 +13,30 @@ const propTypes = {
 	// should the cutting outline be printed
 	printCutBorder: PropTypes.bool,
 };
-const defaultProps = {};
+const defaultProps = {
+	printPercent: 100.0,
+	printName: undefined,
+	printCutBorder: false,
+};
 
 export default class BodyView extends React.Component {
 	render() {
 
-		const body = dataGetter.bodyByGuid(this.props.bodyGuid);
-		const file = dataGetter.fileByGuid(body.data.fileGuid);
-
-		// fit the image in the view size
+		// fit the images in the view size
 		const containerHeight = 600;
 		const containerWidth = 600;
 
-		const heightRatio = containerHeight / file.data.height;
-		const widthRatio = containerWidth / file.data.width;
+		const firstImage = (this.props.fileImages && this.props.fileImages.length) ? this.props.fileImages[0] : { height: 0, width: 0 };
+
+		const heightRatio = containerHeight / firstImage.height;
+		const widthRatio = containerWidth / firstImage.width;
 
 		const ratio = Math.min(heightRatio, widthRatio);
 
-		const printRatio = (this.props.printPercent || 100.0) / 100.0;
+		const printRatio = this.props.printPercent / 100.0;
 
-		const imageHeight = file.data.height * ratio * printRatio;
-		const imageWidth = file.data.width * ratio * printRatio;
+		const imageHeight = firstImage.height * ratio * printRatio;
+		const imageWidth = firstImage.width * ratio * printRatio;
 
 		const imageMarginLeft = containerWidth / 2.0 - imageWidth / 2.0;
 
@@ -63,22 +63,14 @@ export default class BodyView extends React.Component {
 				width:`${containerWidth}px`,
 				height:`${containerHeight}px`,
 			}}>
-				<img
-					className="body-template body-image"
-					src={`${constants.urlBase}images/body/${file.data.name}`}
-					style={_.assign({zIndex: body.data.zIndex}, sizeStyleBodyImages)}
-				/>
 				{
 					this.props.fileImages ?
-					this.props.fileImages.map(image => {
-						const bodyImage = body.data.images.find(bodyImage => bodyImage.fileGuid === image.guid);
-						return (<img
+					this.props.fileImages.map(image => (<img
 							key={image.guid}
 							className="body-image"
-							src={`${constants.urlBase}images/${image.data.fileType}/${image.data.name}`}
-							style={_.assign({zIndex: bodyImage.zIndex}, sizeStyleBodyImages)}
-						/>);
-					})
+							src={`${constants.urlBase}images/${image.disk_name}`}
+							style={_.assign({zIndex: image.z_index}, sizeStyleBodyImages)}
+						/>))
 					: undefined
 				}
 

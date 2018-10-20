@@ -79,7 +79,7 @@ export default class TestWebservice extends React.Component {
 					} else if (!this.state.uploadedImage) {
 						alert('Upload a file first');
 					} else {
-						webservice.image.tieToImageSet(this.state.uploadedImage.guid, this.state.imageSet.guid)
+						webservice.image.tieToImageSet(this.state.uploadedImage.guid, this.state.imageSet.guid, this.state.imageSet.images ? this.state.imageSet.images.length : 0)
 							.then(data => {
 								// can't tie it together again since that creates a unique constraint error
 								this.setState({ uploadedImage: undefined });

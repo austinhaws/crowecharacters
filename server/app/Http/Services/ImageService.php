@@ -68,11 +68,11 @@ class ImageService
 		return "{$imageData['id']}.{$file->getClientOriginalExtension()}";
 	}
 
-	public function connectImageToImageSet(string $imageGuid, string $imageSetGuid)
+	public function connectImageToImageSet(string $imageGuid, string $imageSetGuid, int $zIndex)
 	{
 		$image = $this->imageDao->selectByGuid($imageGuid);
 		$imageSet = $this->imageSetDao->selectByGuid($imageSetGuid);
-		$this->imageSetXImageDao->connectImageToImageSet($image->id, $imageSet->id);
+		$this->imageSetXImageDao->connectImageToImageSet($image->id, $imageSet->id, $zIndex);
 		return $this->webResponseService->response([$image, $imageSet]);
 	}
 

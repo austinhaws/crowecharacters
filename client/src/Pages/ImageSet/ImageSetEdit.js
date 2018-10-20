@@ -10,6 +10,7 @@ import {delayedInput, TextInput} from "dts-react-common";
 import ImageList from "../../Common/Components/ImageList/ImageList";
 import {defaultState} from "../../App/Store";
 import _ from "lodash";
+import BodyView from "../BodyView/BodyView";
 
 const propTypes = {
 	globalData: PropTypes.object.isRequired,
@@ -117,7 +118,7 @@ class ImageSetEdit extends React.Component {
 					/>
 				</LeftPanel>
 				<MainPanel>
-					show the image set images stacked in to the shown image
+					<BodyView fileImages={this.props.imageSetEdit.images}/>
 				</MainPanel>
 			</React.Fragment>
 		);

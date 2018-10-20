@@ -21,9 +21,9 @@ class ImageController extends BaseController
 		return $this->imageService->uploadImage($request);
 	}
 
-	public function connect(string $imageGuid, string $imageSetGuid)
+	public function connect(string $imageGuid, string $imageSetGuid, int $zIndex)
 	{
-		return $this->imageService->connectImageToImageSet($imageGuid, $imageSetGuid);
+		return $this->imageService->connectImageToImageSet($imageGuid, $imageSetGuid, $zIndex);
 	}
 
 	public function save(Request $request)

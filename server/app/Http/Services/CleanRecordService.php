@@ -6,8 +6,8 @@ class CleanRecordService {
 	/**
 	 * pull out ids and convert data to json
 	 *
-	 * @param object $record the record to be cleaned (by address so parameter is changed)
-	 * @return object the cleaned record (for chaining)
+	 * @param object|array $record the record to be cleaned (by address so parameter is changed)
+	 * @return object|array the cleaned record (for chaining)
 	 */
 	public function cleanRecord(&$record)
 	{
@@ -26,8 +26,12 @@ class CleanRecordService {
 	private function cleanSingleRecord(&$record) {
 		if (is_object($record)) {
 			unset($record->id);
+			unset($record->image_id);
+			unset($record->image_set_id);
 		} else if (is_array($record)) {
 			unset($record['id']);
+			unset($record['image_id']);
+			unset($record['image_set_id']);
 		}
 	}
 }

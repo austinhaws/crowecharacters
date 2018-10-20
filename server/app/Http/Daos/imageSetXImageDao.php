@@ -13,6 +13,7 @@ class ImageSetXImageDao extends BaseDao
 			'id',
 			'image_set_id',
 			'image_id',
+			'z_index',
 		];
 	}
 
@@ -20,18 +21,20 @@ class ImageSetXImageDao extends BaseDao
 	{
 		return DB::table('image')
 			->select('image.*')
+			->select('image_set_x_image.z_index')
 			->join('image_set_x_image', 'image_set_x_image.image_id', '=', 'image.id')
 			->where('image_set_x_image.image_set_id', '=', $imageSetId)
 			->get()->all();
 	}
 
 
-	public function connectImageToImageSet(int $imageId, int $imageSetId)
+	public function connectImageToImageSet(int $imageId, int $imageSetId, int $zIndex)
 	{
 		DB::table('image_set_x_image')
 			->insert([
 				'image_id' => $imageId,
 				'image_set_id' => $imageSetId,
+				'z_index' => $zIndex,
 			]);
 	}
 
