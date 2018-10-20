@@ -105,6 +105,7 @@ export default class ImageList extends React.Component {
 													initialChildren={null}
 													initialLabel="X"
 													promptLabel="Delete"
+													className="size-xsmall button"
 												/></div>
 												: undefined}
 										</div>

@@ -32,9 +32,10 @@ class ImageSetEdit extends React.Component {
 		this.reloadImageSet = this.reloadImageSet.bind(this);
 		this.renderEditableImage = this.renderEditableImage.bind(this);
 		this.onDeleteImage = this.onDeleteImage.bind(this);
+		this.selectedChanged = this.selectedChanged.bind(this);
 
 		this.state = {
-			selectedImages: [],
+			selectedImageGuids: [],
 		};
 	}
 
@@ -102,6 +103,10 @@ class ImageSetEdit extends React.Component {
 			});
 	}
 
+	selectedChanged(selectedImageGuids) {
+		this.setState({ selectedImageGuids });
+	}
+
 	render() {
 		return (
 			<React.Fragment>
@@ -110,15 +115,15 @@ class ImageSetEdit extends React.Component {
 					<DelayedTextInput label="Name" field="name" onChange={this.imageSetEditFieldChange} showLabel={false} value={this.props.imageSetEdit.name}/>
 					<ImageList
 						imageFiles={this.props.imageSetEdit.images}
-						selectedImages={this.state.selectedImages}
-						selectedChanged={console.log}
+						selectedImages={this.state.selectedImageGuids}
+						selectedChanged={this.selectedChanged}
 						renderEditableDetail={this.renderEditableImage}
 						onDrop={this.uploadFiles}
 						onDeleteImage={this.onDeleteImage}
 					/>
 				</LeftPanel>
 				<MainPanel>
-					<BodyView fileImages={this.props.imageSetEdit.images}/>
+					<BodyView fileImages={this.props.imageSetEdit.images.filter(image => this.state.selectedImageGuids.includes(image.guid))}/>
 				</MainPanel>
 			</React.Fragment>
 		);
