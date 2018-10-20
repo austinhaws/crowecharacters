@@ -30,4 +30,9 @@ class ImageController extends BaseController
 	{
 		return $this->imageService->save($request->json()->all());
 	}
+
+	public function delete($imageGuid)
+	{
+		return $this->imageService->delete($imageGuid);
+	}
 }

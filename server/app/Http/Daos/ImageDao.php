@@ -39,4 +39,11 @@ class ImageDao extends BaseDao
 			->where('guid', '=', $guid)
 			->first();
 	}
+
+	public function deleteById($id)
+	{
+		return DB::table('image')
+			->where('id', '=', $id)
+			->delete();
+	}
 }

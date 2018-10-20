@@ -35,4 +35,11 @@ class ImageSetXImageDao extends BaseDao
 			]);
 	}
 
+	public function deleteByImageId($id)
+	{
+		DB::table('image_set_x_image')
+			->where('image_id', '=', $id)
+			->delete();
+	}
+
 }

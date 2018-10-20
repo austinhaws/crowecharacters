@@ -24,6 +24,7 @@ $router->group([], function ($router) {
 	$router->post('image/upload', 'ImageController@upload');
 	$router->get('image/connect/{imageGuid}/{imageSetGuid}', 'ImageController@connect');
 	$router->post('image/save', 'ImageController@save');
+	$router->get('image/delete/{guid}', 'ImageController@delete');
 });
 
 $router->get('/', function () use ($router) {

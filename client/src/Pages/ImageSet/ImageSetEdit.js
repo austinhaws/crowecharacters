@@ -30,6 +30,7 @@ class ImageSetEdit extends React.Component {
 		this.uploadFiles = this.uploadFiles.bind(this);
 		this.reloadImageSet = this.reloadImageSet.bind(this);
 		this.renderEditableImage = this.renderEditableImage.bind(this);
+		this.onDeleteImage = this.onDeleteImage.bind(this);
 
 		this.state = {
 			selectedImages: [],
@@ -90,6 +91,16 @@ class ImageSetEdit extends React.Component {
 		);
 	}
 
+	onDeleteImage(image) {
+		webservice.image.delete(image.guid)
+			.then(() => {
+				// remove image from the list
+				const idx = _.findIndex(this.props.imageSetEdit.images, imageSetImage => imageSetImage.guid === image.guid);
+				this.props.imageSetEdit.images.splice(idx, 1);
+				dispatchFieldChanged('imageSetEdit', 'images', this.props.imageSetEdit.images);
+			});
+	}
+
 	render() {
 		return (
 			<React.Fragment>
@@ -102,6 +113,7 @@ class ImageSetEdit extends React.Component {
 						selectedChanged={console.log}
 						renderEditableDetail={this.renderEditableImage}
 						onDrop={this.uploadFiles}
+						onDeleteImage={this.onDeleteImage}
 					/>
 				</LeftPanel>
 				<MainPanel>

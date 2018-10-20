@@ -80,4 +80,12 @@ class ImageService
 	{
 		return $this->webResponseService->response($this->imageDao->save($image));
 	}
+
+	public function delete($imageGuid)
+	{
+		$image = $this->imageDao->selectByGuid($imageGuid);
+		$this->imageSetXImageDao->deleteByImageId($image->id);
+		$this->imageDao->deleteById($image->id);
+		return $this->webResponseService->response($image);
+	}
 }

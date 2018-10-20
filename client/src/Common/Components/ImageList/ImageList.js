@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ImageToggleRow from "./ImageToggleRow";
 import clone from "clone";
 import _ from "lodash";
-import {handleEvent} from "dts-react-common";
+import {ConfirmationButton, handleEvent} from "dts-react-common";
 
 const propTypes = {
 	// the images to show
@@ -16,11 +16,13 @@ const propTypes = {
 	// content to show when editing the inline list item
 	renderEditableDetail: PropTypes.func,
 	onDrop: PropTypes.func,
+	onDeleteImage: PropTypes.func,
 };
 
 const defaultProps = {
 	onDrop: undefined,
 	renderEditableDetail: undefined,
+	onDeleteImage: undefined,
 };
 
 export default class ImageList extends React.Component {
@@ -92,12 +94,21 @@ export default class ImageList extends React.Component {
 							onSelect={this.selectImage.bind(this)}
 						>
 							{
-								this.state.editableDetailImageGuid === image.guid ? (
-									<div className="image-list-detail">
-										{this.props.renderEditableDetail(image)}
-									</div>
-								): image.pretty_name
-							}
+								this.state.editableDetailImageGuid === image.guid ?
+									<div className="image-list-detail">{this.props.renderEditableDetail(image)}</div>
+									: (
+										<div className="images-list__image-detail">
+											<div onClick={() => this.selectImage(image)}>{image.pretty_name}</div>
+											{this.props.onDeleteImage ?
+												<div><ConfirmationButton
+													onConfirm={() => this.props.onDeleteImage(image)}
+													initialChildren={null}
+													initialLabel="X"
+													promptLabel="Delete"
+												/></div>
+												: undefined}
+										</div>
+									)}
 						</ImageToggleRow>
 					</React.Fragment>
 				))}

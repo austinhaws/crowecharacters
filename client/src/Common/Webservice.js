@@ -42,6 +42,7 @@ const webservice = {
 		},
 		tieToImageSet: (imageGuid, imageSetGuid) => webserviceCore.get(`image/connect/${imageGuid}/${imageSetGuid}`),
 		save: image => webserviceCore.post(`image/save`, image),
+		delete: imageGuid => webserviceCore.get(`image/delete/${imageGuid}`),
 	},
 
 

@@ -21,3 +21,12 @@
 .image-set-list__list__image-set__name:hover {
 	color: $complementaryColor;
 }
+
+.images-list__image-detail {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.image-name {
+	width: 100%;
+}
