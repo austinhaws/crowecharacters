@@ -50,7 +50,6 @@ CREATE TABLE image_set (
 	id INT NOT NULL AUTO_INCREMENT,
 	guid VARCHAR(50) NOT NULL,
 	name VARCHAR(500) NOT NULL,
-	z_index int NOT NULL,
 	CONSTRAINT imageset_pk PRIMARY KEY (id),
 	CONSTRAINT imageset_guid_u UNIQUE(guid)
 )

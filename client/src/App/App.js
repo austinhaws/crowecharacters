@@ -45,12 +45,6 @@ class AppClass extends React.Component {
 				// dispatch set account information
 				dispatchFieldChanged(undefined, 'account', account);
 				return account;
-			})
-			// load account information
-			.then(account => {
-				webservice.body.all(account.guid);
-				webservice.file.all(account.guid);
-				webservice.character.all(account.guid);
 			});
 	}
 

@@ -23,6 +23,13 @@ button, .button {
 		padding: 0;
 	}
 
+	&.size-xxxsmall {
+		width: 55px;
+		height: 18px;
+		padding: 0;
+		font-size: .75em;
+	}
+
 	&:hover {
 		background: $primaryColorDark;
 		color: white;

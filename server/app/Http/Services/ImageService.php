@@ -10,12 +10,14 @@ use Illuminate\Http\Request;
 class ImageService
 {
 
+	private $imageSetService;
 	private $webResponseService;
 	private $imageDao;
 	private $imageSetDao;
 	private $imageSetXImageDao;
 
 	public function __construct(
+		ImageSetService $imageSetService,
 		WebResponseService $webResponseService,
 		ImageDao $imageDao,
 		ImageSetDao $imageSetDao,
@@ -26,6 +28,7 @@ class ImageService
 		$this->imageDao = $imageDao;
 		$this->imageSetDao = $imageSetDao;
 		$this->imageSetXImageDao = $imageSetXImageDao;
+		$this->imageSetService = $imageSetService;
 	}
 
 	/**
@@ -73,6 +76,10 @@ class ImageService
 		$image = $this->imageDao->selectByGuid($imageGuid);
 		$imageSet = $this->imageSetDao->selectByGuid($imageSetGuid);
 		$this->imageSetXImageDao->connectImageToImageSet($image->id, $imageSet->id, $zIndex);
+
+		$image = $this->imageDao->selectByGuid($imageGuid);
+		$imageSet = $this->imageSetService->get($imageSetGuid);
+
 		return $this->webResponseService->response([$image, $imageSet]);
 	}
 

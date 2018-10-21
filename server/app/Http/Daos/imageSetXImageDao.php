@@ -20,10 +20,10 @@ class ImageSetXImageDao extends BaseDao
 	public function selectImagesByImageSetId(string $imageSetId)
 	{
 		return DB::table('image')
-			->select('image.*')
-			->select('image_set_x_image.z_index')
+			->select(['image.*', 'image_set_x_image.z_index'])
 			->join('image_set_x_image', 'image_set_x_image.image_id', '=', 'image.id')
 			->where('image_set_x_image.image_set_id', '=', $imageSetId)
+			->orderBy('image_set_x_image.z_index')
 			->get()->all();
 	}
 
@@ -45,4 +45,10 @@ class ImageSetXImageDao extends BaseDao
 			->delete();
 	}
 
+	public function saveImageId_ZIndex($imageId, $zIndex)
+	{
+		DB::table('image_set_x_image')
+			->where('image_id', '=', $imageId)
+			->update(['z_index' => $zIndex]);
+	}
 }

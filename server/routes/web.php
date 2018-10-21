@@ -25,6 +25,8 @@ $router->group([], function ($router) {
 	$router->get('image/connect/{imageGuid}/{imageSetGuid}/{zIndex}', 'ImageController@connect');
 	$router->post('image/save', 'ImageController@save');
 	$router->get('image/delete/{guid}', 'ImageController@delete');
+
+	$router->post('imageSetXImage/save', 'ImageSetXImageController@save');
 });
 
 $router->get('/', function () use ($router) {

@@ -12,7 +12,6 @@ class ImageSetDao extends BaseDao
 			'id',
 			'guid',
 			'name',
-			'z_index',
 		];
 	}
 
@@ -24,15 +23,6 @@ class ImageSetDao extends BaseDao
 	public function selectByGuid(string $guid)
 	{
 		return DB::table('image_set')->where('guid', '=', $guid)->first();
-	}
-
-	public function selectImagesByImageSetId($imageSetId)
-	{
-		return DB::table('image')
-			->join('image_set_x_image', 'image_set_x_image.image_id', '=', 'image.id')
-			->where('image_set_x_image.image_set_id', '=', $imageSetId)
-			->get()
-			->all();
 	}
 
 	public function save($imageSet)

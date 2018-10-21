@@ -27,6 +27,12 @@
 	flex-direction: row;
 	justify-content: space-between;
 }
-.image-name {
+.image-row__image-name {
 	width: 100%;
+}
+.image-row__up-downs button:first-child {
+	margin-bottom: 0;
+}
+.image-row__up-downs button {
+	margin-bottom: 5px;
 }

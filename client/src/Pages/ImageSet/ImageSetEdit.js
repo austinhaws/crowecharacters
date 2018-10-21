@@ -33,6 +33,7 @@ class ImageSetEdit extends React.Component {
 		this.renderEditableImage = this.renderEditableImage.bind(this);
 		this.onDeleteImage = this.onDeleteImage.bind(this);
 		this.selectedChanged = this.selectedChanged.bind(this);
+		this.onMoveUpDown = this.onMoveUpDown.bind(this);
 
 		this.state = {
 			selectedImageGuids: [],
@@ -63,9 +64,10 @@ class ImageSetEdit extends React.Component {
 	}
 
 	uploadFiles(files) {
-		files.forEach(file =>
+		const imagesLength = this.props.imageSetEdit.images ? this.props.imageSetEdit.images.length : 0;
+		files.forEach((file, fileIdx) =>
 			webservice.image.upload(file)
-				.then(image => webservice.image.tieToImageSet(image.guid, this.props.imageSetEdit.guid))
+				.then(image => webservice.image.tieToImageSet(image.guid, this.props.imageSetEdit.guid, imagesLength + fileIdx))
 				// reload to get new images list (easier than adding image to existing list) and makes sure it gets same information
 				.then(() => this.reloadImageSet(this.props.imageSetEdit.guid))
 		);
@@ -107,6 +109,25 @@ class ImageSetEdit extends React.Component {
 		this.setState({ selectedImageGuids });
 	}
 
+	onMoveUpDown(image, moveUp) {
+		const imageIdx = _.findIndex(this.props.imageSetEdit.images, imageSetImage => imageSetImage.guid === image.guid);
+		let otherImageIdx = moveUp ? imageIdx - 1 : imageIdx + 1;
+
+		const temp = this.props.imageSetEdit.images[imageIdx].z_index;
+		this.props.imageSetEdit.images[imageIdx].z_index = this.props.imageSetEdit.images[otherImageIdx].z_index;
+		this.props.imageSetEdit.images[otherImageIdx].z_index = temp;
+
+		const image1 = this.props.imageSetEdit.images[imageIdx];
+		const image2 = this.props.imageSetEdit.images[otherImageIdx];
+		this.props.imageSetEdit.images.splice(imageIdx, 1, image2);
+		this.props.imageSetEdit.images.splice(otherImageIdx, 1, image1);
+
+		dispatchFieldChanged('imageSetEdit', 'images', this.props.imageSetEdit.images);
+
+		webservice.imageSetXImage.save(this.props.imageSetEdit.images[imageIdx].guid, this.props.imageSetEdit.images[imageIdx].z_index);
+		webservice.imageSetXImage.save(this.props.imageSetEdit.images[otherImageIdx].guid, this.props.imageSetEdit.images[otherImageIdx].z_index);
+	}
+
 	render() {
 		return (
 			<React.Fragment>
@@ -120,6 +141,7 @@ class ImageSetEdit extends React.Component {
 						renderEditableDetail={this.renderEditableImage}
 						onDrop={this.uploadFiles}
 						onDeleteImage={this.onDeleteImage}
+						onMoveUpDown={this.onMoveUpDown}
 					/>
 				</LeftPanel>
 				<MainPanel>

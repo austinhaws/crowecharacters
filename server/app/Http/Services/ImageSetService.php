@@ -3,16 +3,23 @@
 namespace App\Http\Services;
 
 use App\Http\Daos\ImageSetDao;
+use App\Http\Daos\ImageSetXImageDao;
 
 class ImageSetService
 {
 
 	private $webResponseService;
 	private $imageSetDao;
+	private $imageSetXImageDao;
 	private $cleanRecordService;
 
-	public function __construct(WebResponseService $webResponseService, ImageSetDao $imageSetDao, CleanRecordService $cleanRecordService)
-	{
+	public function __construct(
+		ImageSetXImageDao $imageSetXImageDao,
+		WebResponseService $webResponseService,
+		ImageSetDao $imageSetDao,
+		CleanRecordService $cleanRecordService
+	) {
+		$this->imageSetXImageDao = $imageSetXImageDao;
 		$this->webResponseService = $webResponseService;
 		$this->imageSetDao = $imageSetDao;
 		$this->cleanRecordService = $cleanRecordService;
@@ -26,7 +33,7 @@ class ImageSetService
 	public function get(string $guid)
 	{
 		$imageSet = $this->imageSetDao->selectByGuid($guid);
-		$images = $this->imageSetDao->selectImagesByImageSetId($imageSet->id);
+		$images = $this->imageSetXImageDao->selectImagesByImageSetId($imageSet->id);
 		$imageSet->images = $this->cleanRecordService->cleanRecord($images);
 		return $this->webResponseService->response($imageSet);
 	}

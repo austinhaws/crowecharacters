@@ -68,7 +68,9 @@ export default class TestWebservice extends React.Component {
 								this.setState({ uploadedImage });
 								return uploadedImage;
 							})
-							.then(this.outputData);
+							.then(this.outputData)
+							.then(() => webservice.imageSet.get(this.state.imageSet.guid))
+							.then(imageSet => this.setState({ imageSet: imageSet }));
 					}
 				}
 			},
