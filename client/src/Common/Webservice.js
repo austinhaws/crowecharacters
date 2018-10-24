@@ -40,13 +40,18 @@ const webservice = {
 			formData.append("file", file);
 			return webserviceCore.post('image/upload', formData);
 		},
-		tieToImageSet: (imageGuid, imageSetGuid, zIndex) => webserviceCore.get(`image/connect/${imageGuid}/${imageSetGuid}/${zIndex}`),
+		tieToImageSet: (imageGuid, imageSetGuid, zIndex) => webserviceCore.get(`image/connectImageSet/${imageGuid}/${imageSetGuid}/${zIndex}`),
 		save: image => webserviceCore.post(`image/save`, image),
 		delete: imageGuid => webserviceCore.get(`image/delete/${imageGuid}`),
+		tieToCategory: (imageGuid, categoryGuid) => webserviceCore.get(`image/connectCategory/${imageGuid}/${categoryGuid}`),
 	},
 
 	imageSetXImage: {
 		save: (imageGuid, zIndex) => webserviceCore.post('imageSetXImage/save', { imageGuid, zIndex }),
+	},
+
+	dataList: {
+		imageCategories: () => webserviceCore.get('dataList/imageCategories'),
 	},
 };
 

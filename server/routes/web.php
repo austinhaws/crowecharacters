@@ -22,11 +22,14 @@ $router->group([], function ($router) {
 	$router->post('imageset/save', 'ImageSetController@save');
 
 	$router->post('image/upload', 'ImageController@upload');
-	$router->get('image/connect/{imageGuid}/{imageSetGuid}/{zIndex}', 'ImageController@connect');
 	$router->post('image/save', 'ImageController@save');
 	$router->get('image/delete/{guid}', 'ImageController@delete');
+	$router->get('image/connectImageSet/{imageGuid}/{imageSetGuid}/{zIndex}', 'ImageController@connectToImageSet');
+	$router->get('image/connectCategory/{imageGuid}/{categoryGuid}', 'ImageController@connectToCategory');
 
 	$router->post('imageSetXImage/save', 'ImageSetXImageController@save');
+
+	$router->get('dataList/imageCategories', 'DataListController@imageCategories');
 });
 
 $router->get('/', function () use ($router) {

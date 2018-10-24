@@ -6,11 +6,13 @@ import webservice from "../../Common/Webservice";
 import {dispatchFieldChanged} from "../../App/Reducers";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {delayedInput, TextInput} from "dts-react-common";
+import {Button, delayedInput, InputInformation, SelectInput, TextInput} from "dts-react-common";
 import ImageList from "../../Common/Components/ImageList/ImageList";
 import {defaultState} from "../../App/Store";
 import _ from "lodash";
 import BodyView from "../BodyView/BodyView";
+import ConfirmationButton from "dts-react-common/components/form/confirmation-button/ConfirmationButton";
+import ToggleButton from "../../Common/Components/ToggleButton/ToggleButton";
 
 const propTypes = {
 	globalData: PropTypes.object.isRequired,
@@ -32,12 +34,19 @@ class ImageSetEdit extends React.Component {
 		this.reloadImageSet = this.reloadImageSet.bind(this);
 		this.renderEditableImage = this.renderEditableImage.bind(this);
 		this.onDeleteImage = this.onDeleteImage.bind(this);
-		this.selectedChanged = this.selectedChanged.bind(this);
 		this.onMoveUpDown = this.onMoveUpDown.bind(this);
+		this.onImageCategoryChange = this.onImageCategoryChange.bind(this);
+		this.toggleImage = this.toggleImage.bind(this);
 
 		this.state = {
 			selectedImageGuids: [],
+			categoryOptions: [],
+			// track which image's name is being edited
+			editingImageGuid: undefined,
 		};
+
+		webservice.dataList.imageCategories()
+			.then(categories => this.setState({ categoryOptions: categories.map(category => {return { value: category.guid, label: category.name };})}));
 	}
 
 	componentWillReceiveProps(props) {
@@ -73,25 +82,85 @@ class ImageSetEdit extends React.Component {
 		);
 	}
 
-	// allow editing the selected image's name
-	renderEditableImage(image) {
-		return (
-			<DelayedTextInput
-				field="selectedImageName"
-				label="name"
-				showLabel={false}
-				value={image.pretty_name}
-				onChange={(field, value) => {
-					// find image in list to get its index
-					const idx = _.findIndex(this.props.imageSetEdit.images, imageSetImage => imageSetImage.guid === image.guid);
-					// dispatch to change that image's name
-					dispatchFieldChanged(`imageSetEdit.images.${idx}`, 'pretty_name', value);
+	toggleImage(image) {
+		const newSelectedImages = this.state.selectedImageGuids.concat([]);
+		if (newSelectedImages.includes(image.guid)) {
+			_.pull(newSelectedImages, image.guid);
+		} else {
+			newSelectedImages.push(image.guid);
+		}
 
-					// save to server
-					image.pretty_name = value;
-					webservice.image.save(image);
-				}}
-			/>
+		this.setState({ selectedImageGuids: newSelectedImages });
+	}
+
+
+	// allow editing the selected image's name and other details
+	renderEditableImage(image, imageIdx) {
+// make this in to components
+		return (
+			<React.Fragment>
+				<div className="image-row__row">
+					<ToggleButton
+						selected={this.state.selectedImageGuids.includes(image.guid)}
+						onToggle={() => this.toggleImage(image)}
+					/>
+					<div className="image-row__image-name">
+						{
+							image.guid === this.state.editingImageGuid ?
+								<DelayedTextInput
+									field="selectedImageName"
+									label="name"
+									showLabel={false}
+									value={image.pretty_name}
+									onChange={(field, value) => {
+										// find image in list to get its index
+										const idx = _.findIndex(this.props.imageSetEdit.images, imageSetImage => imageSetImage.guid === image.guid);
+										// dispatch to change that image's name
+										dispatchFieldChanged(`imageSetEdit.images.${idx}`, 'pretty_name', value);
+
+										// save to server
+										image.pretty_name = value;
+										webservice.image.save(image);
+									}}
+									setInitialFocus={true}
+									onBlur={() => this.setState({ editingImageGuid: undefined })}
+								/> : (
+									<div className="images-list__image-detail">
+										<div onClick={() => this.setState({ editingImageGuid: image.guid})}>
+											{image.pretty_name}
+										</div>
+										<div>
+											<ConfirmationButton
+												onConfirm={() => this.onDeleteImage(image)}
+												initialChildren={null}
+												initialLabel="X"
+												promptLabel="Delete"
+												className="size-xsmall button"
+											/>
+										</div>
+									</div>
+								)
+
+						}
+					</div>
+				</div>
+				<div className="image-row__row">
+					<div className="image-row__up-downs">
+						{imageIdx === this.props.imageSetEdit.images.length - 1 ? undefined : <Button className="button size-xxxsmall" onClick={() => this.onMoveUpDown(image, false)} label="Z-Down"/>}
+						{imageIdx === 0 ? undefined : <Button className="button size-xxxsmall" onClick={() => this.onMoveUpDown(image, true)} label="Z-Up"/>}
+					</div>
+					<SelectInput
+						field="category"
+						label="Category"
+						showLabel={false}
+						onChange={(field, value) => this.onImageCategoryChange(image, value)}
+						options={this.state.categoryOptions}
+						value={image.image_category_guid}
+						size={InputInformation.SIZE.XSMALL}
+						placeholder="Category..."
+					/>
+				</div>
+			</React.Fragment>
 		);
 	}
 
@@ -105,8 +174,11 @@ class ImageSetEdit extends React.Component {
 			});
 	}
 
-	selectedChanged(selectedImageGuids) {
-		this.setState({ selectedImageGuids });
+	onImageCategoryChange(image, categoryGuid) {
+		webservice.image.tieToCategory(image.guid, categoryGuid);
+
+		const imageIdx = _.findIndex(this.props.imageSetEdit.images, imageSetImage => imageSetImage.guid === image.guid);
+		dispatchFieldChanged(`imageSetEdit.images.${imageIdx}`, 'image_category_guid', categoryGuid);
 	}
 
 	onMoveUpDown(image, moveUp) {
@@ -138,11 +210,9 @@ class ImageSetEdit extends React.Component {
 						imageFiles={this.props.imageSetEdit.images}
 						selectedImages={this.state.selectedImageGuids}
 						selectedChanged={this.selectedChanged}
-						renderEditableDetail={this.renderEditableImage}
+						renderImageName={this.renderEditableImage}
 						onDrop={this.uploadFiles}
-						onDeleteImage={this.onDeleteImage}
-						onMoveUpDown={this.onMoveUpDown}
-					/>
+				/>
 				</LeftPanel>
 				<MainPanel>
 					<BodyView fileImages={this.props.imageSetEdit.images.filter(image => this.state.selectedImageGuids.includes(image.guid))}/>

@@ -305,10 +305,16 @@ button.midget {
 	stroke: #2fd82f;
 }
 .image-row {
-	display: flex;
-	flex-direction: row;
 	margin-bottom: 13px;
 	cursor: pointer;
+	border-bottom: 1px solid #525252;
+}
+.image-row__row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding-right: 10px;
+	margin-bottom: 3px;
 }
 .image-row.multi-row {
 	flex-direction: column;

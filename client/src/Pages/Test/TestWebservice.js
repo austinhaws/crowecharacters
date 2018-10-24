@@ -102,7 +102,12 @@ export default class TestWebservice extends React.Component {
 							.then(this.outputData);
 					}
 				}
-			}
+			},
+
+			// ===== Data Lists ===== //
+			{
+				title: 'Data List : Image Categories', testFunc: () => webservice.dataList.imageCategories().then(this.outputData),
+			},
 		];
 	}
 

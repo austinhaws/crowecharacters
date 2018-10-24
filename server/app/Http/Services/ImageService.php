@@ -2,9 +2,11 @@
 
 namespace App\Http\Services;
 
+use App\Http\Daos\DataListDao;
 use App\Http\Daos\ImageDao;
 use App\Http\Daos\ImageSetDao;
 use App\Http\Daos\ImageSetXImageDao;
+use App\Http\Daos\ImageXCategoryDao;
 use Illuminate\Http\Request;
 
 class ImageService
@@ -15,13 +17,17 @@ class ImageService
 	private $imageDao;
 	private $imageSetDao;
 	private $imageSetXImageDao;
+	private $imageXCategoryDao;
+	private $dataListDao;
 
 	public function __construct(
 		ImageSetService $imageSetService,
 		WebResponseService $webResponseService,
 		ImageDao $imageDao,
 		ImageSetDao $imageSetDao,
-		ImageSetXImageDao $imageSetXImageDao
+		ImageSetXImageDao $imageSetXImageDao,
+		ImageXCategoryDao $imageXCategoryDao,
+		DataListDao $dataListDao
 	)
 	{
 		$this->webResponseService = $webResponseService;
@@ -29,6 +35,8 @@ class ImageService
 		$this->imageSetDao = $imageSetDao;
 		$this->imageSetXImageDao = $imageSetXImageDao;
 		$this->imageSetService = $imageSetService;
+		$this->imageXCategoryDao = $imageXCategoryDao;
+		$this->dataListDao = $dataListDao;
 	}
 
 	/**
@@ -93,6 +101,20 @@ class ImageService
 		$image = $this->imageDao->selectByGuid($imageGuid);
 		$this->imageSetXImageDao->deleteByImageId($image->id);
 		$this->imageDao->deleteById($image->id);
+		return $this->webResponseService->response($image);
+	}
+
+	public function connectImageToCategory(string $imageGuid, string $categoryGuid)
+	{
+		$image = $this->imageDao->selectByGuid($imageGuid);
+
+		$this->imageXCategoryDao->deleteByImageId($image->id);
+
+		$categories = $this->dataListDao->imageCategories();
+		$category = array_values(array_filter($categories, function ($category) use($categoryGuid) { return $category->guid === $categoryGuid; }))[0];
+
+		$this->imageXCategoryDao->insertImageConnection($image->id, $category->id);
+
 		return $this->webResponseService->response($image);
 	}
 }

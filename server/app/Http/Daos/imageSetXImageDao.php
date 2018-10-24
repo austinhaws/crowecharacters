@@ -20,8 +20,10 @@ class ImageSetXImageDao extends BaseDao
 	public function selectImagesByImageSetId(string $imageSetId)
 	{
 		return DB::table('image')
-			->select(['image.*', 'image_set_x_image.z_index'])
+			->select(['image.*', 'image_set_x_image.z_index', 'image_category.guid AS image_category_guid'])
 			->join('image_set_x_image', 'image_set_x_image.image_id', '=', 'image.id')
+			->join('image_x_image_category', 'image_x_image_category.image_id', '=', 'image.id', 'left')
+			->join('image_category', 'image_x_image_category.image_category_id', '=', 'image_category.id', 'left')
 			->where('image_set_x_image.image_set_id', '=', $imageSetId)
 			->orderBy('image_set_x_image.z_index')
 			->get()->all();

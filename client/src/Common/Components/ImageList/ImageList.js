@@ -1,30 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import clone from "clone";
-import _ from "lodash";
-import {Button, ConfirmationButton, handleEvent} from "dts-react-common";
-import ToggleButton from "../ToggleButton/ToggleButton";
+import {handleEvent} from "dts-react-common";
 
 const propTypes = {
 	// the images to show
 	imageFiles: PropTypes.array.isRequired,
+
 	// which images are currently selected
 	selectedImages: PropTypes.array.isRequired,
 
-	// which images are selected have changed
-	selectedChanged: PropTypes.func.isRequired,
-	// content to show when editing the inline list item
-	renderEditableDetail: PropTypes.func,
+	// files dropped on image list
 	onDrop: PropTypes.func,
-	onDeleteImage: PropTypes.func,
-	onMoveUpDown: PropTypes.func,
+
+	// content to show for the image
+	renderImageName: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
 	onDrop: undefined,
-	renderEditableDetail: undefined,
-	onDeleteImage: undefined,
-	onMoveUpDown: undefined,
 };
 
 export default class ImageList extends React.Component {
@@ -32,30 +25,6 @@ export default class ImageList extends React.Component {
 		super(props);
 
 		this.filesDrop = this.filesDrop.bind(this);
-		this.toggleImage = this.toggleImage.bind(this);
-		this.selectImage = this.selectImage.bind(this);
-
-		this.state = {
-			// which image detail in the list is being edited
-			editableDetailImageGuid: undefined,
-		};
-	}
-
-	selectImage(image) {
-		// check if items have a editable list item
-		if (this.props.renderEditableDetail) {
-			this.setState({ editableDetailImageGuid: image.guid });
-		}
-	}
-
-	toggleImage(image) {
-		const newSelectedImages = clone(this.props.selectedImages);
-		if (newSelectedImages.includes(image.guid)) {
-			_.pull(newSelectedImages, image.guid);
-		} else {
-			newSelectedImages.push(image.guid);
-		}
-		this.props.selectedChanged(newSelectedImages);
 	}
 
 	filesDrop(event) {
@@ -92,34 +61,7 @@ export default class ImageList extends React.Component {
 				{this.props.imageFiles.map((image, imageIdx) => (
 					<React.Fragment key={`imagetogglerow-${image.guid}`}>
 						<div className="image-row">
-							<div className="image-row__up-downs">
-								{imageIdx === this.props.imageFiles.length - 1 ? undefined : <Button className="button size-xxxsmall" onClick={() => this.props.onMoveUpDown(image, true)} label="Z-Up"/>}
-								{imageIdx === 0 ? undefined : <Button className="button size-xxxsmall" onClick={() => this.props.onMoveUpDown(image, false)} label="Z-Down"/>}
-							</div>
-							<ToggleButton
-								selected={this.props.selectedImages.includes(image.guid)}
-								onToggle={() => this.toggleImage(image)}
-							/>
-							<div className="image-row__image-name">
-								{
-									this.state.editableDetailImageGuid === image.guid ?
-										<div className="image-list-detail">{this.props.renderEditableDetail(image)}</div>
-										: (
-											<div className="images-list__image-detail">
-												<div onClick={() => this.selectImage(image)}>{image.pretty_name}</div>
-												{this.props.onDeleteImage ?
-													<div><ConfirmationButton
-														onConfirm={() => this.props.onDeleteImage(image)}
-														initialChildren={null}
-														initialLabel="X"
-														promptLabel="Delete"
-														className="size-xsmall button"
-													/></div>
-													: undefined}
-											</div>
-										)
-								}
-							</div>
+							{this.props.renderImageName(image, imageIdx)}
 						</div>
 					</React.Fragment>
 				))}

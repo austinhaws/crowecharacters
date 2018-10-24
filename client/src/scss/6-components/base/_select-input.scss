@@ -6,6 +6,10 @@
 	vertical-align: middle;
 
 	@include formElementSizes;
+
+	&.size-xsmall {
+		font-size: 9px;
+	}
 }
 
 .Select-control {
