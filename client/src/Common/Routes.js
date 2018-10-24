@@ -1,5 +1,6 @@
 import {BrowserRouter} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
+import {dispatchFieldChanged} from "../App/Reducers";
 
 // https://github.com/ReactTraining/react-router/issues/5237
 export const history = createBrowserHistory();
@@ -8,32 +9,29 @@ export class HistoryBrowserRouter extends BrowserRouter {
 	history;
 }
 
+function go(route) {
+	// dispatch the route so that the app rerenders
+	dispatchFieldChanged(undefined, 'url', route);
+	history.push(route);
+}
+
 // global routes for the site map
 export default {
 	admin: {
-		home: () => history.push('/admin'),
-		// body: {
-		// 	edit: (bodyGuid, imageGuid = undefined) => history.push(`/admin/body/edit/${history.bodyGuid}${imageGuid ? `/${imageGuid}` : ''}`),
-		// 	new: () => history.push('/admin/body/new'),
-		// 	list: () => history.push('/admin/body/list'),
-		// },
-		//
-		// image: {
-		// 	new: bodyGuid => history.push(`/admin/image/new/${bodyGuid}`),
-		// },
+		home: () => go('/admin'),
 
 		imageSet: {
-			list: () => history.push('/admin/imageSet/list'),
-			new: () => history.push('/admin/imageSet/edit/'),
-			edit: guid => history.push(`/admin/imageSet/edit/${guid}`),
+			list: () => go('/admin/imageSet/list'),
+			new: () => go('/admin/imageSet/edit/'),
+			edit: guid => go(`/admin/imageSet/edit/${guid}`),
 		}
 	},
 
 	// character: {
-	// 	edit: characterGuid => history.push(`/character/edit/${characterGuid}`),
-	// 	new: () => history.push('/character/new'),
-	// 	print: characterGuid => history.push(`/character/print/${characterGuid}`),
+	// 	edit: characterGuid => go(`/character/edit/${characterGuid}`),
+	// 	new: () => go('/character/new'),
+	// 	print: characterGuid => go(`/character/print/${characterGuid}`),
 	// },
 
-	home: () => history.push('/'),
+	home: () => go('/'),
 };

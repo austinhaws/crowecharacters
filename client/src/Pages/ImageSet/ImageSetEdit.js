@@ -96,7 +96,6 @@ class ImageSetEdit extends React.Component {
 
 	// allow editing the selected image's name and other details
 	renderEditableImage(image, imageIdx) {
-// make this in to components
 		return (
 			<React.Fragment>
 				<div className="image-row__row">

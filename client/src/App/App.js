@@ -5,7 +5,7 @@ import {connect, Provider} from "react-redux";
 import store from "./Store";
 import webservice, {ajaxStatusCore} from "../Common/Webservice";
 import {dispatchFieldChanged} from "./Reducers";
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import {Redirect, withRouter} from "react-router";
 import NewCharacter from "../Pages/NewCharacter/NewCharacter";
 import CharacterSelector from "../Pages/CharacterSelector/CharacterSelector";
@@ -18,7 +18,7 @@ import dataGetter from "../Common/DataGetter";
 import Test from "../Pages/Test/Test";
 import {Button} from "dts-react-common";
 import roles from '../Common/Roles';
-import routes from "../Common/Routes";
+import routes, {HistoryBrowserRouter} from "../Common/Routes";
 import LeftPanel from "../Common/Components/Panels/LeftPanel";
 import MainPanel from "../Common/Components/Panels/MainPanel";
 import "../scss/index.scss";
@@ -88,7 +88,8 @@ class AppClass extends React.Component {
 				<div id="top-title-container">
 					<div id="top-title">Crowe Character</div>
 					<div id="left-account">
-						{roles.hasRole(roles.roles.ADMIN) ? <Button onClick={() => routes.admin.home()} label="Admin"/> : undefined}
+						<Button onClick={routes.home} label="Home"/>
+						{roles.hasRole(roles.roles.ADMIN) ? <Button onClick={routes.admin.home} label="Admin"/> : undefined}
 					</div>
 					<div id="right-account">
 						{this.props.account ? this.props.account.phrase : 'Loading...'} <button>Login</button>
@@ -120,4 +121,4 @@ AppClass.defaultProps = defaultProps;
 
 const App = withRouter(connect(state => { return { account: state.account }; })(AppClass));
 
-render(<BrowserRouter><Provider store={store}><App/></Provider></BrowserRouter>, document.getElementById('react'));
+render(<HistoryBrowserRouter><Provider store={store}><App/></Provider></HistoryBrowserRouter>, document.getElementById('react'));
