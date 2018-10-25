@@ -47,9 +47,15 @@ class ImageSetEdit extends React.Component {
 
 		webservice.dataList.imageCategories()
 			.then(categories => this.setState({ categoryOptions: categories.map(category => {return { value: category.guid, label: category.name };})}));
+
+		this.checkPropsChange(props);
 	}
 
 	componentWillReceiveProps(props) {
+		this.checkPropsChange(props);
+	}
+
+	checkPropsChange(props) {
 		if (props.match) {
 			if (!props.imageSetEdit || props.match.params.guid !== props.imageSetEdit.guid) {
 				this.reloadImageSet(props.match.params.guid);

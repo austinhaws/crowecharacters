@@ -1,6 +1,5 @@
 import {BrowserRouter} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
-import {dispatchFieldChanged} from "../App/Reducers";
 
 // https://github.com/ReactTraining/react-router/issues/5237
 export const history = createBrowserHistory();
@@ -10,8 +9,6 @@ export class HistoryBrowserRouter extends BrowserRouter {
 }
 
 function go(route) {
-	// dispatch the route so that the app rerenders
-	dispatchFieldChanged(undefined, 'url', route);
 	history.push(route);
 }
 

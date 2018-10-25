@@ -1,0 +1,33 @@
+/*
+############     top-navigation.scss      ############
+*/
+.top-nav-container {
+	position: relative;
+	height: 96px;
+	width: 100%;
+	border-bottom: 3px solid #b6b6b6;
+}
+
+.top-nav-container__top-opaque {
+	z-index: 1;
+	position: absolute;
+	top: 0;
+	opacity: .25;
+	height: 100%;
+	width: 100%;
+	background-color: black;
+}
+
+.top-nav-container__page-title {
+	z-index: 2;
+	position: absolute;
+	top: 0;
+}
+
+.top-nav-container__page-title__menu {
+	margin: 26px 0 0 10px;
+}
+
+.top-nav-container__page-title__menu__menu-item {
+	margin-right: 10px;
+}

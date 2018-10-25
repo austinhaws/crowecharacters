@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import images from "../Common/Images";
-import {history} from "../Common/Routes";
+import routes from "../Common/Routes";
+import Button from "dts-react-common/components/form/button/Button";
+import roles from "../Common/Roles";
 
 const propTypes = {
 	pageTitle: PropTypes.string.isRequired,
@@ -19,13 +20,13 @@ export default class TopNavigation extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-				<div id="top-nav-container">
-					<div id="top-opaque"/>
-					<div id="page-title">
-						{(this.props.backUrl || this.props.canGoBack) ?
-							<div className="top-nav-back-arrow" onClick={() => this.props.canGoBack ? history.goBack() : history.push(this.props.backUrl)}>{images.backArrow()}</div>
-							: undefined}
-						<div className="top-nav-title">{this.props.pageTitle}</div>
+				<div className="top-nav-container">
+					<div className="top-nav-container__top-opaque"/>
+					<div className="top-nav-container__page-title">
+						<div className="top-nav-container__page-title__menu">
+							<Button onClick={routes.home} label="Home" className="top-nav-container__page-title__menu__menu-item"/>
+							{roles.hasRole(roles.roles.ADMIN) ? <Button onClick={routes.admin.home} label="Admin" className="top-nav-container__page-title__menu__menu-item"/> : undefined}
+						</div>
 					</div>
 				</div>
 			</React.Fragment>

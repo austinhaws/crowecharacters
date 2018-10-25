@@ -122,56 +122,6 @@ input[type="text"]:focus::placeholder {
 	padding: 10px;
 }
 
-#top-nav-container {
-	position: relative;
-	height: 96px;
-	width: 100%;
-	border-bottom: 3px solid #b6b6b6;
-}
-
-#top-opaque {
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    opacity: .25;
-    height: 100%;
-    width: 100%;
-    background-color: black;
-}
-
-#top-nav-container #page-title {
-	display: flex;
-	flex-direction: row;
-}
-.top-nav-back-arrow {
-	height: 37px;
-	width: 20px;
-	stroke-width: 1;
-	stroke-linejoin: round;
-	stroke-miterlimit: 4;
-	stroke: #f4d10b;
-	fill: transparent;
-	margin-right: 20px;
-	cursor: pointer;
-	position: relative;
-	top: -3px;
-}
-.top-nav-back-arrow:hover {
-	stroke-width: 2;
-}
-
-#page-title {
-	z-index: 2;
-	position: absolute;
-	top: 0;
-	color: #f4d10b;
-	font-size: 37px;
-	font-family: "Arial", Gadget, sans-serif;
-	line-height: 93px;
-	padding-left: 33px;
-	text-transform: uppercase;
-}
-
 #credit-footer a {
 	text-decoration: none;
 	color: #fefefe;

@@ -3,32 +3,21 @@ import React from "react";
 import {render} from "react-dom";
 import {connect, Provider} from "react-redux";
 import store from "./Store";
-import webservice, {ajaxStatusCore} from "../Common/Webservice";
+import webservice from "../Common/Webservice";
 import {dispatchFieldChanged} from "./Reducers";
 import {Route, Switch} from 'react-router-dom';
-import {Redirect, withRouter} from "react-router";
-import NewCharacter from "../Pages/NewCharacter/NewCharacter";
-import CharacterSelector from "../Pages/CharacterSelector/CharacterSelector";
-import EditCharacter from "../Pages/EditCharacter/EditCharacter";
+import {Router, withRouter} from "react-router";
 import Admin from "../Pages/Admin/Admin";
-import PrintCharacter from "../Pages/PrintCharacter/PrintCharacter";
 import PrintPaper from "../Pages/PrintPaper/PrintPaper";
 import BodyView from "../Pages/BodyView/BodyView";
 import dataGetter from "../Common/DataGetter";
 import Test from "../Pages/Test/Test";
-import {Button} from "dts-react-common";
-import roles from '../Common/Roles';
-import routes, {HistoryBrowserRouter} from "../Common/Routes";
-import LeftPanel from "../Common/Components/Panels/LeftPanel";
-import MainPanel from "../Common/Components/Panels/MainPanel";
+import {history, HistoryBrowserRouter} from "../Common/Routes";
 import "../scss/index.scss";
+import Home from "../Pages/Home/Home";
 
 const propTypes = {
 	account: PropTypes.object,
-	// bodies: PropTypes.array.isRequired,
-	// characters: PropTypes.array.isRequired,
-	// files: PropTypes.array.isRequired,
-	// printCharacter: PropTypes.object.isRequired,
 };
 const defaultProps = {
 	account: undefined,
@@ -46,26 +35,6 @@ class AppClass extends React.Component {
 				dispatchFieldChanged(undefined, 'account', account);
 				return account;
 			});
-	}
-
-	renderDefault() {
-		return <React.Fragment><LeftPanel><div/></LeftPanel><MainPanel><div>Home Page</div></MainPanel></React.Fragment>;
-		let output;
-
-		// if there are characters then show the character picker
-		if (this.props.characters.length) {
-			output = <CharacterSelector {...this.props}/>;
-
-		// no characters, so check if still ajaxing for characters
-		} else if (ajaxStatusCore.isAjaxing()) {
-			output = <div>show spinner</div>;
-
-		// not ajaxing, still no characters, go to character creation
-		} else {
-			output = <Redirect to="/character/new"/>;
-		}
-
-		return output;
 	}
 
 	render() {
@@ -87,26 +56,23 @@ class AppClass extends React.Component {
 				</div>
 				<div id="top-title-container">
 					<div id="top-title">Crowe Character</div>
-					<div id="left-account">
-						<Button onClick={routes.home} label="Home"/>
-						{roles.hasRole(roles.roles.ADMIN) ? <Button onClick={routes.admin.home} label="Admin"/> : undefined}
-					</div>
 					<div id="right-account">
 						{this.props.account ? this.props.account.phrase : 'Loading...'} <button>Login</button>
 					</div>
 				</div>
 				<div id="main-container">
-					<Switch>
-						<Route path="/test" render={() => <Test {...this.props}/>}/>
+					<Router history={history}>
+						<Switch>
+							<Route path="/test" comopnent={Test}/>
+							<Route path="/admin" component={Admin}/>
+							<Route component={Home}/>
 
-						<Route path="/admin" render={() => <Admin {...this.props}/>}/>
+							{/*<Route path="/character/new" render={() => <NewCharacter {...this.props}/>}/>*/}
+							{/*<Route path="/character/edit/:guid" render={router => <EditCharacter guid={router.match.params.guid} {...this.props}/>}/>*/}
+							{/*<Route path="/character/print/:guid" render={router => <PrintCharacter guid={router.match.params.guid} {...this.props}/>}/>*/}
 
-						<Route path="/character/new" render={() => <NewCharacter {...this.props}/>}/>
-						<Route path="/character/edit/:guid" render={router => <EditCharacter guid={router.match.params.guid} {...this.props}/>}/>
-						<Route path="/character/print/:guid" render={router => <PrintCharacter guid={router.match.params.guid} {...this.props}/>}/>
-
-						<Route render={this.renderDefault.bind(this)}/>
-					</Switch>
+						</Switch>
+					</Router>
 				</div>
 				<div id="credit-footer">
 					<div>Icons made by <a href="https://www.flaticon.com/authors/lucy-g" title="Lucy G">Lucy G</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
