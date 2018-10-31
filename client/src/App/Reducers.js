@@ -12,6 +12,11 @@ import clone from "clone";
 export const dispatchFieldChanged = (objectPath, field, value) => {
 	store.dispatch({type: reducers.ACTION_TYPES.SET_OBJECT_FIELD, payload: {path: objectPath, field: field, value: value}});
 };
+export const dispatchField = (path, value) => {
+	const parts = path.split('.');
+	const partsPath = parts.length > 1 ? parts.slice(0, parts.length - 1).join('.') : undefined;
+	dispatchFieldChanged(partsPath || undefined, parts[parts.length - 1], value);
+};
 
 
 let reducers = {

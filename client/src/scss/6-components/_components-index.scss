@@ -10,6 +10,8 @@ component specific, BEM (Block, Element, Modifier)
 @import "base/collapsible-section";
 @import "base/form-error";
 @import "base/input-container";
+@import "base/left-panel";
+@import "base/message-popup";
 @import "base/pop-over";
 @import "base/popup-window";
 @import "base/segmented-button";
@@ -17,7 +19,6 @@ component specific, BEM (Block, Element, Modifier)
 @import "base/table";
 @import "base/text-area";
 @import "base/text-input";
-@import "base/message-popup";
 
 /* ---- Pages ---- */
 @import "pages/image-set-list";

@@ -24,14 +24,13 @@ const webservice = {
 		}),
 	},
 
-	imageSet: {
-		all: () => webserviceCore.get('imageset/all').then(imageSets => {
-			dispatchFieldChanged('globalData', 'imageSets', imageSets);
-			return imageSets;
-		}),
-		delete: imageSetGuid => webserviceCore.get(`imageset/delete/${imageSetGuid}`),
-		get: imageSetGuid => webserviceCore.get(`imageset/get/${imageSetGuid}`),
-		save: imageSet => webserviceCore.post(`imageset/save`, imageSet),
+	doll: {
+		get: dollGuid => webserviceCore.get(`doll/get/${dollGuid}`),
+		save: doll => webserviceCore.post(`doll/save/`, doll),
+	},
+
+	dataList: {
+		imageCategories: () => webserviceCore.get('dataList/imageCategories'),
 	},
 
 	image: {
@@ -46,13 +45,20 @@ const webservice = {
 		tieToCategory: (imageGuid, categoryGuid) => webserviceCore.get(`image/connectCategory/${imageGuid}/${categoryGuid}`),
 	},
 
+	imageSet: {
+		all: () => webserviceCore.get('imageset/all').then(imageSets => {
+			dispatchFieldChanged('globalData', 'imageSets', imageSets);
+			return imageSets;
+		}),
+		delete: imageSetGuid => webserviceCore.get(`imageset/delete/${imageSetGuid}`),
+		get: imageSetGuid => webserviceCore.get(`imageset/get/${imageSetGuid}`),
+		save: imageSet => webserviceCore.post(`imageset/save`, imageSet),
+	},
+
 	imageSetXImage: {
 		save: (imageGuid, zIndex) => webserviceCore.post('imageSetXImage/save', { imageGuid, zIndex }),
 	},
 
-	dataList: {
-		imageCategories: () => webserviceCore.get('dataList/imageCategories'),
-	},
 };
 
 export default webservice;

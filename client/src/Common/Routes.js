@@ -24,11 +24,11 @@ export default {
 		}
 	},
 
-	// character: {
-	// 	edit: characterGuid => go(`/character/edit/${characterGuid}`),
-	// 	new: () => go('/character/new'),
-	// 	print: characterGuid => go(`/character/print/${characterGuid}`),
-	// },
+	doll: {
+		new: imageSetGuid => go(`/doll/new/${imageSetGuid}`),
+		edit: dollGuid => go(`/doll/edit/${dollGuid}`),
+		print: dollGuid => go(`/doll/print/${dollGuid}`),
+	},
 
 	home: () => go('/'),
 };

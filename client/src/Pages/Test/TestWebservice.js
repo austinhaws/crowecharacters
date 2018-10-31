@@ -22,6 +22,7 @@ export default class TestWebservice extends React.Component {
 			imageSet: undefined,
 			selectedFile: undefined,
 			uploadedImage: undefined,
+			dollGuid: undefined,
 		};
 
 		this.testUrls = [
@@ -102,6 +103,16 @@ export default class TestWebservice extends React.Component {
 							.then(this.outputData);
 					}
 				}
+			},
+
+			// ===== Dolls ===== //
+			{
+				title: 'Doll: New', testFunc: () => {
+					webservice.doll.save({ }).then(doll => {
+						this.outputData(doll);
+						this.setState({ dollGuid: doll.guid });
+					});
+				},
 			},
 
 			// ===== Data Lists ===== //

@@ -112,7 +112,7 @@ input[type="text"]:focus::placeholder {
 	height: 100%;
 	width: 100%;
 }
-#main-container .left-panel .content {
+#main-container .left-panel__content {
 	position: absolute;
 	top: 0;
 	z-index: 2;
@@ -197,7 +197,7 @@ input[type="text"]:focus::placeholder {
 }
 
 button {
-	height: 40px;
+	height: 32px;
 	font-size: 15px;
 	text-align: center;
 	width: 100px;
@@ -228,6 +228,7 @@ button[disabled], button[disabled]:hover {
 	border-color: #858072;
 	color: #858072;
 	cursor: default;
+	background-color: #694431;
 }
 
 button.midget {

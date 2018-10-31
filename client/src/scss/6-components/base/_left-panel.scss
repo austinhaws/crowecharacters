@@ -1,0 +1,16 @@
+/*
+############     _button.scss      ############
+*/
+.left-panel__content {
+}
+
+.left-panel__list {
+	height: 735px;
+	overflow: auto;
+}
+
+.left-panel__top-buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}

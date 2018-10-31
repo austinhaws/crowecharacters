@@ -38,7 +38,7 @@ class ImageSetList extends React.Component {
 			<React.Fragment>
 				<TopNavigation pageTitle="ImageSet - List" backUrl="/admin"/>
 				<LeftPanel>
-					<div className="image-set-list__top-buttons">
+					<div className="left-panel__top-buttons">
 						<Button label="New" onClick={routes.admin.imageSet.new}/>
 					</div>
 					<div className="image-set-list">{

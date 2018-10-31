@@ -12,24 +12,17 @@ export const defaultState = {
 		imageSets: undefined,
 	},
 
-	imageSetEdit: { guid: undefined, name: '', images: [], },
+	imageSetEdit: {
+		guid: undefined,
+		name: '',
+		images: [],
+	},
+
+	editDoll: {
+		doll: undefined,
+	},
 
 	// // New Character view
-	// newCharacter: {
-	// 	editingCharacter: {data: {name: '', bodyGuid: ''}},
-	// 	searchText: '',
-	// },
-	//
-	// // Edit Character view
-	// editCharacter: {
-	// 	character: undefined,
-	// 	filters: {
-	// 		groupBy: 'bodyPart',
-	// 		search: '',
-	// 		openGroup: '',
-	// 	}
-	// },
-	//
 	// printCharacter: {
 	// 	character: undefined,
 	// },

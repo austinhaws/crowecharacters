@@ -15,6 +15,7 @@ import Test from "../Pages/Test/Test";
 import {history, HistoryBrowserRouter} from "../Common/Routes";
 import "../scss/index.scss";
 import Home from "../Pages/Home/Home";
+import Doll from "../Pages/Doll/Doll";
 
 const propTypes = {
 	account: PropTypes.object,
@@ -63,14 +64,10 @@ class AppClass extends React.Component {
 				<div id="main-container">
 					<Router history={history}>
 						<Switch>
-							<Route path="/test" comopnent={Test}/>
+							<Route path="/test" component={Test}/>
 							<Route path="/admin" component={Admin}/>
+							<Route path="/doll" component={Doll}/>
 							<Route component={Home}/>
-
-							{/*<Route path="/character/new" render={() => <NewCharacter {...this.props}/>}/>*/}
-							{/*<Route path="/character/edit/:guid" render={router => <EditCharacter guid={router.match.params.guid} {...this.props}/>}/>*/}
-							{/*<Route path="/character/print/:guid" render={router => <PrintCharacter guid={router.match.params.guid} {...this.props}/>}/>*/}
-
 						</Switch>
 					</Router>
 				</div>

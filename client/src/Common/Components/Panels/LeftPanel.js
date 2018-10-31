@@ -16,7 +16,7 @@ export default class LeftPanel extends React.Component {
 		return (
 			<div className={joinClassNames('left-panel',  this.props.className)}>
 				<div className="opaque-background"></div>
-				<div className="content">
+				<div className="left-panel__content">
 					{this.props.children}
 				</div>
 			</div>

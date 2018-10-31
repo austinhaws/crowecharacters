@@ -10,7 +10,6 @@ button, .button {
 	fill: $primaryColor;
 	font-family: $normalFont;
 	min-height: $buttonHeight;
-	padding: $buttonHeight / 3 $buttonHeight;
 	position: relative;
 	transition: all 200ms ease;
 	overflow: hidden;
