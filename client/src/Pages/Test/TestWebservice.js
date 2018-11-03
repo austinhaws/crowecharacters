@@ -36,7 +36,7 @@ export default class TestWebservice extends React.Component {
 			},
 
 			// ===== Image Set ==== //
-			{title: 'Image Set: All', testFunc: () => webservice.imageSet.all().then(this.outputData).then(imageSets => this.setState({imageSet: imageSets[0]}))},
+			{title: 'Image Set: All', testFunc: () => webservice.imageSet.all().then(this.outputData).then(imageSets => this.setState({imageSet: imageSets[imageSets.length - 1]}))},
 			{title: 'Image Set: New', testFunc: () => webservice.imageSet.save({name: 'test'}).then(this.outputData)},
 			{
 				title: 'Image Set: Get', testFunc: () => {
@@ -108,7 +108,7 @@ export default class TestWebservice extends React.Component {
 			// ===== Dolls ===== //
 			{
 				title: 'Doll: New', testFunc: () => {
-					webservice.doll.save({ }).then(doll => {
+					webservice.doll.save({ name: 'test doll', }).then(doll => {
 						this.outputData(doll);
 						this.setState({ dollGuid: doll.guid });
 					});

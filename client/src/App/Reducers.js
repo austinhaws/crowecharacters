@@ -17,6 +17,7 @@ export const dispatchField = (path, value) => {
 	const partsPath = parts.length > 1 ? parts.slice(0, parts.length - 1).join('.') : undefined;
 	dispatchFieldChanged(partsPath || undefined, parts[parts.length - 1], value);
 };
+export const dispatchFieldCurry = path => field => dispatchField(path, field);
 
 
 let reducers = {

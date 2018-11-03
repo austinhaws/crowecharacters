@@ -37,6 +37,9 @@ class DollService
 
 	public function saveDoll(array $doll)
 	{
-		return $this->webResponseService->response($this->dollDao->save($doll));
+		$imageSet = $this->imageSetDao->selectByGuid($doll['image_set_guid']);
+		$doll['image_set_id'] = $imageSet ? $imageSet->id : null;
+		$resultDoll = $this->dollDao->saveDoll($doll);
+		return $this->webResponseService->response($this->dollDao->selectDollByGuid($resultDoll['guid']));
 	}
 }

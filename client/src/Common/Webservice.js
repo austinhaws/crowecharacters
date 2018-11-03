@@ -26,7 +26,7 @@ const webservice = {
 
 	doll: {
 		get: dollGuid => webserviceCore.get(`doll/get/${dollGuid}`),
-		save: doll => webserviceCore.post(`doll/save/`, doll),
+		save: doll => webserviceCore.post(`doll/save`, doll),
 	},
 
 	dataList: {

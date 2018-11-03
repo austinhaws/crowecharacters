@@ -217,7 +217,7 @@ class ImageSetEdit extends React.Component {
 						selectedChanged={this.selectedChanged}
 						renderImageName={this.renderEditableImage}
 						onDrop={this.uploadFiles}
-				/>
+					/>
 				</LeftPanel>
 				<MainPanel>
 					<BodyView fileImages={this.props.imageSetEdit.images.filter(image => this.state.selectedImageGuids.includes(image.guid))}/>

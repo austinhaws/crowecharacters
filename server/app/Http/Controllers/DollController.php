@@ -20,7 +20,7 @@ class DollController extends BaseController
 		return $this->dollService->getDoll($guid);
 	}
 
-	public function save(\Illuminate\Http\Request $request)
+	public function saveDoll(\Illuminate\Http\Request $request)
 	{
 		return $this->dollService->saveDoll($request->json()->all());
 	}

@@ -12,17 +12,21 @@ class DollDao extends BaseDao
 		return [
 			'id',
 			'guid',
+			'image_set_id',
+			'name',
 		];
 	}
 
-	public function selectByGuid($guid)
+	public function selectDollByGuid($guid)
 	{
 		return DB::table('doll')
-			->where('guid', '=', $guid)
+			->select(['doll.*', 'image_set.guid AS image_set_guid' ])
+			->join('image_set', 'image_set.id', '=', 'doll.image_set_id', 'left')
+			->where('doll.guid', '=', $guid)
 			->first();
 	}
 
-	public function save($doll)
+	public function saveDoll($doll)
 	{
 		$cleanData = $this->cleanDaoRecord($doll);
 
@@ -35,7 +39,8 @@ class DollDao extends BaseDao
 			$cleanData['guid'] = $doll['guid'];
 			$doll['id'] = DB::table('doll')->insertGetId($cleanData);
 		}
-		return $doll;
+
+		return $cleanData;
 	}
 
 }
