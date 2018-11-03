@@ -20,7 +20,7 @@ class DollDao extends BaseDao
 	public function selectDollByGuid($guid)
 	{
 		return DB::table('doll')
-			->select(['doll.*', 'image_set.guid AS image_set_guid' ])
+			->select(['doll.*', 'image_set.guid AS image_set_guid'])
 			->join('image_set', 'image_set.id', '=', 'doll.image_set_id', 'left')
 			->where('doll.guid', '=', $guid)
 			->first();
@@ -38,9 +38,9 @@ class DollDao extends BaseDao
 			$doll['guid'] = uniqid();
 			$cleanData['guid'] = $doll['guid'];
 			$doll['id'] = DB::table('doll')->insertGetId($cleanData);
+			$cleanData['id'] = $doll['id'];
 		}
 
 		return $cleanData;
 	}
-
 }

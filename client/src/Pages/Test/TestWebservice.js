@@ -4,12 +4,22 @@ import {Button, InputInformation} from "dts-react-common";
 import LeftPanel from "../../Common/Components/Panels/LeftPanel";
 import MainPanel from "../../Common/Components/Panels/MainPanel";
 import storage from "../../Common/LocalStorage";
+import {connect} from "react-redux";
+import * as PropTypes from "prop-types";
 
-const propTypes = {};
+const propTypes = {
+	account: PropTypes.object,
+};
+const defaultProps = {
+	account: undefined,
+};
+const mapStateToProps = state => {
+	return {
+		account: state.account,
+	};
+};
 
-const defaultProps = {};
-
-export default class TestWebservice extends React.Component {
+class TestWebservice extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -108,10 +118,22 @@ export default class TestWebservice extends React.Component {
 			// ===== Dolls ===== //
 			{
 				title: 'Doll: New', testFunc: () => {
-					webservice.doll.save({ name: 'test doll', }).then(doll => {
-						this.outputData(doll);
-						this.setState({ dollGuid: doll.guid });
-					});
+					if (!this.state.imageSet) {
+						alert('Run Image Set: All first');
+					} else {
+						webservice.doll.save(this.props.account.guid, {
+							name: 'test doll',
+							image_set_guid: this.state.imageSet.guid,
+						}).then(doll => {
+							this.outputData(doll);
+							this.setState({ dollGuid: doll.guid });
+						});
+					}
+				},
+			},
+			{
+				title: 'Doll: All for Account', testFunc: () => {
+					webservice.doll.all(this.props.account.guid).then(this.outputData);
 				},
 			},
 
@@ -155,3 +177,4 @@ export default class TestWebservice extends React.Component {
 
 TestWebservice.propTypes = propTypes;
 TestWebservice.defaultProps = defaultProps;
+export default connect(mapStateToProps)(TestWebservice);

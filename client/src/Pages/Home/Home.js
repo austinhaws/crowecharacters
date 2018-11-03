@@ -8,11 +8,24 @@ import Button from "dts-react-common/components/form/button/Button";
 import routes from "../../Common/Routes";
 import {InputInformation, SelectInput} from "dts-react-common";
 import webservice from "../../Common/Webservice";
+import {dispatchField, dispatchFieldCurry} from "../../App/Reducers";
 
 const propTypes = {
 	globalData: PropTypes.object.isRequired,
+	account: PropTypes.object,
+	accountDolls: PropTypes.array,
 };
-const defaultProps = {};
+const defaultProps = {
+	account: undefined,
+	accountDolls: undefined,
+};
+const mapStateToProps = state => {
+	return {
+		globalData: state.globalData,
+		account: state.account,
+		accountDolls: state.accountDolls,
+	};
+};
 
 class Home extends React.Component {
 
@@ -24,6 +37,28 @@ class Home extends React.Component {
 		};
 
 		webservice.imageSet.all();
+
+		this.accountGuid = undefined;
+
+		this.checkChangedDoll(props);
+	}
+
+	componentWillReceiveProps(props) {
+		this.checkChangedDoll(props);
+	}
+
+	checkChangedDoll(props) {
+		// has accountGuid but one is not specified
+		if (!props.account && this.accountGuid) {
+			this.accountGuid = undefined;
+			dispatchField('accountDolls', undefined);
+
+		// specified guid is not same as last guid
+		} else if (props.account && props.account.guid !== this.accountGuid) {
+			this.accountGuid = props.account.guid;
+			dispatchField('accountDolls', undefined);
+			webservice.doll.all(props.account.guid).then(dispatchFieldCurry('accountDolls'));
+		}
 	}
 
 	render() {
@@ -49,7 +84,7 @@ class Home extends React.Component {
 					</div>
 					<div className="left-panel__list">
 
-						list all other Dolls
+						list all other Dolls: {this.props.accountDolls && this.props.accountDolls.length}
 					</div>
 				</LeftPanel>
 				<MainPanel>
@@ -64,6 +99,4 @@ class Home extends React.Component {
 Home.propTypes = propTypes;
 Home.defaultProps = defaultProps;
 
-export default connect(state => {
-	return {globalData: state.globalData};
-})(Home);
+export default connect(mapStateToProps)(Home);

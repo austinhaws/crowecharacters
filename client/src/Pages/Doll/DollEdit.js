@@ -12,8 +12,17 @@ import routes from "../../Common/Routes";
 
 const propTypes = {
 	editDoll: PropTypes.object.isRequired,
+	account: PropTypes.object,
+	match: PropTypes.object,
 };
-const defaultProps = {};
+const defaultProps = {
+	account: undefined,
+	match: undefined,
+};
+const mapStateToProps = state => {return {
+	editDoll: state.editDoll,
+	account: state.account,
+}};
 
 const DelayedTextInput = delayedInput(TextInput);
 
@@ -49,7 +58,10 @@ class DollEdit extends React.Component {
 			// check image set needs loaded
 			if (!props.editDoll.imageSet || props.editDoll.imageSet.guid !== props.match.params.imageSetGuid) {
 				dispatchField('editDoll.imageSet', { guid: props.match.params.imageSetGuid });
-				webservice.imageSet.get(props.match.params.imageSetGuid).then(dispatchFieldCurry('editDoll.imageSet'));
+				webservice.imageSet.get(props.match.params.imageSetGuid)
+					.then(dispatchFieldCurry('editDoll.imageSet'))
+					.then(() => webservice.doll.all(props.account.guid))
+					.then(dispatchFieldCurry('accountDolls'));
 			}
 
 		// - edit doll: dollGuid
@@ -62,7 +74,7 @@ class DollEdit extends React.Component {
 
 	fieldChange(field, value) {
 		// go to edit page so that 'new' url doesn't cause the doll to be reset to just the imagesetid; since it's saved it's now an edit
-		webservice.doll.save(Object.assign(this.props.editDoll.doll, { name: value }))
+		webservice.doll.save(this.props.account.guid, Object.assign(this.props.editDoll.doll, { name: value }))
 			.then(doll => this.props.match.params.imageSetGuid ? routes.doll.edit(doll.guid) : dispatchField('editDoll.doll', doll));
 	}
 
@@ -98,7 +110,7 @@ class DollEdit extends React.Component {
 	}
 }
 
-export default connect(state => {return { editDoll: state.editDoll }})(DollEdit);
+export default connect(mapStateToProps)(DollEdit);
 
 DollEdit.propTypes = propTypes;
 DollEdit.defaultProps = defaultProps;

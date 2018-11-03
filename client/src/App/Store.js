@@ -12,6 +12,8 @@ export const defaultState = {
 		imageSets: undefined,
 	},
 
+	accountDolls: undefined,
+
 	imageSetEdit: {
 		guid: undefined,
 		name: '',
