@@ -1,0 +1,15 @@
+/*
+############     home.scss      ############
+*/
+.left-panel__list {
+	display: flex;
+	flex-direction: column;
+}
+.left-panel__list__doll {
+	padding: 10px;
+	cursor: pointer;
+	color: $complementaryColor;
+}
+.left-panel__list__doll:hover {
+	color: $complementaryColorLight;
+}

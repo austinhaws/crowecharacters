@@ -52,9 +52,10 @@ class DollService
 
 		// tie to account
 		$account = $this->accountDao->selectByGuid($accountGuid);
-		$this->accountXDollDao->connectDollToAccount($resultDoll['id'], $account->id);
+		$doll = $this->dollDao->selectDollByGuid($doll['guid'] ? $doll['guid'] : $resultDoll['guid']);
+		$this->accountXDollDao->connectDollToAccount($doll->id, $account->id);
 
-		return $this->webResponseService->response($this->dollDao->selectDollByGuid($resultDoll['guid']));
+		return $this->webResponseService->response($doll);
 	}
 
 	public function allForAccountGuid(string $accountGuid)

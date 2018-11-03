@@ -27,10 +27,16 @@ class AccountXDollDao extends BaseDao
 
 	public function connectDollToAccount(int $dollId, int $accountId)
 	{
-		DB::table('account_x_doll')
-			->insert([
-				'account_id' => $accountId,
-				'doll_id' => $dollId,
-			]);
+		$accountXDoll = DB::table('account_x_doll')
+			->where('doll_id', '=', $dollId)
+			->first();
+
+		if (!$accountXDoll) {
+			DB::table('account_x_doll')
+				->insert([
+					'account_id' => $accountId,
+					'doll_id' => $dollId,
+				]);
+		}
 	}
 }

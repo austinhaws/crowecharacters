@@ -22,6 +22,10 @@
 	z-index: 2;
 	position: absolute;
 	top: 0;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 .top-nav-container__page-title__menu {
@@ -30,4 +34,8 @@
 
 .top-nav-container__page-title__menu__menu-item {
 	margin-right: 10px;
+}
+.top-nav-container__page-title__right__status {
+	margin: 36px 10px 0 10px;
+	color: $primaryColorLight;
 }

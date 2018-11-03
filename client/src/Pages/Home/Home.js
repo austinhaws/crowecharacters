@@ -83,8 +83,16 @@ class Home extends React.Component {
 						) : undefined}
 					</div>
 					<div className="left-panel__list">
-
-						list all other Dolls: {this.props.accountDolls && this.props.accountDolls.length}
+						{this.props.accountDolls ?
+							this.props.accountDolls.map(doll => (
+								<div
+									key={doll.guid}
+									className="left-panel__list__doll"
+									onClick={() => routes.doll.edit(doll.guid)}
+								>
+									{doll.name}
+								</div>)
+							) : undefined}
 					</div>
 				</LeftPanel>
 				<MainPanel>
