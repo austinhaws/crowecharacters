@@ -9,6 +9,7 @@ import TopNavigation from "../../App/TopNavigation";
 import delayedInput from "dts-react-common/components/higher-order/DelayedInput";
 import TextInput from "dts-react-common/components/form/text-input/TextInput";
 import routes from "../../Common/Routes";
+import ImageListByCategory from "../../Common/Components/ImageList/ByCategory/ImageListByCategory";
 
 const propTypes = {
 	editDoll: PropTypes.object.isRequired,
@@ -68,7 +69,12 @@ class DollEdit extends React.Component {
 		} else if (props.match.params.dollGuid && props.editDoll.doll.guid !== props.match.params.dollGuid) {
 			// clear any existing doll information and load from server
 			dispatchField('editDoll.doll', { guid: props.match.params.dollGuid });
-			webservice.doll.get(props.match.params.dollGuid).then(dispatchFieldCurry('editDoll.doll'));
+			webservice.doll.get(props.match.params.dollGuid)
+				.then(doll => {
+					dispatchField('editDoll.doll', doll);
+					return doll;
+				})
+				.then(doll => webservice.imageSet.get(doll.image_set_guid).then(dispatchFieldCurry('editDoll.imageSet')));
 		}
 	}
 
@@ -78,29 +84,17 @@ class DollEdit extends React.Component {
 			.then(doll => this.props.match.params.imageSetGuid ? routes.doll.edit(doll.guid) : dispatchField('editDoll.doll', doll));
 	}
 
-	// changeSelectedImages(selectedImages) {
-		// update redux
-		// dispatchField('editDoll.doll.data.images', clone(selectedImages));
-		//
-		// // ajax save
-		// const saveDoll = clone(this.props.editDoll.doll);
-		// savedollService.data.images = clone(selectedImages);
-		// webservice.doll.update(savedollService);
-	// }
-
 	render() {
 		return (!this.props.editDoll.doll ? '' :
 			<React.Fragment>
 				<TopNavigation pageTitle={(this.props.editDoll.doll && this.props.editDoll.doll.guid) ? 'Edit Character' : 'New Character'} />
 				<LeftPanel>
 					<DelayedTextInput label="Name" field="name" onChange={this.fieldChange} showLabel={false} value={this.props.editDoll.doll.name ? this.props.editDoll.doll.name : ''}/>
-					{/*<ImageList*/}
-						{/*imageFiles={this.props.imageSetEdit.images}*/}
-						{/*selectedImages={this.state.selectedImageGuids}*/}
-						{/*selectedChanged={this.selectedChanged}*/}
-						{/*renderImageName={this.renderEditableImage}*/}
-						{/*onDrop={this.uploadFiles}*/}
-					{/*/>*/}
+					<ImageListByCategory
+						images={this.props.editDoll.imageSet ? this.props.editDoll.imageSet.images : []}
+						selectedImages={[]}
+						selectedChanged={console.log}
+					/>
 				</LeftPanel>
 				<MainPanel>
 					put your character here {(this.props.editDoll.doll && this.props.editDoll.doll.name) || 'no name here'}

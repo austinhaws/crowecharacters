@@ -10,6 +10,7 @@ export const defaultState = {
 	roles: undefined,
 	globalData: {
 		imageSets: undefined,
+		imageCategories: undefined,
 	},
 
 	accountDolls: undefined,
@@ -22,6 +23,7 @@ export const defaultState = {
 
 	editDoll: {
 		doll: undefined,
+		imageSet: undefined,
 	},
 
 	// // New Character view

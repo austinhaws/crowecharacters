@@ -50,9 +50,9 @@ class DollService
 		$doll['image_set_id'] = $imageSet ? $imageSet->id : null;
 		$resultDoll = $this->dollDao->saveDoll($doll);
 
-		// tie to account
+		// tie to account: select doll to get ID - updating through saveDoll doesn't get Id
+		$doll = $this->dollDao->selectDollByGuid($resultDoll['guid']);
 		$account = $this->accountDao->selectByGuid($accountGuid);
-		$doll = $this->dollDao->selectDollByGuid($doll['guid'] ? $doll['guid'] : $resultDoll['guid']);
 		$this->accountXDollDao->connectDollToAccount($doll->id, $account->id);
 
 		return $this->webResponseService->response($doll);

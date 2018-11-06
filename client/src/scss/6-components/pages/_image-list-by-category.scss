@@ -1,0 +1,27 @@
+/*
+############     image-list-by-category.scss      ############
+*/
+
+.category img {
+	width: 100px;
+}
+
+.images-by-category-list {
+	height: calc(100% - 33px);
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.images-by-category-list .category {
+	margin-top: 10px;
+}
+
+.images-by-category-list .category img {
+	border: 1px solid transparent;
+}
+
+.images-by-category-list .category:hover img, .images-by-category-list .category.selected img {
+	cursor: pointer;
+	border: 1px solid $complementaryColorLight;
+}
