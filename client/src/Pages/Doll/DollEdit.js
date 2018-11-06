@@ -94,6 +94,8 @@ class DollEdit extends React.Component {
 						images={this.props.editDoll.imageSet ? this.props.editDoll.imageSet.images : []}
 						selectedImages={[]}
 						selectedChanged={console.log}
+						onImageTest={console.log}
+						onImageAdd={console.log}
 					/>
 				</LeftPanel>
 				<MainPanel>

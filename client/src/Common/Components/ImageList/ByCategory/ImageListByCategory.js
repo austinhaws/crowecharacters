@@ -12,11 +12,15 @@ const propTypes = {
 	// which images are currently selected
 	selectedImages: PropTypes.array.isRequired,
 
+	// user selected to add image
+	onImageAdd: PropTypes.func.isRequired,
+	// user hovering on slider on an image
+	onImageTest: PropTypes.func.isRequired,
+
 	globalData: PropTypes.object.isRequired,
 };
 
-const defaultProps = {
-};
+const defaultProps = {};
 
 const mapStateToProps = state => {
 	return {
@@ -63,12 +67,12 @@ class ImageListByCategory extends React.Component {
 						<Category
 							key={category.guid}
 							categoryGuid={category.guid}
-							imagesInCategory={[]}
+							imagesInCategory={this.props.images.filter(image => image.image_category_guid === category.guid)}
 							selectedImageGuids={[]}
 							onCategorySelect={this.categorySelect}
 							isSelected={category.guid === this.state.selectedCategoryGuid}
-							onImageAdd={this.imageAdd}
-							onImageTest={this.imageTest}
+							onImageAdd={this.props.onImageAdd}
+							onImageTest={this.props.onImageTest}
 						/>
 					))
 					: undefined

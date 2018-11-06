@@ -32,9 +32,8 @@ class Category extends React.Component {
 		return (
 			<div
 				className={joinClassNames('category', this.props.isSelected && 'selected')}
-				onClick={() => this.props.onCategorySelect(category)}
 			>
-				{category ? <img src={`/img/categories/${category.image_file}`} title={category.name}/> : undefined}
+				{category ? <img src={`/img/categories/${category.image_file}`} title={category.name} onClick={() => this.props.onCategorySelect(category)}/> : undefined}
 				{this.props.isSelected ?
 					<React.Fragment>
 						<CategoryDetail
