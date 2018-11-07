@@ -45,7 +45,7 @@ class CategoryDetail extends React.Component {
 							tooltip={false}
 							onChange={value => {
 								this.setState({ testImageIdx: value });
-								this.props.onImageTest(value === 0 ? undefined : availableImages[this.state.testImageIdx - 1]);
+								this.props.onImageTest(value === 0 ? undefined : availableImages[value - 1]);
 							}}
 						/>
 					</div>

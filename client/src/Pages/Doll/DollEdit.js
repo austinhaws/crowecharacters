@@ -10,9 +10,12 @@ import delayedInput from "dts-react-common/components/higher-order/DelayedInput"
 import TextInput from "dts-react-common/components/form/text-input/TextInput";
 import routes from "../../Common/Routes";
 import ImageListByCategory from "../../Common/Components/ImageList/ByCategory/ImageListByCategory";
+import Button from "dts-react-common/components/form/button/Button";
+import BodyView from "../BodyView/BodyView";
 
 const propTypes = {
 	editDoll: PropTypes.object.isRequired,
+	globalData: PropTypes.object.isRequired,
 	account: PropTypes.object,
 	match: PropTypes.object,
 };
@@ -23,6 +26,7 @@ const defaultProps = {
 const mapStateToProps = state => {return {
 	editDoll: state.editDoll,
 	account: state.account,
+	globalData: state.globalData,
 }};
 
 const DelayedTextInput = delayedInput(TextInput);
@@ -30,6 +34,10 @@ const DelayedTextInput = delayedInput(TextInput);
 class DollEdit extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			testImageGuid: undefined,
+		};
 
 		this.fieldChange = this.fieldChange.bind(this);
 
@@ -85,6 +93,8 @@ class DollEdit extends React.Component {
 	}
 
 	render() {
+		const displayImages = this.props.editDoll.imageSet && this.props.editDoll.imageSet.images.filter(image => image.guid === this.state.testImageGuid || this.props.editDoll.doll.imageGuids.includes(image.guid));
+
 		return (!this.props.editDoll.doll ? '' :
 			<React.Fragment>
 				<TopNavigation pageTitle={(this.props.editDoll.doll && this.props.editDoll.doll.guid) ? 'Edit Character' : 'New Character'} />
@@ -93,13 +103,24 @@ class DollEdit extends React.Component {
 					<ImageListByCategory
 						images={this.props.editDoll.imageSet ? this.props.editDoll.imageSet.images : []}
 						selectedImages={[]}
-						selectedChanged={console.log}
-						onImageTest={console.log}
+						onImageTest={image => this.setState({ testImageGuid: image && image.guid })}
 						onImageAdd={console.log}
 					/>
 				</LeftPanel>
 				<MainPanel>
-					put your character here {(this.props.editDoll.doll && this.props.editDoll.doll.name) || 'no name here'}
+					{displayImages ?
+						<React.Fragment>
+							<BodyView fileImages={displayImages}/>
+							<div className="bottom-buttons-container body-bottom">
+								<Button
+									label="Print"
+									className="print-button"
+									onClick={() => routes.character.print(this.props.editDoll.doll.guid)}
+								/>
+							</div>
+						</React.Fragment>
+						: undefined}
+
 				</MainPanel>
 			</React.Fragment>
 		);

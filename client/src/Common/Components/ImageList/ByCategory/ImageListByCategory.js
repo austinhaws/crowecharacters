@@ -17,6 +17,7 @@ const propTypes = {
 	// user hovering on slider on an image
 	onImageTest: PropTypes.func.isRequired,
 
+	// === From Store === //
 	globalData: PropTypes.object.isRequired,
 };
 

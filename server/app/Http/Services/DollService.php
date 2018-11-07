@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Http\Daos\AccountDao;
 use App\Http\Daos\AccountXDollDao;
 use App\Http\Daos\DollDao;
+use App\Http\Daos\DollXImageDao;
 use App\Http\Daos\ImageSetDao;
 use App\Http\Daos\ImageSetXImageDao;
 
@@ -18,6 +19,7 @@ class DollService
 	private $dollDao;
 	private $accountDao;
 	private $accountXDollDao;
+	private $dollXImageDao;
 
 	public function __construct(
 		ImageSetXImageDao $imageSetXImageDao,
@@ -26,7 +28,8 @@ class DollService
 		CleanRecordService $cleanRecordService,
 		DollDao $dollDao,
 		AccountDao $accountDao,
-		AccountXDollDao $accountXDollDao
+		AccountXDollDao $accountXDollDao,
+		DollXImageDao $dollXImageDao
 	) {
 		$this->imageSetXImageDao = $imageSetXImageDao;
 		$this->webResponseService = $webResponseService;
@@ -35,11 +38,13 @@ class DollService
 		$this->dollDao = $dollDao;
 		$this->accountDao = $accountDao;
 		$this->accountXDollDao = $accountXDollDao;
+		$this->dollXImageDao = $dollXImageDao;
 	}
 
 	public function getDoll(string $guid)
 	{
 		$doll = $this->dollDao->selectDollByGuid($guid);
+		$doll->imageGuids = $this->dollXImageDao->selectImageGuidsForDoll($doll->id);
 		return $this->webResponseService->response($doll);
 	}
 
