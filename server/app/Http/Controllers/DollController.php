@@ -33,4 +33,9 @@ class DollController extends BaseController
 	{
 		return $this->dollService->allForAccountGuid($accountGuid);
 	}
+
+	public function addImage(string $dollGuid, string $imageGuid)
+	{
+		return $this->dollService->addImage($dollGuid, $imageGuid);
+	}
 }

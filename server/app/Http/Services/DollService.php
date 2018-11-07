@@ -6,6 +6,7 @@ use App\Http\Daos\AccountDao;
 use App\Http\Daos\AccountXDollDao;
 use App\Http\Daos\DollDao;
 use App\Http\Daos\DollXImageDao;
+use App\Http\Daos\ImageDao;
 use App\Http\Daos\ImageSetDao;
 use App\Http\Daos\ImageSetXImageDao;
 
@@ -20,6 +21,7 @@ class DollService
 	private $accountDao;
 	private $accountXDollDao;
 	private $dollXImageDao;
+	private $imageDao;
 
 	public function __construct(
 		ImageSetXImageDao $imageSetXImageDao,
@@ -29,7 +31,8 @@ class DollService
 		DollDao $dollDao,
 		AccountDao $accountDao,
 		AccountXDollDao $accountXDollDao,
-		DollXImageDao $dollXImageDao
+		DollXImageDao $dollXImageDao,
+		ImageDao $imageDao
 	) {
 		$this->imageSetXImageDao = $imageSetXImageDao;
 		$this->webResponseService = $webResponseService;
@@ -39,6 +42,7 @@ class DollService
 		$this->accountDao = $accountDao;
 		$this->accountXDollDao = $accountXDollDao;
 		$this->dollXImageDao = $dollXImageDao;
+		$this->imageDao = $imageDao;
 	}
 
 	public function getDoll(string $guid)
@@ -67,5 +71,14 @@ class DollService
 	{
 		$account = $this->accountDao->selectByGuid($accountGuid);
 		return $this->webResponseService->response($this->accountXDollDao->selectDollsByAccountId($account->id));
+	}
+
+	public function addImage(string $dollGuid, string $imageGuid)
+	{
+		$doll = $this->dollDao->selectDollByGuid($dollGuid);
+		$image = $this->imageDao->selectByGuid($imageGuid);
+		$this->dollXImageDao->connectImageToDoll($image->id, $doll->id);
+
+		return $this->webResponseService->response("success");
 	}
 }

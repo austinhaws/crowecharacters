@@ -40,6 +40,7 @@ class DollEdit extends React.Component {
 		};
 
 		this.fieldChange = this.fieldChange.bind(this);
+		this.onImageAdd = this.onImageAdd.bind(this);
 
 		this.checkChangedDoll(props);
 	}
@@ -92,6 +93,13 @@ class DollEdit extends React.Component {
 			.then(doll => this.props.match.params.imageSetGuid ? routes.doll.edit(doll.guid) : dispatchField('editDoll.doll', doll));
 	}
 
+	onImageAdd(image) {
+		const doll = _.clone(this.props.editDoll.doll);
+		doll.imageGuids.push(image.guid);
+		dispatchField('editDoll.doll', doll);
+		webservice.doll.addImage(doll.guid, image.guid);
+	}
+
 	render() {
 		const displayImages = this.props.editDoll.imageSet && this.props.editDoll.imageSet.images.filter(image => image.guid === this.state.testImageGuid || this.props.editDoll.doll.imageGuids.includes(image.guid));
 
@@ -104,7 +112,7 @@ class DollEdit extends React.Component {
 						images={this.props.editDoll.imageSet ? this.props.editDoll.imageSet.images : []}
 						selectedImages={[]}
 						onImageTest={image => this.setState({ testImageGuid: image && image.guid })}
-						onImageAdd={console.log}
+						onImageAdd={image => this.onImageAdd(image)}
 					/>
 				</LeftPanel>
 				<MainPanel>
