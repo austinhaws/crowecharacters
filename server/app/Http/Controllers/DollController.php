@@ -38,4 +38,9 @@ class DollController extends BaseController
 	{
 		return $this->dollService->addImage($dollGuid, $imageGuid);
 	}
+
+	public function removeImage(string $dollGuid, string $imageGuid)
+	{
+		return $this->dollService->removeImage($dollGuid, $imageGuid);
+	}
 }

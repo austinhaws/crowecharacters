@@ -26,6 +26,9 @@ export const defaultState = {
 		imageSet: undefined,
 	},
 
+	// in a category detail, which image is selected in the slider but not yet added permanently to the doll
+	categoryDetailTestImageGuid: undefined,
+
 	// // New Character view
 	// printCharacter: {
 	// 	character: undefined,

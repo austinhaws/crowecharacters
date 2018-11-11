@@ -10,12 +10,10 @@ const propTypes = {
 	images: PropTypes.array.isRequired,
 
 	// which images are currently selected
-	selectedImages: PropTypes.array.isRequired,
+	selectedImageGuids: PropTypes.array.isRequired,
 
 	// user selected to add image
 	onImageAdd: PropTypes.func.isRequired,
-	// user hovering on slider on an image
-	onImageTest: PropTypes.func.isRequired,
 
 	// === From Store === //
 	globalData: PropTypes.object.isRequired,
@@ -33,7 +31,6 @@ class ImageListByCategory extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.imageTest = this.imageTest.bind(this);
 		this.imageAdd = this.imageAdd.bind(this);
 
 		this.state = {
@@ -55,10 +52,6 @@ class ImageListByCategory extends React.Component {
 		console.log('image add', image);
 	}
 
-	imageTest(image) {
-		console.log('image test', image);
-	}
-
 	render() {
 		// get categories for the images
 		return (
@@ -69,11 +62,11 @@ class ImageListByCategory extends React.Component {
 							key={category.guid}
 							categoryGuid={category.guid}
 							imagesInCategory={this.props.images.filter(image => image.image_category_guid === category.guid)}
-							selectedImageGuids={[]}
+							selectedImageGuids={this.props.selectedImageGuids}
 							onCategorySelect={this.categorySelect}
 							isSelected={category.guid === this.state.selectedCategoryGuid}
 							onImageAdd={this.props.onImageAdd}
-							onImageTest={this.props.onImageTest}
+							onImageRemove={this.props.onImageRemove}
 						/>
 					))
 					: undefined

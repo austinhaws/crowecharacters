@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import _ from "lodash";
-import {joinClassNames} from "dts-react-common";
+import {Button, joinClassNames} from "dts-react-common";
 import CategoryDetail from "./CategoryDetail";
 
 const propTypes = {
@@ -18,8 +18,7 @@ const propTypes = {
 	// category was selected: category => { }
 	onCategorySelect: PropTypes.func.isRequired,
 	onImageAdd: PropTypes.func.isRequired,
-	// image selected to preview on the slider before it's added
-	onImageTest: PropTypes.func.isRequired,
+	onImageRemove: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
@@ -29,6 +28,7 @@ const defaultProps = {
 class Category extends React.Component {
 	render() {
 		const category = _.find(this.props.imageCategories, category => category.guid === this.props.categoryGuid);
+		const shownImages = this.props.imagesInCategory.filter(image => this.props.selectedImageGuids.includes(image.guid));
 		return (
 			<div
 				className={joinClassNames('category', this.props.isSelected && 'selected')}
@@ -40,11 +40,18 @@ class Category extends React.Component {
 							category={category}
 							selectedImageGuids={this.props.selectedImageGuids}
 							imagesInCategory={this.props.imagesInCategory}
-							onImageTest={this.props.onImageTest}
 							onImageAdd={this.props.onImageAdd}
 						/>
-						<div className="category__selected-iamges">
-							show all the currently selected images for this category
+						<div className="category__selected-images">
+							{
+								shownImages
+									.map(image => (
+										<div className="category__selected-images__image" key={image.guid}>
+											<div key={image.guid}>{image.pretty_name}</div>
+											<Button label="delete" onClick={() => this.props.onImageRemove(image)}/>
+										</div>
+									))
+							}
 						</div>
 					</React.Fragment>
 					: undefined}

@@ -81,4 +81,13 @@ class DollService
 
 		return $this->webResponseService->response("success");
 	}
+
+	public function removeImage(string $dollGuid, string $imageGuid)
+	{
+		$doll = $this->dollDao->selectDollByGuid($dollGuid);
+		$image = $this->imageDao->selectByGuid($imageGuid);
+		$this->dollXImageDao->removeImageFromDoll($image->id, $doll->id);
+
+		return $this->webResponseService->response("success");
+	}
 }

@@ -20,6 +20,7 @@ $router->group([], function ($router) {
 	$router->post('doll/save/{accountGuid}', 'DollController@saveDoll');
 	$router->get('doll/all/{accountGuid}', 'DollController@all');
 	$router->get('doll/addImage/{dollGuid}/{imageGuid}', 'DollController@addImage');
+	$router->get('doll/removeImage/{dollGuid}/{imageGuid}', 'DollController@removeImage');
 
 	$router->get('imageset/all', 'ImageSetController@all');
 	$router->get('imageset/delete/{guid}', 'ImageSetController@delete');

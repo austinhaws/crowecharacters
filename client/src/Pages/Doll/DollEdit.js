@@ -18,15 +18,18 @@ const propTypes = {
 	globalData: PropTypes.object.isRequired,
 	account: PropTypes.object,
 	match: PropTypes.object,
+	categoryDetailTestImageGuid: PropTypes.string,
 };
 const defaultProps = {
 	account: undefined,
 	match: undefined,
+	categoryDetailTestImageGuid: undefined,
 };
 const mapStateToProps = state => {return {
 	editDoll: state.editDoll,
 	account: state.account,
 	globalData: state.globalData,
+	categoryDetailTestImageGuid: state.categoryDetailTestImageGuid,
 }};
 
 const DelayedTextInput = delayedInput(TextInput);
@@ -41,6 +44,7 @@ class DollEdit extends React.Component {
 
 		this.fieldChange = this.fieldChange.bind(this);
 		this.onImageAdd = this.onImageAdd.bind(this);
+		this.onImageRemove = this.onImageRemove.bind(this);
 
 		this.checkChangedDoll(props);
 	}
@@ -100,9 +104,16 @@ class DollEdit extends React.Component {
 		webservice.doll.addImage(doll.guid, image.guid);
 	}
 
+	onImageRemove(image) {
+		const doll = _.clone(this.props.editDoll.doll);
+		_.remove(doll.imageGuids, guid => guid === image.guid);
+		dispatchField('editDoll.doll', doll);
+		webservice.doll.removeImage(doll.guid, image.guid);
+	}
+
 	render() {
 		const displayImages = this.props.editDoll.imageSet && this.props.editDoll.imageSet.images.filter(image => image.guid === this.state.testImageGuid || this.props.editDoll.doll.imageGuids.includes(image.guid));
-
+		const displayImagesWithTest = (displayImages || []).concat(this.props.categoryDetailTestImageGuid ? this.props.editDoll.imageSet.images.filter(image => image.guid === this.props.categoryDetailTestImageGuid) : []);
 		return (!this.props.editDoll.doll ? '' :
 			<React.Fragment>
 				<TopNavigation pageTitle={(this.props.editDoll.doll && this.props.editDoll.doll.guid) ? 'Edit Character' : 'New Character'} />
@@ -110,15 +121,15 @@ class DollEdit extends React.Component {
 					<DelayedTextInput label="Name" field="name" onChange={this.fieldChange} showLabel={false} value={this.props.editDoll.doll.name ? this.props.editDoll.doll.name : ''}/>
 					<ImageListByCategory
 						images={this.props.editDoll.imageSet ? this.props.editDoll.imageSet.images : []}
-						selectedImages={[]}
-						onImageTest={image => this.setState({ testImageGuid: image && image.guid })}
+						selectedImageGuids={displayImages ? displayImages.map(image => image.guid) : []}
 						onImageAdd={image => this.onImageAdd(image)}
+						onImageRemove={image => this.onImageRemove(image)}
 					/>
 				</LeftPanel>
 				<MainPanel>
-					{displayImages ?
+					{displayImagesWithTest ?
 						<React.Fragment>
-							<BodyView fileImages={displayImages}/>
+							<BodyView fileImages={displayImagesWithTest}/>
 							<div className="bottom-buttons-container body-bottom">
 								<Button
 									label="Print"
