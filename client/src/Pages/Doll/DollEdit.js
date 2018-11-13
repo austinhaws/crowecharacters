@@ -123,6 +123,8 @@ class DollEdit extends React.Component {
 	render() {
 		const displayImages =
 			this.props.editDoll &&
+			this.props.editDoll.doll &&
+			this.props.editDoll.doll.imageGuids &&
 			this.props.editDoll.imageSet &&
 			this.props.editDoll.imageSet.images &&
 			this.props.editDoll.imageSet.images.filter(image =>
