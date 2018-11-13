@@ -73,9 +73,18 @@ class DollEdit extends React.Component {
 			if (!props.editDoll.imageSet || props.editDoll.imageSet.guid !== props.match.params.imageSetGuid) {
 				dispatchField('editDoll.imageSet', { guid: props.match.params.imageSetGuid });
 				webservice.imageSet.get(props.match.params.imageSetGuid)
+					.then(imageSet => {
+						// if there are no images selected on the doll
+						if (!this.props.editDoll.doll.imageGuids) {
+							// find all bodies in the imageset and give doll the first body
+							dispatchField('editDoll.doll.imageGuids', [imageSet.images.filter(image => image.image_category_guid === 'body')[0].guid]);
+						}
+						return imageSet;
+					})
 					.then(dispatchFieldCurry('editDoll.imageSet'))
-					.then(() => webservice.doll.all(props.account.guid))
-					.then(dispatchFieldCurry('accountDolls'));
+					.then(() => props.account &&
+						webservice.doll.all(props.account.guid)
+							.then(dispatchFieldCurry('accountDolls')));
 			}
 
 		// - edit doll: dollGuid
@@ -112,7 +121,13 @@ class DollEdit extends React.Component {
 	}
 
 	render() {
-		const displayImages = this.props.editDoll && this.props.editDoll.imageSet && this.props.editDoll.imageSet.images.filter(image => image.guid === this.state.testImageGuid || this.props.editDoll.doll.imageGuids.includes(image.guid));
+		const displayImages =
+			this.props.editDoll &&
+			this.props.editDoll.imageSet &&
+			this.props.editDoll.imageSet.images &&
+			this.props.editDoll.imageSet.images.filter(image =>
+				image.guid === this.state.testImageGuid || this.props.editDoll.doll.imageGuids.includes(image.guid)
+			);
 		const displayImagesWithTest = (displayImages || []).concat(this.props.categoryDetailTestImageGuid ? this.props.editDoll.imageSet.images.filter(image => image.guid === this.props.categoryDetailTestImageGuid) : []);
 		return (!this.props.editDoll.doll ? '' :
 			<React.Fragment>
@@ -120,7 +135,7 @@ class DollEdit extends React.Component {
 				<LeftPanel>
 					<DelayedTextInput label="Name" field="name" onChange={this.fieldChange} showLabel={false} value={this.props.editDoll.doll.name ? this.props.editDoll.doll.name : ''}/>
 					<ImageListByCategory
-						images={this.props.editDoll.imageSet ? this.props.editDoll.imageSet.images : []}
+						images={(this.props.editDoll.imageSet && this.props.editDoll.imageSet.images) ? this.props.editDoll.imageSet.images : []}
 						selectedImageGuids={displayImages ? displayImages.map(image => image.guid) : []}
 						onImageAdd={image => this.onImageAdd(image)}
 						onImageRemove={image => this.onImageRemove(image)}
