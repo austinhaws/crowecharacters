@@ -9,6 +9,10 @@
 	padding: 10px;
 	cursor: pointer;
 	color: $complementaryColor;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	line-height: 30px;
 }
 .left-panel__list__doll:hover {
 	color: $complementaryColorLight;

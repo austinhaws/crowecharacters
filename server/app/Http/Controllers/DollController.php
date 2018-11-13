@@ -29,6 +29,10 @@ class DollController extends BaseController
 		return $this->dollService->saveDoll($accountGuid, $request->json()->all());
 	}
 
+	public function deleteDoll(string $dollGuid) {
+		return $this->dollService->deleteDoll($dollGuid);
+	}
+
 	public function all(string $accountGuid)
 	{
 		return $this->dollService->allForAccountGuid($accountGuid);

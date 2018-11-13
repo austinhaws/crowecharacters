@@ -32,6 +32,8 @@ class Home extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.deleteDoll = this.deleteDoll.bind(this);
+
 		this.state = {
 			createImageSetGuid: undefined,
 		};
@@ -58,6 +60,13 @@ class Home extends React.Component {
 			this.accountGuid = props.account.guid;
 			dispatchField('accountDolls', undefined);
 			webservice.doll.all(props.account.guid).then(dispatchFieldCurry('accountDolls'));
+		}
+	}
+
+	deleteDoll(doll) {
+		if (confirm(`Are you sure you want to delete '${doll.name}'`)) {
+			webservice.doll.delete(doll.guid);
+			dispatchField('accountDolls', this.props.accountDolls.filter(accountDoll => accountDoll.guid !== doll.guid));
 		}
 	}
 
@@ -88,9 +97,13 @@ class Home extends React.Component {
 								<div
 									key={doll.guid}
 									className="left-panel__list__doll"
-									onClick={() => routes.doll.edit(doll.guid)}
 								>
-									{doll.name}
+									<div onClick={() => routes.doll.edit(doll.guid)}>{doll.name}</div>
+									<Button
+										onClick={() => this.deleteDoll(doll)}
+										label="Delete"
+										className="button--small"
+									/>
 								</div>)
 							) : undefined}
 					</div>

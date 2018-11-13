@@ -52,4 +52,11 @@ class DollXImageDao extends BaseDao
 			->where('doll_id', '=', $dollId)
 			->delete();
 	}
+
+	public function deleteDollImageByDollId(int $dollId)
+	{
+		DB::table('doll_x_image')
+			->where('doll_id', $dollId)
+			->delete();
+	}
 }

@@ -39,4 +39,11 @@ class AccountXDollDao extends BaseDao
 				]);
 		}
 	}
+
+	public function deleteDollAccountByDollId($dollId)
+	{
+		DB::table('account_x_doll')
+			->where('doll_id', '=', $dollId)
+			->delete();
+	}
 }

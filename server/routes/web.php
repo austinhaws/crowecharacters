@@ -18,6 +18,7 @@ $router->group([], function ($router) {
 
 	$router->get('doll/get/{guid}', 'DollController@getDoll');
 	$router->post('doll/save/{accountGuid}', 'DollController@saveDoll');
+	$router->get('doll/delete/{dollGuid}', 'DollController@deleteDoll');
 	$router->get('doll/all/{accountGuid}', 'DollController@all');
 	$router->get('doll/addImage/{dollGuid}/{imageGuid}', 'DollController@addImage');
 	$router->get('doll/removeImage/{dollGuid}/{imageGuid}', 'DollController@removeImage');

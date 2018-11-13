@@ -43,4 +43,11 @@ class DollDao extends BaseDao
 
 		return $cleanData;
 	}
+
+	public function deleteDollById($dollId)
+	{
+		DB::table('doll')
+			->where('id', '=', $dollId)
+			->delete();
+	}
 }

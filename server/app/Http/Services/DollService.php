@@ -79,7 +79,7 @@ class DollService
 		$image = $this->imageDao->selectByGuid($imageGuid);
 		$this->dollXImageDao->connectImageToDoll($image->id, $doll->id);
 
-		return $this->webResponseService->response("success");
+		return $this->webResponseService->response('success');
 	}
 
 	public function removeImage(string $dollGuid, string $imageGuid)
@@ -88,6 +88,17 @@ class DollService
 		$image = $this->imageDao->selectByGuid($imageGuid);
 		$this->dollXImageDao->removeImageFromDoll($image->id, $doll->id);
 
-		return $this->webResponseService->response("success");
+		return $this->webResponseService->response('success');
+	}
+
+	public function deleteDoll(string $dollGuid)
+	{
+		$doll = $this->dollDao->selectDollByGuid($dollGuid);
+
+		$this->dollXImageDao->deleteDollImageByDollId($doll->id);
+		$this->accountXDollDao->deleteDollAccountByDollId($doll->id);
+		$this->dollDao->deleteDollById($doll->id);
+
+		return $this->webResponseService->response('success');
 	}
 }

@@ -30,6 +30,7 @@ const webservice = {
 		all: accountGuid => webserviceCore.get(`doll/all/${accountGuid}`),
 		addImage: (dollGuid, imageGuid) => webserviceCore.get(`doll/addImage/${dollGuid}/${imageGuid}`),
 		removeImage: (dollGuid, imageGuid) => webserviceCore.get(`doll/removeImage/${dollGuid}/${imageGuid}`),
+		delete: dollGuid => webserviceCore.get(`doll/delete/${dollGuid}`),
 	},
 
 	dataList: {
