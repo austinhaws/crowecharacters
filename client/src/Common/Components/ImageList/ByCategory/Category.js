@@ -48,7 +48,11 @@ class Category extends React.Component {
 									.map(image => (
 										<div className="category__selected-images__image" key={image.guid}>
 											<div key={image.guid}>{image.pretty_name}</div>
-											<Button label="delete" onClick={() => this.props.onImageRemove(image)}/>
+											<Button
+												label="delete"
+												onClick={() => this.props.onImageRemove(image)}
+												className="button--small"
+											/>
 										</div>
 									))
 							}

@@ -52,3 +52,11 @@
 	margin-top: 10px;
 	margin-right: 9px;
 }
+
+.category__selected-images__image {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	line-height: 30px;
+	margin-bottom: 5px;
+}

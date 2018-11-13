@@ -112,7 +112,7 @@ class DollEdit extends React.Component {
 	}
 
 	render() {
-		const displayImages = this.props.editDoll.imageSet && this.props.editDoll.imageSet.images.filter(image => image.guid === this.state.testImageGuid || this.props.editDoll.doll.imageGuids.includes(image.guid));
+		const displayImages = this.props.editDoll && this.props.editDoll.imageSet && this.props.editDoll.imageSet.images.filter(image => image.guid === this.state.testImageGuid || this.props.editDoll.doll.imageGuids.includes(image.guid));
 		const displayImagesWithTest = (displayImages || []).concat(this.props.categoryDetailTestImageGuid ? this.props.editDoll.imageSet.images.filter(image => image.guid === this.props.categoryDetailTestImageGuid) : []);
 		return (!this.props.editDoll.doll ? '' :
 			<React.Fragment>

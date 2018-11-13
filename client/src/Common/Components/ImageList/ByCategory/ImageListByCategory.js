@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import webservice from "../../../Webservice";
-import {dispatchFieldCurry} from "../../../../App/Reducers";
+import {dispatchField, dispatchFieldCurry} from "../../../../App/Reducers";
 import {connect} from "react-redux";
 import Category from "./Category";
 
@@ -31,8 +31,6 @@ class ImageListByCategory extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.imageAdd = this.imageAdd.bind(this);
-
 		this.state = {
 			selectedCategoryGuid: undefined,
 		};
@@ -46,10 +44,7 @@ class ImageListByCategory extends React.Component {
 		this.setState({
 			selectedCategoryGuid: category.guid === this.state.selectedCategoryGuid ? undefined : category.guid,
 		});
-	}
-
-	imageAdd(image) {
-		console.log('image add', image);
+		dispatchField('categoryDetailTestImageGuid', undefined);
 	}
 
 	render() {
@@ -60,7 +55,7 @@ class ImageListByCategory extends React.Component {
 					this.props.globalData.imageCategories.map(category => {
 						const imagesInCategory = this.props.images.filter(image => image.image_category_guid === category.guid);
 						return (
-							imagesInCategory.length === 0 ? <React.Fragment/> : (
+							imagesInCategory.length === 0 ? undefined : (
 							<Category
 								key={category.guid}
 								categoryGuid={category.guid}
@@ -72,7 +67,7 @@ class ImageListByCategory extends React.Component {
 								onImageRemove={this.props.onImageRemove}
 							/>
 						));
-					})
+					}).filter(category => category)
 					: undefined
 				}
 			</div>
