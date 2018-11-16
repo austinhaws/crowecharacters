@@ -12,6 +12,7 @@ import routes from "../../Common/Routes";
 import ImageListByCategory from "../../Common/Components/ImageList/ByCategory/ImageListByCategory";
 import Button from "dts-react-common/components/form/button/Button";
 import BodyView from "../BodyView/BodyView";
+import {defaultState, dispatchDefaultState} from "../../App/Store";
 
 const propTypes = {
 	editDoll: PropTypes.object.isRequired,
@@ -53,6 +54,10 @@ class DollEdit extends React.Component {
 		this.checkChangedDoll(props);
 	}
 
+	componentWillUnmount() {
+		dispatchDefaultState('editDoll.doll');
+	}
+
 	checkChangedDoll(props) {
 		// edit doll or new doll
 		if (!props.editDoll.doll) {
@@ -60,13 +65,11 @@ class DollEdit extends React.Component {
 
 		// - new doll: imageSetGuid
 		} else if (props.match.params.imageSetGuid) {
-			if (props.editDoll.doll.guid) {
-				// a doll is in the store with a guid, so it must be old data
-				dispatchField('editDoll.doll', { image_set_guid: props.match.params.imageSetGuid });
-
-			} else if (props.editDoll.doll.image_set_guid !== props.match.params.imageSetGuid) {
-				// set imageset so page loads
-				dispatchField('editDoll.doll.image_set_guid', props.match.params.imageSetGuid);
+			// keep track of current doll since dispatching doesn't update props just yet and doll may be saved later
+			let useDoll = this.props.editDoll.doll;
+			if (props.editDoll.doll.image_set_guid !== props.match.params.imageSetGuid) {
+				useDoll = Object.assign({}, defaultState.editDoll.doll, { image_set_guid: props.match.params.imageSetGuid });
+				dispatchField('editDoll.doll', useDoll);
 			}
 
 			// check image set needs loaded
@@ -75,9 +78,14 @@ class DollEdit extends React.Component {
 				webservice.imageSet.get(props.match.params.imageSetGuid)
 					.then(imageSet => {
 						// if there are no images selected on the doll
-						if (!this.props.editDoll.doll.imageGuids) {
+						if (!useDoll.imageGuids) {
 							// find all bodies in the imageset and give doll the first body
-							dispatchField('editDoll.doll.imageGuids', [imageSet.images.filter(image => image.image_category_guid === 'body')[0].guid]);
+							const imageGuid = imageSet.images.filter(image => image.image_category_guid === 'body')[0].guid;
+							webservice.doll.save(this.props.account.guid, useDoll)
+								.then(doll => {
+									webservice.doll.addImage(doll.guid, imageGuid);
+									dispatchField('editDoll.doll', Object.assign(doll, { imageGuids: [imageGuid] }));
+								});
 						}
 						return imageSet;
 					})

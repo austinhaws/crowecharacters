@@ -34,6 +34,7 @@ class DollXImageDao extends BaseDao
 	{
 		$imageXDoll = DB::table('doll_x_image')
 			->where('image_id', '=', $imageId)
+			->where('doll_id', '=', $dollId)
 			->first();
 
 		if (!$imageXDoll) {

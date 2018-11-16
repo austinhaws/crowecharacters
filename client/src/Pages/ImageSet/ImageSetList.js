@@ -7,6 +7,8 @@ import routes from "../../Common/Routes";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {Button} from "dts-react-common";
+import {defaultState} from "../../App/Store";
+import {dispatchField} from "../../App/Reducers";
 
 const propTypes = {
 	globalData: PropTypes.object.isRequired,
@@ -27,10 +29,15 @@ class ImageSetList extends React.Component {
 	deleteImageSet(e, imageSet) {
 		e.preventDefault();
 		e.stopPropagation();
-		if (confirm(`Are you sure you want to delete - '${imageSet.name}'?`)) {
+		if (confirm(`Are you sure you want to delete '${imageSet.name || 'Unnamed'}'?`)) {
 			webservice.imageSet.delete(imageSet.guid)
 				.then(() => webservice.imageSet.all());
 		}
+	}
+
+	newImageSet() {
+		dispatchField('imageSetEdit', defaultState.imageSetEdit);
+		routes.admin.imageSet.new();
 	}
 
 	render() {
@@ -39,14 +46,14 @@ class ImageSetList extends React.Component {
 				<TopNavigation pageTitle="ImageSet - List" backUrl="/admin"/>
 				<LeftPanel>
 					<div className="left-panel__top-buttons">
-						<Button label="New" onClick={routes.admin.imageSet.new}/>
+						<Button label="New" onClick={this.newImageSet}/>
 					</div>
 					<div className="image-set-list">{
 						this.props.globalData.imageSets ? (
 							<ul className="image-set-list__image-list">
 								{this.props.globalData.imageSets.map(imageSet => (
 									<li
-										className="image-set-list__list__image-set"
+										className="left-panel__list__doll"
 										key={imageSet.guid}
 										onClick={() => routes.admin.imageSet.edit(imageSet.guid)}
 									>

@@ -1,5 +1,12 @@
 import {createStore} from "redux";
 import reducers from "./Reducers.js";
+import {dispatchField} from "./Reducers";
+import {objectAtPath} from "dts-react-common";
+
+export function dispatchDefaultState(path) {
+	dispatchField(path, objectAtPath(defaultState, path));
+
+}
 
 // export so that the app can set values back to default values for like when a page's data needs reset
 export const defaultState = {

@@ -9,6 +9,7 @@ import routes from "../../Common/Routes";
 import {InputInformation, SelectInput} from "dts-react-common";
 import webservice from "../../Common/Webservice";
 import {dispatchField, dispatchFieldCurry} from "../../App/Reducers";
+import {dispatchDefaultState} from "../../App/Store";
 
 const propTypes = {
 	globalData: PropTypes.object.isRequired,
@@ -49,6 +50,10 @@ class Home extends React.Component {
 		this.checkChangedDoll(props);
 	}
 
+	componentWillUnmount() {
+		dispatchDefaultState('editDoll');
+	}
+
 	checkChangedDoll(props) {
 		// has accountGuid but one is not specified
 		if (!props.account && this.accountGuid) {
@@ -64,7 +69,7 @@ class Home extends React.Component {
 	}
 
 	deleteDoll(doll) {
-		if (confirm(`Are you sure you want to delete '${doll.name}'`)) {
+		if (confirm(`Are you sure you want to delete '${doll.name || 'Unnamed'}'`)) {
 			webservice.doll.delete(doll.guid);
 			dispatchField('accountDolls', this.props.accountDolls.filter(accountDoll => accountDoll.guid !== doll.guid));
 		}
@@ -98,7 +103,7 @@ class Home extends React.Component {
 									key={doll.guid}
 									className="left-panel__list__doll"
 								>
-									<div onClick={() => routes.doll.edit(doll.guid)}>{doll.name}</div>
+									<div onClick={() => routes.doll.edit(doll.guid)}>{doll.name || '(Unnamed)'}</div>
 									<Button
 										onClick={() => this.deleteDoll(doll)}
 										label="Delete"
