@@ -13,6 +13,7 @@ import _ from "lodash";
 import BodyView from "../BodyView/BodyView";
 import ConfirmationButton from "dts-react-common/components/form/confirmation-button/ConfirmationButton";
 import ToggleButton from "../../Common/Components/ToggleButton/ToggleButton";
+import routes from "../../Common/Routes";
 
 const propTypes = {
 	globalData: PropTypes.object.isRequired,
@@ -73,7 +74,8 @@ class ImageSetEdit extends React.Component {
 	imageSetEditFieldChange(field, value) {
 		const saveData = Object.assign({}, this.props.imageSetEdit, { [field]: value });
 		delete saveData.images;
-		webservice.imageSet.save(saveData);
+		webservice.imageSet.save(saveData)
+			.then(imageset => imageset.guid !== this.props.imageSetEdit.guid && routes.admin.imageSet.edit(imageset.guid));
 
 		dispatchFieldChanged('imageSetEdit', field, value);
 	}

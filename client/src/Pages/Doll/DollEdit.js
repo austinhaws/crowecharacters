@@ -109,9 +109,12 @@ class DollEdit extends React.Component {
 	}
 
 	fieldChange(field, value) {
+		dispatchField(`editDoll.doll.${field}`, value);
+
 		// go to edit page so that 'new' url doesn't cause the doll to be reset to just the imagesetid; since it's saved it's now an edit
 		webservice.doll.save(this.props.account.guid, Object.assign(this.props.editDoll.doll, { name: value }))
-			.then(doll => this.props.match.params.imageSetGuid ? routes.doll.edit(doll.guid) : dispatchField('editDoll.doll', doll));
+			// is new doll but now has a guid so go to edit
+			.then(doll => this.props.match.params.imageSetGuid && routes.doll.edit(doll.guid));
 	}
 
 	onImageAdd(image) {
