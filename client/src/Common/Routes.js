@@ -31,4 +31,6 @@ export default {
 	},
 
 	home: () => go('/'),
+
+	back: () => history.goBack(),
 };

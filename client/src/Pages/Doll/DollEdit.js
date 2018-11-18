@@ -55,7 +55,7 @@ class DollEdit extends React.Component {
 	}
 
 	componentWillUnmount() {
-		dispatchDefaultState('editDoll.doll');
+		dispatchDefaultState('editDoll');
 	}
 
 	checkChangedDoll(props) {
@@ -162,7 +162,7 @@ class DollEdit extends React.Component {
 								<Button
 									label="Print"
 									className="print-button"
-									onClick={() => routes.character.print(this.props.editDoll.doll.guid)}
+									onClick={() => routes.doll.print(this.props.editDoll.doll.guid)}
 								/>
 							</div>
 						</React.Fragment>

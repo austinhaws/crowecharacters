@@ -4,6 +4,7 @@ import {Route, Switch} from "react-router-dom";
 import Home from "../Home/Home";
 import {Router} from "react-router";
 import DollEdit from "./DollEdit";
+import DollPrint from "./DollPrint";
 
 const propTypes = {};
 const defaultProps = {};
@@ -14,8 +15,9 @@ export default class Doll extends React.Component {
 		return (
 			<Router history={history}>
 				<Switch>
-					<Route path="/doll/edit/:dollGuid" component={DollEdit}/>
 					<Route path="/doll/new/:imageSetGuid" component={DollEdit}/>
+					<Route path="/doll/edit/:dollGuid" component={DollEdit}/>
+					<Route path="/doll/print/:dollGuid" component={DollPrint}/>
 					<Route component={Home}/>
 				</Switch>
 			</Router>

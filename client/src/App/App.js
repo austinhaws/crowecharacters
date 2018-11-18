@@ -8,20 +8,24 @@ import {dispatchFieldChanged} from "./Reducers";
 import {Route, Switch} from 'react-router-dom';
 import {Router, withRouter} from "react-router";
 import Admin from "../Pages/Admin/Admin";
-import PrintPaper from "../Pages/PrintPaper/PrintPaper";
-import BodyView from "../Pages/BodyView/BodyView";
-import dataGetter from "../Common/DataGetter";
 import Test from "../Pages/Test/Test";
 import {history, HistoryBrowserRouter} from "../Common/Routes";
 import "../scss/index.scss";
 import Home from "../Pages/Home/Home";
 import Doll from "../Pages/Doll/Doll";
+import PrintPaperWithDoll from "../Pages/PrintPaper/PrintPaperWithDoll";
 
 const propTypes = {
 	account: PropTypes.object,
 };
 const defaultProps = {
 	account: undefined,
+};
+const mapStateToProps = state => {
+	return {
+		account: state.account,
+		printDoll: state.printDoll,
+	};
 };
 
 class AppClass extends React.Component {
@@ -42,17 +46,11 @@ class AppClass extends React.Component {
 		return (
 			<div id="app-container">
 				<div className="print-container print-only">
-					{(this.props.printCharacter && this.props.printCharacter.character) ?
-						<PrintPaper>
-							<BodyView
-								bodyGuid={this.props.printCharacter.character.data.bodyGuid}
-								fileImages={this.props.printCharacter.character.data.images ? this.props.printCharacter.character.data.images.map(dataGetter.fileByGuid) : undefined}
-								printPercent={this.props.printCharacter.character ? parseFloat(this.props.printCharacter.character.data.printPercent) : undefined}
-								printName={this.props.printCharacter.character.data.printName ? this.props.printCharacter.character.data.name : undefined}
-								printCutBorder={this.props.printCharacter.character.data.printCutBorder}
-								{ ...this.props }
-							/>
-						</PrintPaper>
+					{(this.props.printDoll.doll && this.props.printDoll.imageSet) ?
+						<PrintPaperWithDoll
+							imageSet={this.props.printDoll.imageSet}
+							doll={this.props.printDoll.doll}
+						/>
 						: undefined}
 				</div>
 				<div id="top-title-container">
@@ -82,6 +80,5 @@ class AppClass extends React.Component {
 AppClass.propTypes = propTypes;
 AppClass.defaultProps = defaultProps;
 
-const App = withRouter(connect(state => { return { account: state.account }; })(AppClass));
-
+const App = withRouter(connect(mapStateToProps)(AppClass));
 render(<HistoryBrowserRouter><Provider store={store}><App/></Provider></HistoryBrowserRouter>, document.getElementById('react'));

@@ -74,7 +74,7 @@ export default class BodyView extends React.Component {
 					: undefined
 				}
 
-				{this.props.printCutBorder ? <img src="img/PrintBorder.png" className="body-image" style={_.assign({zIndex: 1000}, sizeStyle, borderSizeStyle)}/>: undefined}
+				{this.props.printCutBorder ? <img src="/img/PrintBorder.png" className="body-image" style={_.assign({zIndex: 1000}, sizeStyle, borderSizeStyle)}/>: undefined}
 
 				{this.props.printName ? (
 					<div className="body-name" style={{fontSize: `${nameFont}px`}}>

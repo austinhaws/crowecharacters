@@ -33,6 +33,11 @@ export const defaultState = {
 		imageSet: undefined,
 	},
 
+	printDoll: {
+		doll: undefined,
+		imageSet: undefined,
+	},
+
 	// in a category detail, which image is selected in the slider but not yet added permanently to the doll
 	categoryDetailTestImageGuid: undefined,
 

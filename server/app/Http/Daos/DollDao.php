@@ -14,6 +14,9 @@ class DollDao extends BaseDao
 			'guid',
 			'image_set_id',
 			'name',
+			'print_name',
+			'print_cut_border',
+			'print_percent',
 		];
 	}
 
