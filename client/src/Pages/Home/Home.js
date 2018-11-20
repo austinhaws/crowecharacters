@@ -1,6 +1,5 @@
 import React from "react";
 import LeftPanel from "../../Common/Components/Panels/LeftPanel";
-import MainPanel from "../../Common/Components/Panels/MainPanel";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import TopNavigation from "../../App/TopNavigation";
@@ -10,6 +9,7 @@ import {InputInformation, SelectInput} from "dts-react-common";
 import webservice from "../../Common/Webservice";
 import {dispatchField, dispatchFieldCurry} from "../../App/Reducers";
 import {dispatchDefaultState} from "../../App/Store";
+import MainPanelBlurb from "../../Common/Components/Panels/MainPanelBlurb";
 
 const propTypes = {
 	globalData: PropTypes.object.isRequired,
@@ -113,10 +113,14 @@ class Home extends React.Component {
 							) : undefined}
 					</div>
 				</LeftPanel>
-				<MainPanel>
-					<div>Home Page</div>
-					show news here
-				</MainPanel>
+				<MainPanelBlurb>
+					<p className="main-panel__blurb__text large title">Welcome to Crowe's Character Portrait Creator!</p>
+					<ul className="main-panel__blurb__list">
+						<li className="main-panel__blurb__text medium">Select a body type and click Create to start a new Character</li>
+						<li className="main-panel__blurb__text medium">Click on an existing character to play around with what you've already created</li>
+						<li className="main-panel__blurb__text medium">Make a note of your account name in the top right</li>
+					</ul>
+				</MainPanelBlurb>
 			</React.Fragment>
 		);
 	}

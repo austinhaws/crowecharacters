@@ -17,3 +17,35 @@
 .left-panel__list__doll:hover {
 	color: $complementaryColorLight;
 }
+
+.main-panel__blurb {
+	padding: 150px 150px 0;
+}
+
+.main-panel__blurb__text {
+	color: white;
+	margin: 0 auto;
+
+	&.large {
+		font-size: 29px;
+		line-height: 29px;
+	}
+	&.medium {
+		font-size: 20px;
+		line-height: 20px;
+	}
+	&.small {
+		font-size: 12px;
+		line-height: 12px;
+	}
+	&.title {
+		margin-bottom: 12px;
+	}
+}
+.main-panel__blurb__list {
+	list-style-type: circle;
+	color: #c0c0c0;
+}
+.main-panel__blurb__list li {
+	margin: 10px 0;
+}

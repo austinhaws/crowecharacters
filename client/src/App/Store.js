@@ -1,6 +1,5 @@
 import {createStore} from "redux";
-import reducers from "./Reducers.js";
-import {dispatchField} from "./Reducers";
+import reducers, {dispatchField} from "./Reducers";
 import {objectAtPath} from "dts-react-common";
 
 export function dispatchDefaultState(path) {
