@@ -373,8 +373,15 @@ button.size-large {
 	margin: 175px auto 0;
 }
 .main-panel__menu-list-item {
-	height: 20px;
-	font-size: 50px;
+	font-size: 30px;
+	display: flex;
+	flex-direction: row;
+}
+.main-panel__menu-list-item__square {
+	height: 9px;
+	width: 18px;
+	color: $redDark;
+	border: 1px solid $red;
 }
 .main-panel__menu-list-item:hover {
 	color: blue;
@@ -383,4 +390,11 @@ button.size-large {
 
 .visually-hidden {
 	display: none;
+}
+.main-panel__menu-list .main-panel__blurb__text.medium {
+	margin-left: 10px;
+	line-height: 40px;
+}
+.main-panel__menu-list-item {
+	list-style-type: circle; why wont this show?
 }

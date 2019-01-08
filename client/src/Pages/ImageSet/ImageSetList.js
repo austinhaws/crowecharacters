@@ -1,6 +1,5 @@
 import React from "react";
 import LeftPanel from "../../Common/Components/Panels/LeftPanel";
-import MainPanel from "../../Common/Components/Panels/MainPanel";
 import TopNavigation from "../../App/TopNavigation";
 import webservice from "../../Common/Webservice";
 import routes from "../../Common/Routes";
@@ -9,6 +8,7 @@ import PropTypes from "prop-types";
 import {Button} from "dts-react-common";
 import {defaultState} from "../../App/Store";
 import {dispatchField} from "../../App/Reducers";
+import MainPanelBlurb from "../../Common/Components/Panels/MainPanelBlurb";
 
 const propTypes = {
 	globalData: PropTypes.object.isRequired,
@@ -65,9 +65,14 @@ class ImageSetList extends React.Component {
 						) : undefined
 					}</div>
 				</LeftPanel>
-				<MainPanel>
-					Show some information about what is an image set and a button to add a new set
-				</MainPanel>
+				<MainPanelBlurb>
+					<p className="main-panel__blurb__text large title">Admin Image Sets</p>
+					<ul className="main-panel__blurb__list">
+						<li className="main-panel__blurb__text medium">Image sets group all the options for a character</li>
+						<li className="main-panel__blurb__text medium">Images in a set are assigned a category for grouping in menus</li>
+						<li className="main-panel__blurb__text medium">Images have a "Z-Index" that determines layering on character</li>
+					</ul>
+				</MainPanelBlurb>
 			</React.Fragment>
 		);
 	}

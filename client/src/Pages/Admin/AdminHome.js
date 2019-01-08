@@ -23,7 +23,9 @@ export default class AdminHome extends React.Component {
 
 				<MainPanel>
 					<ul className="main-panel__menu-list">
-						<li className="main-panel__menu-list-item" onClick={() => routes.admin.imageSet.list()}>Image Sets</li>
+						<li className="main-panel__menu-list-item" onClick={() => routes.admin.imageSet.list()}>
+							Image Sets <span className="main-panel__blurb__text medium">Collection of images for a character type</span>
+						</li>
 					</ul>
 				</MainPanel>
 
